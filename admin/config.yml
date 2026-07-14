@@ -1,9 +1,8 @@
 # backend: tentukan dimana repo Anda disimpan
 backend:
-  name: github
-  repo: dongetikdigital/dongetik    # GANTI! Contoh: johndoe/blog-saya
-  branch: main                       # Ganti jadi 'master' jika repo Anda pakai master
-  base_url: https://dongetik-oauth.dongetikdigital.workers.dev
+  name: git-gateway
+  branch: main
+  auth_type: pkce   # ← PENTING! Menggunakan PKCE untuk keamanan
 # media_folder: tempat menyimpan gambar
 media_folder: "assets/images"
 public_folder: "/assets/images"
