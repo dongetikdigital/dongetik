@@ -11,11 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="logo-dongetik.png">
     <style>
-        /* ===== RESET & DARK MODE ===== */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 5.5rem;
-        }
+        /* ===== DASAR ===== */
+        html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
         body {
             font-family: 'Inter', sans-serif;
             background: #ffffff;
@@ -25,114 +22,27 @@
             background: #0f172a;
             color: #e2e8f0;
         }
-        body.dark .bg-white {
-            background: #1e293b;
-        }
-        body.dark .bg-white/80 {
-            background: #1e293b/80;
-        }
-        body.dark .border-slate-100 {
-            border-color: #334155;
-        }
-        body.dark .text-slate-700 {
-            color: #e2e8f0;
-        }
-        body.dark .text-slate-500 {
-            color: #94a3b8;
-        }
-        body.dark .text-slate-400 {
-            color: #94a3b8;
-        }
-        body.dark .text-slate-900 {
-            color: #f1f5f9;
-        }
-        body.dark .bg-slate-50 {
-            background: #1e293b;
-        }
-        body.dark .bg-blue-50 {
-            background: #1e293b;
-        }
-        body.dark .bg-blue-50/80 {
-            background: #1e293b/80;
-        }
-        body.dark .bg-emerald-50 {
-            background: #1e293b;
-        }
-        body.dark .bg-purple-50 {
-            background: #1e293b;
-        }
-        body.dark .border-blue-100 {
-            border-color: #334155;
-        }
-        body.dark .border-emerald-100 {
-            border-color: #334155;
-        }
-        body.dark .border-purple-100 {
-            border-color: #334155;
-        }
-        body.dark .text-blue-600 {
-            color: #60a5fa;
-        }
-        body.dark .text-emerald-600 {
-            color: #34d399;
-        }
-        body.dark .text-purple-600 {
-            color: #a78bfa;
-        }
-        body.dark .bg-blue-600 {
-            background: #2563eb;
-        }
-        body.dark .hover\:text-blue-600:hover {
-            color: #60a5fa;
-        }
-        body.dark .hover\:text-emerald-600:hover {
-            color: #34d399;
-        }
-        body.dark .hover\:text-purple-600:hover {
-            color: #a78bfa;
-        }
-        body.dark .hover\:bg-blue-700:hover {
-            background: #1d4ed8;
-        }
-        body.dark .shadow-lg {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-        }
-        body.dark .bg-white\/80 {
-            background: #1e293b/80;
-        }
-        body.dark .bg-slate-100 {
-            background: #334155;
-        }
-        body.dark .border-slate-200 {
-            border-color: #334155;
-        }
-        body.dark .bg-slate-50\/80 {
-            background: #1e293b/80;
-        }
-        body.dark .bg-slate-50 {
-            background: #1e293b;
-        }
-        body.dark .bg-blue-50\/80 {
-            background: #1e293b/80;
-        }
-        body.dark .text-slate-800 {
-            color: #e2e8f0;
-        }
-        body.dark .bg-blue-50\/50 {
-            background: #1e293b/50;
-        }
-        body.dark .border-slate-100 {
-            border-color: #334155;
-        }
-        body.dark .bg-slate-50\/60 {
-            background: #1e293b/60;
-        }
-        body.dark .border-slate-200\/60 {
-            border-color: #334155/60;
-        }
-        h1, h2, h3, .font-heading {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        /* Dark mode overrides (tetap seperti sebelumnya) */
+        body.dark .bg-white { background: #1e293b; }
+        body.dark .bg-white/80 { background: #1e293b/80; }
+        body.dark .border-slate-100 { border-color: #334155; }
+        body.dark .text-slate-700 { color: #e2e8f0; }
+        body.dark .text-slate-500 { color: #94a3b8; }
+        body.dark .text-slate-400 { color: #94a3b8; }
+        body.dark .text-slate-900 { color: #f1f5f9; }
+        body.dark .bg-slate-50 { background: #1e293b; }
+        body.dark .bg-blue-50 { background: #1e293b; }
+        body.dark .text-blue-600 { color: #60a5fa; }
+        body.dark .bg-blue-600 { background: #2563eb; }
+        body.dark .hover\:text-blue-600:hover { color: #60a5fa; }
+        body.dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2); }
+        body.dark .bg-slate-100 { background: #334155; }
+        body.dark .border-slate-200 { border-color: #334155; }
+        body.dark .bg-slate-50\/80 { background: #1e293b/80; }
+
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* ===== DROPDOWN ===== */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -141,7 +51,7 @@
             background: white;
             min-width: 180px;
             border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
             border: 1px solid #f1f5f9;
             padding: 8px 0;
             z-index: 60;
@@ -158,13 +68,10 @@
             background: #f8fafc;
             color: #2563eb;
         }
-        .dropdown-wrapper {
-            position: relative;
-        }
-        .dropdown-wrapper:hover .dropdown-menu {
-            display: block;
-        }
-        /* Skeleton loading */
+        .dropdown-wrapper { position: relative; }
+        .dropdown-wrapper:hover .dropdown-menu { display: block; }
+
+        /* ===== SKELETON ===== */
         .skeleton-card {
             animation: pulse 1.5s ease-in-out infinite;
         }
@@ -191,29 +98,125 @@
             margin-top: 8px;
             width: 100%;
         }
-        .skeleton-card .skeleton-desc.short {
-            width: 70%;
-        }
+        .skeleton-card .skeleton-desc.short { width: 70%; }
         body.dark .skeleton-card .skeleton-img,
         body.dark .skeleton-card .skeleton-title,
         body.dark .skeleton-card .skeleton-desc {
             background: #334155;
         }
-        /* Line clamp */
+
+        /* ===== LINE CLAMP ===== */
         .line-clamp-3 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
+        /* ===== CARD ===== */
+        .blog-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .blog-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+        body.dark .blog-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .blog-card img {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+        }
+        .blog-card .card-body {
+            padding: 1.25rem 1.5rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .blog-card .card-body .top {
+            flex: 1;
+        }
+        .blog-card .card-body .top .category {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        body.dark .blog-card .card-body .top .category {
+            background: #1e293b;
+            color: #60a5fa;
+        }
+        .blog-card .card-body .top h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 0.75rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        body.dark .blog-card .card-body .top h3 {
+            color: #f1f5f9;
+        }
+        .blog-card .card-body .top h3 a:hover {
+            color: #2563eb;
+        }
+        .blog-card .card-body .top p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .blog-card .card-body .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f8fafc;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        body.dark .blog-card .card-body .footer-meta {
+            border-top-color: #334155;
+        }
+        .blog-card .card-body .footer-meta .read-more {
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .blog-card .card-body .footer-meta .read-more:hover {
+            text-decoration: underline;
+        }
+        body.dark .blog-card .card-body .footer-meta .read-more {
+            color: #60a5fa;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .blog-card img { height: 160px; }
+        }
     </style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
-    <!-- ===== NAVIGATION BAR (TANPA LINK ADMIN) ===== -->
+    <!-- ===== NAVBAR ===== -->
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
                 <div class="border-l border-slate-200 pl-3">
@@ -221,8 +224,6 @@
                     <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
                 </div>
             </div>
-
-            <!-- Menu Desktop (TANPA ADMIN) -->
             <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
                 <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
                 <div class="dropdown-wrapper">
@@ -237,8 +238,6 @@
                 <a href="blog.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Blog</a>
                 <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
             </div>
-
-            <!-- Toggle Tema -->
             <div class="flex items-center gap-5">
                 <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
                     <i class="fa-regular fa-sun"></i>
@@ -247,24 +246,23 @@
         </div>
     </nav>
 
-    <!-- ===== KONTEN BLOG ===== -->
+    <!-- ===== MAIN ===== -->
     <main class="flex-grow max-w-7xl mx-auto px-6 py-16 w-full">
         <div class="text-center max-w-xl mx-auto mb-16 space-y-2">
             <h1 class="text-3xl font-black text-slate-900 font-heading">Artikel & Wawasan Terbaru</h1>
             <p class="text-slate-500 text-sm">Temukan tips produktivitas, ulasan produk teknologi, dan edukasi gaya hidup digital.</p>
         </div>
 
-        <!-- Grid Artikel -->
         <div id="daftar-blog" class="grid md:grid-cols-3 gap-8"></div>
 
-        <!-- Empty state -->
+        <!-- Empty -->
         <div id="empty-state" class="text-center py-16 hidden">
             <div class="text-6xl text-slate-300 mb-4"><i class="fa-regular fa-newspaper"></i></div>
             <p class="text-slate-500 text-lg font-medium">Belum ada artikel</p>
             <p class="text-slate-400 text-sm">Artikel akan segera hadir. Pantau terus ya!</p>
         </div>
 
-        <!-- Error state -->
+        <!-- Error -->
         <div id="error-state" class="text-center py-16 hidden">
             <div class="text-6xl text-red-300 mb-4"><i class="fa-regular fa-circle-xmark"></i></div>
             <p class="text-red-500 text-lg font-medium">Gagal memuat artikel</p>
@@ -273,7 +271,7 @@
         </div>
     </main>
 
-    <!-- ===== FOOTER (TANPA LINK ADMIN) ===== -->
+    <!-- ===== FOOTER ===== -->
     <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
             <div class="col-span-2 md:col-span-4 space-y-4">
@@ -325,12 +323,11 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPT DARK MODE ===== -->
+    <!-- ===== DARK MODE ===== -->
     <script>
         const toggleBtn = document.getElementById('themeToggle');
         const icon = toggleBtn.querySelector('i');
         let darkMode = false;
-
         toggleBtn.addEventListener('click', () => {
             darkMode = !darkMode;
             document.body.classList.toggle('dark', darkMode);
@@ -338,43 +335,58 @@
         });
     </script>
 
-    <!-- ===== MARKED.JS untuk parse Markdown ===== -->
+    <!-- ===== MARKED.JS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- ===== SCRIPT FETCH ARTIKEL DARI GOOGLE SHEETS ===== -->
+    <!-- ===== SCRIPT FETCH ===== -->
     <script>
         (function() {
             'use strict';
 
-            // ============================================================
-            // GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
-            // ============================================================
             const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
 
             const blogContainer = document.getElementById('daftar-blog');
             const emptyState = document.getElementById('empty-state');
             const errorState = document.getElementById('error-state');
 
-            // ===== RENDER SKELETON LOADING =====
+            // ===== RENDER SKELETON =====
             function renderSkeletons(count = 3) {
                 let html = '';
                 for (let i = 0; i < count; i++) {
                     html += `
-                        <div class="skeleton-card border border-slate-100 rounded-2xl overflow-hidden bg-white flex flex-col">
-                            <div class="skeleton-img w-full h-48"></div>
-                            <div class="p-6 flex-grow flex flex-col">
-                                <div class="skeleton-title"></div>
-                                <div class="skeleton-desc mt-2"></div>
-                                <div class="skeleton-desc short mt-1"></div>
-                                <div class="mt-6 pt-4 border-t border-slate-100 flex justify-between">
-                                    <span class="skeleton-desc" style="width:60px;height:14px;"></span>
-                                    <span class="skeleton-desc" style="width:80px;height:14px;"></span>
+                        <div class="skeleton-card">
+                            <div class="blog-card">
+                                <div class="skeleton-img"></div>
+                                <div class="card-body">
+                                    <div class="top">
+                                        <div class="skeleton-title"></div>
+                                        <div class="skeleton-desc mt-2"></div>
+                                        <div class="skeleton-desc short mt-1"></div>
+                                    </div>
+                                    <div class="footer-meta">
+                                        <span class="skeleton-desc" style="width:60px;height:14px;"></span>
+                                        <span class="skeleton-desc" style="width:80px;height:14px;"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `;
                 }
                 blogContainer.innerHTML = html;
+            }
+
+            // ===== STRIP MARKDOWN UNTUK DESKRIPSI =====
+            function stripMarkdown(text) {
+                if (!text) return '';
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '$1')
+                    .replace(/\*(.*?)\*/g, '$1')
+                    .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                    .replace(/!\[.*?\]\(.*?\)/g, '')
+                    .replace(/#{1,6}\s/g, '')
+                    .replace(/`{1,3}.*?`{1,3}/g, '')
+                    .replace(/\n/g, ' ')
+                    .trim();
             }
 
             // ===== RENDER ARTIKEL =====
@@ -386,12 +398,17 @@
                 }
 
                 let html = '';
-                articles.forEach((artikel, index) => {
-                    // Format tanggal
+                articles.forEach((artikel) => {
+                    const id = artikel.ID || 0;
+                    const judul = artikel.Judul || 'Judul Artikel';
+                    const tanggal = artikel.Tanggal || '';
+                    const gambar = artikel.Gambar || '';
+                    const isi = artikel.Isi || '';
+
                     let formattedDate = '';
-                    if (artikel.Tanggal) {
+                    if (tanggal) {
                         try {
-                            const d = new Date(artikel.Tanggal);
+                            const d = new Date(tanggal);
                             if (!isNaN(d)) {
                                 formattedDate = d.toLocaleDateString('id-ID', {
                                     day: 'numeric',
@@ -402,37 +419,25 @@
                         } catch (_) {}
                     }
 
-                    // Parse Markdown isi untuk deskripsi (potong 120 karakter)
-                    const rawContent = artikel.Isi || '';
-                    const plainText = rawContent.replace(/\*\*(.*?)\*\*/g, '$1')
-                                                .replace(/\*(.*?)\*/g, '$1')
-                                                .replace(/\[(.*?)\]\(.*?\)/g, '$1')
-                                                .replace(/!\[.*?\]\(.*?\)/g, '');
-                    const description = plainText.substring(0, 120) + (plainText.length > 120 ? '...' : '');
+                    // Deskripsi: 120 karakter pertama dari isi (tanpa Markdown)
+                    const plain = stripMarkdown(isi);
+                    const description = plain.substring(0, 120) + (plain.length > 120 ? '...' : '');
 
-                    // Gunakan marked.js untuk render full konten (untuk halaman detail nanti)
-                    // Di sini kita hanya tampilkan deskripsi pendek
-
-                    const category = 'Blog';
+                    // Gambar default
+                    const imgSrc = gambar || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80';
 
                     html += `
-                        <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col justify-between">
-                            <img src="${artikel.Gambar || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'}" 
-                                 class="w-full h-48 object-cover" 
-                                 alt="${artikel.Judul || 'Artikel'}"
-                                 loading="lazy"
-                                 onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'">
-                            <div class="p-6 flex-grow flex flex-col justify-between">
-                                <div>
-                                    <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider">${category}</span>
-                                    <h3 class="text-base font-bold text-slate-900 mt-3 mb-2 font-heading hover:text-blue-600 transition">
-                                        <a href="blog.html#artikel-${artikel.ID || index}">${artikel.Judul || 'Judul Artikel'}</a>
-                                    </h3>
-                                    <p class="text-slate-400 text-xs leading-relaxed line-clamp-3">${description}</p>
+                        <div class="blog-card">
+                            <img src="${imgSrc}" alt="${judul}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'">
+                            <div class="card-body">
+                                <div class="top">
+                                    <span class="category">Blog</span>
+                                    <h3><a href="detail-artikel.html?id=${id}">${judul}</a></h3>
+                                    <p class="line-clamp-3">${description}</p>
                                 </div>
-                                <div class="text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate || 'Tanggal terbit'}</span>
-                                    <a href="detail-artikel.html?id=${artikel.ID || index}" class="font-bold text-blue-600 hover:underline">Baca Selengkapnya</a>
+                                <div class="footer-meta">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate || 'Tanpa tanggal'}</span>
+                                    <a href="detail-artikel.html?id=${id}" class="read-more">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -442,118 +447,18 @@
                 blogContainer.innerHTML = html;
                 emptyState.classList.add('hidden');
                 errorState.classList.add('hidden');
-
-                // ===== TAMPILKAN ARTIKEL LENGKAP JIKA ADA ID DI URL =====
-                const hash = window.location.hash;
-                if (hash.startsWith('#artikel-')) {
-                    const id = hash.replace('#artikel-', '');
-                    const target = articles.find(a => String(a.ID) === String(id));
-                    if (target) {
-                        // Tampilkan modal atau halaman detail sederhana
-                        showArticleDetail(target);
-                    }
-                }
             }
 
-            // ===== FUNGSI TAMPILKAN DETAIL ARTIKEL (Modal Sederhana) =====
-            function showArticleDetail(artikel) {
-                // Parse Markdown full
-                const contentHtml = marked.parse(artikel.Isi || '');
-
-                // Buat modal overlay
-                const overlay = document.createElement('div');
-                overlay.id = 'detail-modal';
-                overlay.style.cssText = `
-                    position: fixed;
-                    inset: 0;
-                    background: rgba(0,0,0,0.6);
-                    backdrop-filter: blur(4px);
-                    z-index: 9999;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 20px;
-                    animation: fadeIn 0.3s;
-                `;
-                overlay.innerHTML = `
-                    <div style="
-                        background: white;
-                        max-width: 700px;
-                        width: 100%;
-                        max-height: 90vh;
-                        overflow-y: auto;
-                        border-radius: 16px;
-                        padding: 30px;
-                        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-                        position: relative;
-                        animation: slideUp 0.3s;
-                    ">
-                        <button onclick="this.closest('#detail-modal').remove()" style="
-                            position: sticky;
-                            top: 0;
-                            float: right;
-                            background: #f1f5f9;
-                            border: none;
-                            border-radius: 50%;
-                            width: 36px;
-                            height: 36px;
-                            font-size: 20px;
-                            cursor: pointer;
-                            color: #1e293b;
-                            transition: 0.2s;
-                        " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
-                            ✕
-                        </button>
-                        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.8rem;font-weight:800;color:#0f172a;margin:0 0 8px 0;">${artikel.Judul || 'Judul'}</h2>
-                        <div style="color:#94a3b8;font-size:0.9rem;margin-bottom:16px;">
-                            <i class="fa-regular fa-calendar"></i> ${artikel.Tanggal ? new Date(artikel.Tanggal).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) : 'Tanpa tanggal'}
-                        </div>
-                        ${artikel.Gambar ? `<img src="${artikel.Gambar}" style="width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:16px;" onerror="this.style.display='none'">` : ''}
-                        <div style="font-size:1rem;line-height:1.8;color:#1e293b;">
-                            ${contentHtml}
-                        </div>
-                    </div>
-                `;
-
-                // Tambahkan style animasi
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-                    @keyframes slideUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-                `;
-                overlay.appendChild(style);
-
-                document.body.appendChild(overlay);
-
-                // Tutup modal dengan klik di luar konten
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) overlay.remove();
-                });
-
-                // Tutup dengan tombol Escape
-                document.addEventListener('keydown', function esc(e) {
-                    if (e.key === 'Escape') {
-                        const modal = document.getElementById('detail-modal');
-                        if (modal) modal.remove();
-                        document.removeEventListener('keydown', esc);
-                    }
-                });
-            }
-
-            // ===== FETCH ARTIKEL =====
+            // ===== FETCH =====
             async function fetchArticles() {
                 try {
                     renderSkeletons(3);
-
                     const response = await fetch(API_URL);
                     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
                     const result = await response.json();
                     if (!result.success) throw new Error(result.message || 'Gagal mengambil data');
-
                     const articles = result.data || [];
                     renderArticles(articles);
-
                 } catch (error) {
                     console.error('Error:', error);
                     blogContainer.innerHTML = '';
@@ -567,17 +472,7 @@
             } else {
                 fetchArticles();
             }
-
-            // Jika hash berubah (klik link dari artikel lain), reload detail
-            window.addEventListener('hashchange', function() {
-                // Reload artikel agar modal muncul
-                fetchArticles();
-            });
-
         })();
     </script>
-
-    <!-- ===== SCRIPT UNTUK MODAL KEBIJAKAN (Opsional) ===== -->
-    <!-- Tidak saya tambahkan agar fokus ke blog, bisa ditambahkan nanti -->
 </body>
 </html>
