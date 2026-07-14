@@ -72,5 +72,28 @@
             });
         }
     </script>
+    <script>
+    // Debugger untuk mengintip apa yang dikirim ke dalam CMS
+    console.log("=== MEMULAI DEBUG OBYEK CONFIG ===");
+    
+    // Kita intercept fungsi init bawaan CMS sebelum dijalankan
+    const originalInit = CMS.init;
+    CMS.init = function(obj) {
+        console.log("1. Obyek mentah yang dikirim user ke CMS.init:", JSON.parse(JSON.stringify(obj)));
+        
+        if (obj && obj.config && obj.config.collections) {
+            console.log("2. Daftar nama koleksi sebelum divalidasi:", obj.config.collections.map(c => c.name));
+        }
+        
+        // Jalankan fungsi aslinya dan tangkap stack trace jika crash
+        try {
+            return originalInit.apply(this, arguments);
+        } catch (err) {
+            console.error("3. CRASH TERDETEKSI DI DALAM CMS.INIT!");
+            console.error("Stack Trace Lengkap:", err.stack);
+            throw err;
+        }
+    };
+</script>
 </body>
 </html>
