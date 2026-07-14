@@ -2,7 +2,8 @@ backend:
   name: github
   repo: dongetikdigital/dongetik
   branch: main
-  auth_type: implicit   # ← Kunci!
+  auth_type: implicit
+  base_url: null   # ← Tambahkan ini
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
