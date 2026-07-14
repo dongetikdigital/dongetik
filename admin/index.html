@@ -10,23 +10,30 @@
 
     <div id="nc-root"></div>
 
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
     <script>
-        window.addEventListener("message", (event) => {
-            if (typeof event.data === "string" && event.data.startsWith("authorization:github:success:")) {
-                console.log("Token login diterima!");
-                const tokenStr = event.data.replace("authorization:github:success:", "");
-                const tokenData = JSON.parse(tokenStr);
-                
-                // Menyimpan dengan format yang dikenali langsung oleh Decap CMS
-                localStorage.setItem("decap-cms-user", JSON.stringify(tokenData));
-                localStorage.setItem("netlify-cms-user", JSON.stringify(tokenData));
-                
-                // Memicu muat ulang halaman agar CMS langsung membaca status login yang baru disimpan
-                window.location.reload();
+        (function() {
+            // Ambil hash URL saat ini
+            const hash = window.location.hash;
+            if (hash && hash.includes("token=")) {
+                // Ekstrak token dari URL
+                const token = hash.split("token=")[1];
+                if (token) {
+                    const tokenData = {
+                        token: token,
+                        provider: 'github'
+                    };
+                    // Simpan token ke local storage
+                    localStorage.setItem("decap-cms-user", JSON.stringify(tokenData));
+                    localStorage.setItem("netlify-cms-user", JSON.stringify(tokenData));
+                    
+                    // Bersihkan parameter token dari URL agar rapi kembali ke /admin/#/
+                    window.location.hash = "#/";
+                    window.location.reload();
+                }
             }
-        }, false);
+        })();
     </script>
+
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
