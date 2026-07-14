@@ -1,0 +1,22 @@
+# backend: tentukan dimana repo Anda disimpan
+backend:
+  name: github
+  repo: dongetikdigital/dongetik    # GANTI! Contoh: johndoe/blog-saya
+  branch: main                       # Ganti jadi 'master' jika repo Anda pakai master
+  base_url: https://oauth.netlify.com
+# media_folder: tempat menyimpan gambar
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+# collections: daftar jenis konten (dalam hal ini blog)
+collections:
+  - name: "blog"                     # Nama koleksi
+    label: "Artikel Blog"            # Label di dashboard
+    folder: "content/blog"           # Folder penyimpanan file .md (akan dibuat otomatis)
+    create: true                     # Izinkan membuat artikel baru
+    slug: "{{slug}}"                 # Format nama file (misal judul-artikel.md)
+    fields:                          # Field / kolom yang diisi saat menulis
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Tanggal", name: "date", widget: "datetime" }
+      - { label: "Isi Artikel", name: "body", widget: "markdown" }
+      - { label: "Gambar Sampul", name: "image", widget: "image", required: false }

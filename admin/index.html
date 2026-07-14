@@ -1,99 +1,14 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Content Manager - Dongetik Digital</title>
-    <script>
-        window.CMS_MANUAL_INIT = true;
-
-        // PENANGKAP TOKEN DARI WORKERS URL
-        (function() {
-            const hash = window.location.hash;
-            if (hash && hash.includes("token=")) {
-                const token = hash.split("token=")[1];
-                if (token) {
-                    const tokenData = {
-                        token: token,
-                        provider: 'github'
-                    };
-                    localStorage.setItem("decap-cms-user", JSON.stringify(tokenData));
-                    localStorage.setItem("netlify-cms-user", JSON.stringify(tokenData));
-                    
-                    window.location.hash = "#/";
-                    window.location.reload();
-                }
-            }
-        })();
-    </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin Blog</title>
+  <!-- Memuat stylesheet default Decap CMS -->
+  <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.css" />
 </head>
 <body>
-
-    <div id="nc-root"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.14.1/dist/decap-cms.js"></script>
-
-    <script>
-        if (typeof CMS !== 'undefined') {
-            CMS.init({
-                config: {
-                    // ⭐ BARIS PENTING: Matikan pembacaan config.yml eksternal ⭐
-                    load_config_file: false,
-                    
-                    backend: {
-                        name: "github",
-                        repo: "dongetikdigital/dongetik",
-                        branch: "main",
-                        base_url: "https://dongetik-oauth.dongetikdigital.workers.dev",
-                        auth_endpoint: "auth"
-                    },
-                    media_folder: "images/uploads",
-                    public_folder: "/images/uploads",
-                    collections: [
-                        {
-                            name: "artikel_blog", 
-                            label: "Artikel Blog",
-                            folder: "content/blog",
-                            extension: "json",
-                            format: "json",
-                            create: true,
-                            slug: "{{slug}}",
-                            fields: [
-                                { label: "Judul Artikel", name: "title", widget: "string" },
-                                { label: "Tanggal Rilis", name: "date", widget: "datetime" },
-                                { label: "Gambar Sampul", name: "thumbnail", widget: "image" },
-                                { label: "Deskripsi Singkat", name: "description", widget: "string" },
-                                { label: "Isi Artikel", name: "body", widget: "markdown" }
-                            ]
-                        }
-                    ]
-                }
-            });
-        }
-    </script>
-    <script>
-    // Debugger untuk mengintip apa yang dikirim ke dalam CMS
-    console.log("=== MEMULAI DEBUG OBYEK CONFIG ===");
-    
-    // Kita intercept fungsi init bawaan CMS sebelum dijalankan
-    const originalInit = CMS.init;
-    CMS.init = function(obj) {
-        console.log("1. Obyek mentah yang dikirim user ke CMS.init:", JSON.parse(JSON.stringify(obj)));
-        
-        if (obj && obj.config && obj.config.collections) {
-            console.log("2. Daftar nama koleksi sebelum divalidasi:", obj.config.collections.map(c => c.name));
-        }
-        
-        // Jalankan fungsi aslinya dan tangkap stack trace jika crash
-        try {
-            return originalInit.apply(this, arguments);
-        } catch (err) {
-            console.error("3. CRASH TERDETEKSI DI DALAM CMS.INIT!");
-            console.error("Stack Trace Lengkap:", err.stack);
-            throw err;
-        }
-    };
-</script>
+  <!-- Tempat dimana CMS akan dirender -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>
