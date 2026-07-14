@@ -106,7 +106,6 @@
                 <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
                 <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
                 <a href="blog.html" class="text-blue-600 font-semibold">Blog</a>
-                <a href="faq.html" class="hover:text-blue-600 transition">FAQ</a>
                 <a href="#kontak" class="hover:text-blue-600 transition">Kontak</a>
             </div>
             <div class="flex items-center gap-5">
@@ -240,10 +239,175 @@
         </div>
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-white border-t border-slate-100 py-8 text-center text-xs text-slate-400 mt-auto">
-        <p>&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
-    </footer>
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-end">
+            <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition shadow-md shadow-blue-600/20" id="closeModalBtnFooter">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
 
+<script>
+    (function() {
+        // Data konten
+        const policyData = {
+            'privacy': {
+                title: 'Kebijakan Privasi',
+                content: `
+                    <p><strong>Data yang Dikumpulkan:</strong> Kami mengumpulkan informasi yang diberikan secara sukarela oleh pengguna (nama, instansi, kontak) serta data teknis penggunaan aplikasi (log aktivitas, browser yang digunakan) untuk keperluan optimalisasi sistem.</p>
+                    <p><strong>Penggunaan Data:</strong> Data digunakan untuk menyediakan, memelihara, dan meningkatkan kualitas produk di bawah naungan Dongetik Digital (Edu, Gov, Literasi). Kami tidak menjual data pengguna kepada pihak ketiga mana pun.</p>
+                    <p><strong>Keamanan Data:</strong> Kami menerapkan standar enkripsi dan kontrol akses untuk melindungi data Anda dari akses, pengungkapan, atau modifikasi yang tidak sah.</p>
+                    <p><strong>Hak Pengguna:</strong> Anda berhak meminta akses, perbaikan, atau penghapusan data pribadi Anda yang tersimpan di sistem kami melalui kanal dukungan resmi.</p>
+                `
+            },
+            'terms': {
+                title: 'Syarat & Ketentuan',
+                content: `
+                    <p><strong>Definisi:</strong> Dongetik Digital adalah penyedia platform teknologi. Produk mencakup Dongetik Edu (Pendidikan), DongetikGov (Pemerintahan), dan DongetikLiterasi (Digitalisasi Konten).</p>
+                    <p><strong>Penggunaan Layanan:</strong> Pengguna wajib menggunakan layanan sesuai dengan hukum yang berlaku di Indonesia. Dilarang menyalahgunakan sistem untuk aktivitas ilegal atau merusak integritas data.</p>
+                    <p><strong>Hak Kekayaan Intelektual:</strong> Seluruh desain, kode sumber, dan konten pada platform Dongetik Digital adalah hak milik eksklusif Dongetik Digital.</p>
+                    <p><strong>Batasan Tanggung Jawab:</strong> Dongetik Digital berkomitmen menjaga uptime layanan, namun tidak bertanggung jawab atas kerugian tidak langsung yang timbul akibat kegagalan koneksi internet pihak ketiga atau kesalahan input data oleh pengguna.</p>
+                    <p><strong>Perubahan Layanan:</strong> Kami berhak melakukan pembaruan fitur atau pemeliharaan sistem sewaktu-waktu untuk meningkatkan kualitas layanan.</p>
+                `
+            },
+            'refund': {
+                title: 'Refund Policy',
+                content: `
+                    <p><strong>Prinsip Umum:</strong> Langganan layanan Dongetik Digital umumnya bersifat non-refundable (tidak dapat dikembalikan) setelah aktivasi dilakukan.</p>
+                    <p><strong>Kondisi Pengembalian Dana:</strong> Pengembalian dana hanya dimungkinkan jika terdapat kegagalan sistem yang fatal dari pihak kami yang menyebabkan layanan tidak dapat digunakan sama sekali selama lebih dari 7 (tujuh) hari kerja berturut-turut, dan kami tidak mampu memberikan solusi teknis.</p>
+                    <p><strong>Prosedur Pengajuan:</strong> Permintaan refund harus diajukan melalui email resmi dengan melampirkan bukti transaksi dan penjelasan kendala teknis.</p>
+                    <p><strong>Keputusan:</strong> Setiap pengajuan akan ditinjau oleh tim manajemen Dongetik Digital dalam waktu 14 hari kerja. Keputusan kami bersifat final.</p>
+                `
+            }
+        };
+
+        // Elemen modal
+        const modal = document.getElementById('policyModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const overlay = document.getElementById('modalOverlay');
+        const closeBtns = [
+            document.getElementById('closeModalBtn'),
+            document.getElementById('closeModalBtnFooter')
+        ];
+
+        // Fungsi buka modal
+        function openModal(type) {
+            const data = policyData[type];
+            if (!data) return;
+
+            modalTitle.textContent = data.title;
+            modalBody.innerHTML = data.content;
+
+            // Tampilkan modal dengan transisi
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden'; // cegah scroll
+        }
+
+        // Fungsi tutup modal
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Event listener untuk link di footer
+        document.querySelectorAll('footer a[href="#"]').forEach(link => {
+            const text = link.textContent.trim().toLowerCase();
+            let type = null;
+            if (text.includes('privasi')) type = 'privacy';
+            else if (text.includes('syarat') || text.includes('ketentuan')) type = 'terms';
+            else if (text.includes('refund')) type = 'refund';
+
+            if (type) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal(type);
+                });
+            }
+        });
+
+        // Event tutup modal
+        closeBtns.forEach(btn => {
+            if (btn) btn.addEventListener('click', closeModal);
+        });
+
+        // Tutup saat klik overlay
+        overlay.addEventListener('click', closeModal);
+
+        // Tutup dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+                closeModal();
+            }
+        });
+
+        // Jika modal terbuka, tutup saat scroll ke atas (opsional, biarkan saja)
+    })();
+</script>
+<script>
+    (function() {
+        // 1. Dapatkan nama file halaman saat ini
+        const path = window.location.pathname;
+        const currentPage = path.split('/').pop() || 'index.html';
+
+        // 2. Mapping halaman ke selector link di navbar
+        const pageMap = {
+            'index.html': 'a[href="#beranda"], a[href="index.html#beranda"]',
+            'tentang-kami.html': 'a[href="tentang-kami.html"]',
+            'blog.html': 'a[href="blog.html"]',
+            'faq.html': 'a[href="faq.html"]'
+        };
+
+        // 3. Ambil semua link di navbar (sesuaikan dengan struktur menu Anda)
+        const nav = document.querySelector('nav');
+        if (!nav) return;
+
+        // Semua link di dalam navbar (termasuk dropdown)
+        const allLinks = nav.querySelectorAll('a');
+
+        // 4. Hapus kelas aktif dari semua link
+        allLinks.forEach(link => {
+            link.classList.remove('text-blue-600', 'font-semibold');
+        });
+
+        // 5. Cari link yang sesuai dengan halaman saat ini
+        let targetSelector = pageMap[currentPage];
+        if (!targetSelector) {
+            // Jika tidak ada mapping (misal halaman lain), fallback ke Beranda
+            targetSelector = pageMap['index.html'];
+        }
+
+        // Coba temukan dengan selector tunggal
+        let activeLink = document.querySelector(targetSelector);
+
+        // Jika tidak ditemukan, coba dengan pendekatan href (lebih fleksibel)
+        if (!activeLink) {
+            // Cari link yang href-nya mengandung nama halaman
+            allLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.includes(currentPage.replace('.html', ''))) {
+                    activeLink = link;
+                }
+            });
+        }
+
+        // 6. Tambahkan kelas aktif ke link yang ditemukan
+        if (activeLink) {
+            activeLink.classList.add('text-blue-600', 'font-semibold');
+        } else {
+            // Fallback: jika tidak ada yang cocok, tandai Beranda
+            const berandaLink = document.querySelector('a[href="#beranda"], a[href="index.html#beranda"]');
+            if (berandaLink) {
+                berandaLink.classList.add('text-blue-600', 'font-semibold');
+            }
+        }
+    })();
+</script>
 </body>
 </html>
