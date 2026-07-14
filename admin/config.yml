@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dongetikdigital/dongetik # Sesuai repo Anda
   branch: main
-  base_url: https://decap-cms-oauth.onrender.com # Gerbang login otomatis gratis
+  base_url: https://dongetik-oauth.dongetikdigital.workers.dev
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
