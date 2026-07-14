@@ -2,7 +2,8 @@ backend:
   name: github
   repo: dongetikdigital/dongetik # Sesuai repo Anda
   branch: main
-  base_url: https://dongetik-oauth.dongetikdigital.workers.dev
+  base_url: https://dongetik-oauth.dongetikdigital.workers.dev # 🌟 Pastikan baris ini mengarah ke Worker Anda!
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
