@@ -7,8 +7,11 @@
     <title>Content Manager - Dongetik Digital</title>
 </head>
 <body>
-    <!-- ⚠️ JANGAN HAPUS FILE INI! Script di bawah akan otomatis menyuntikkan (appendChild) 
-         halaman dasbor admin ke dalam tag body di atas -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <!-- Wadah cadangan untuk memastikan CMS selalu menemukan elemen tempat merender -->
+    <div id="nc-root"></div>
+
+    <!-- Pemuatan Script Decap CMS dengan atribut defer agar jalan di waktu yang tepat -->
+    <script defer src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
