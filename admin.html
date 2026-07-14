@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="logo-dongetik.png">
     <style>
-        /* Sama seperti di blog.html */
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 5.5rem;
@@ -164,7 +163,6 @@
         .dropdown-wrapper:hover .dropdown-menu {
             display: block;
         }
-        /* Form styling */
         .form-input {
             transition: border-color 0.2s, box-shadow 0.2s;
         }
@@ -192,10 +190,28 @@
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
-    <!-- NAVIGATION BAR (SAMA DENGAN BLOG.HTML) -->
+    <!-- ===== PASSWORD PROTECTION ===== -->
+    <script>
+        (function() {
+            // Ganti password di bawah ini sesuai keinginan Anda!
+            const PASSWORD = 'rahasia123';
+            const userPass = prompt('🔒 Masukkan password admin:');
+            if (userPass !== PASSWORD) {
+                document.body.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;flex-direction:column;gap:16px;">
+                        <h1 style="font-size:2rem;color:#dc2626;">🔒 Akses Ditolak</h1>
+                        <p style="color:#64748b;">Password yang Anda masukkan salah.</p>
+                        <a href="blog.html" style="color:#2563eb;text-decoration:underline;">Kembali ke Blog</a>
+                    </div>
+                `;
+                throw new Error('Unauthorized');
+            }
+        })();
+    </script>
+
+    <!-- NAVIGATION BAR -->
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
                 <div class="border-l border-slate-200 pl-3">
@@ -204,7 +220,6 @@
                 </div>
             </div>
 
-            <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
                 <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
                 <div class="dropdown-wrapper">
@@ -220,7 +235,6 @@
                 <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
             </div>
 
-            <!-- Toggle Tema -->
             <div class="flex items-center gap-5">
                 <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
                     <i class="fa-regular fa-sun"></i>
@@ -236,7 +250,6 @@
             <p class="text-slate-500 text-sm">Tulis artikel baru untuk dipublikasikan di blog Dongetik Digital.</p>
         </div>
 
-        <!-- Form -->
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-8 dark:bg-slate-800 dark:border-slate-700">
             <form id="formArtikel" class="space-y-6">
                 <div>
@@ -283,11 +296,9 @@
                 </button>
             </form>
 
-            <!-- Area pesan -->
             <div id="message" class="mt-6 px-4 py-3 rounded-xl text-sm hidden message"></div>
         </div>
 
-        <!-- Link kembali ke blog -->
         <div class="text-center mt-8">
             <a href="blog.html" class="text-sm text-blue-600 hover:underline font-medium">
                 <i class="fa-regular fa-arrow-left mr-1"></i> Kembali ke Blog
@@ -295,7 +306,7 @@
         </div>
     </main>
 
-    <!-- FOOTER (SAMA DENGAN BLOG.HTML) -->
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
             <div class="col-span-2 md:col-span-4 space-y-4">
@@ -360,87 +371,86 @@
         });
     </script>
 
-    <!-- SCRIPT FORM ADMIN -->
+    <!-- ===== SCRIPT FORM ADMIN ===== -->
     <script>
         (function() {
-            // // ============================================================
-// GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
-// ============================================================
-const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
+            'use strict';
 
-// ... (kode lainnya tetap)
+            // ============================================================
+            // GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
+            // ============================================================
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
 
-form.addEventListener('submit', async function(e) {
-    e.preventDefault();
+            const form = document.getElementById('formArtikel');
+            const messageEl = document.getElementById('message');
 
-    const judul = document.getElementById('judul').value.trim();
-    const isi = document.getElementById('isi').value.trim();
-    const gambar = document.getElementById('gambar').value.trim();
-    const status = document.getElementById('status').value;
-    const tanggal = document.getElementById('tanggal').value;
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
 
-    if (!judul || !isi) {
-        showMessage('❌ Judul dan Isi artikel wajib diisi!', 'error');
-        return;
-    }
+                const judul = document.getElementById('judul').value.trim();
+                const isi = document.getElementById('isi').value.trim();
+                const gambar = document.getElementById('gambar').value.trim();
+                const status = document.getElementById('status').value;
+                const tanggal = document.getElementById('tanggal').value;
 
-    // ====== BUAT FORM DATA URLENCODED ======
-    const formData = new URLSearchParams();
-    formData.append('formType', 'blog');
-    formData.append('judul', judul);
-    formData.append('isi', isi);
-    formData.append('gambar', gambar);
-    formData.append('status', status);
-    if (tanggal) formData.append('tanggal', tanggal);
+                if (!judul || !isi) {
+                    showMessage('❌ Judul dan Isi artikel wajib diisi!', 'error');
+                    return;
+                }
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
-    submitBtn.disabled = true;
+                // ====== BUAT FORM DATA URLENCODED ======
+                const formData = new URLSearchParams();
+                formData.append('formType', 'blog');
+                formData.append('judul', judul);
+                formData.append('isi', isi);
+                formData.append('gambar', gambar);
+                formData.append('status', status);
+                if (tanggal) formData.append('tanggal', tanggal);
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded', // ← penting!
-            },
-            body: formData.toString()
-        });
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+                submitBtn.disabled = true;
 
-        const result = await response.json();
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: formData.toString()
+                    });
 
-        if (result.status === 'success') {
-            showMessage('✅ Artikel berhasil dipublikasikan!', 'success');
-            form.reset();
-            document.getElementById('tanggal').value = '';
-        } else {
-            showMessage('❌ Gagal: ' + (result.message || 'Terjadi kesalahan'), 'error');
-        }
+                    const result = await response.json();
 
-    } catch (error) {
-        showMessage('❌ Error: ' + error.message, 'error');
-    } finally {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }
-});
+                    if (result.status === 'success') {
+                        showMessage('✅ Artikel berhasil dipublikasikan!', 'success');
+                        form.reset();
+                        document.getElementById('tanggal').value = '';
+                    } else {
+                        showMessage('❌ Gagal: ' + (result.message || 'Terjadi kesalahan'), 'error');
+                    }
+
+                } catch (error) {
+                    showMessage('❌ Error: ' + error.message, 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
 
             function showMessage(msg, type) {
                 messageEl.textContent = msg;
                 messageEl.className = 'mt-6 px-4 py-3 rounded-xl text-sm message ' + (type === 'success' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300');
                 messageEl.classList.remove('hidden');
             }
+
         })();
     </script>
 
-    <!-- Script untuk aktifkan link di footer (modal) - bisa diambil dari blog.html jika perlu, tapi untuk admin sederhana tidak perlu -->
-<script>
-    const PASSWORD = 'rahasia123'; // Ganti dengan password Anda
-    const userPass = prompt('🔒 Masukkan password admin:');
-    if (userPass !== PASSWORD) {
-        document.body.innerHTML = '<h1 class="text-center text-red-600 mt-20">🔒 Akses Ditolak</h1>';
-        throw new Error('Unauthorized');
-    }
-</script>
+    <!-- ===== SCRIPT UNTUK LINK DI FOOTER (MODAL) ===== -->
+    <script>
+        // (Opsional, untuk menangani link Kebijakan Privasi dll, bisa ditambahkan nanti)
+    </script>
 </body>
 </html>
