@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="logo-dongetik.png">
     <style>
+        /* ===== RESET & DARK MODE ===== */
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 5.5rem;
@@ -129,28 +130,9 @@
         body.dark .border-slate-200\/60 {
             border-color: #334155/60;
         }
-        body.dark .dropdown-menu {
-            background: #1e293b;
-            border-color: #334155;
-        }
-        body.dark .dropdown-menu a {
-            color: #e2e8f0;
-        }
-        body.dark .dropdown-menu a:hover {
-            background: #2d3a4f;
-            color: #60a5fa;
-        }
-        body.dark .bg-slate-50\/60 {
-            background: #1e293b/60;
-        }
-        body.dark .bg-blue-100\/50 {
-            background: #1e293b/50;
-        }
-
         h1, h2, h3, .font-heading {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
-
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -182,7 +164,6 @@
         .dropdown-wrapper:hover .dropdown-menu {
             display: block;
         }
-
         /* Skeleton loading */
         .skeleton-card {
             animation: pulse 1.5s ease-in-out infinite;
@@ -218,67 +199,72 @@
         body.dark .skeleton-card .skeleton-desc {
             background: #334155;
         }
+        /* Line clamp */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
-    <!-- NAVIGATION BAR — SAMA PERSIS DENGAN INDEX.HTML -->
+    <!-- ===== NAVIGATION BAR (TANPA LINK ADMIN) ===== -->
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <!-- Brand / Logo -->
-        <div class="flex items-center gap-2">
-            <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
-            <div class="border-l border-slate-200 pl-3">
-                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
-                <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
-            </div>
-        </div>
-
-        <!-- Menu Navigasi Desktop -->
-        <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
-            <a href="index.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Beranda</a>
-            <div class="dropdown-wrapper">
-                <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
-                <div class="dropdown-menu">
-                    <a href="https://govtech.dongetik.net">Govtech</a>
-                    <a href="https://literasi.dongetik.net">Literasi</a>
-                    <a href="https://edu.dongetik.net">Edukasi</a>
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand -->
+            <div class="flex items-center gap-2">
+                <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
                 </div>
             </div>
-            <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
-            <a href="blog.html" class="hover:text-blue-600 transition">Blog</a>
-            <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
-        </div>
 
-        <!-- Tombol Tema (Dark/Light) -->
-        <div class="flex items-center gap-5">
-            <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
-                <i class="fa-regular fa-sun"></i>
-            </button>
-        </div>
-    </div>
-</nav>
+            <!-- Menu Desktop (TANPA ADMIN) -->
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <div class="dropdown-wrapper">
+                    <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://govtech.dongetik.net">Govtech</a>
+                        <a href="https://literasi.dongetik.net">Literasi</a>
+                        <a href="https://edu.dongetik.net">Edukasi</a>
+                    </div>
+                </div>
+                <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="blog.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Blog</a>
+                <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
 
-    <!-- CONTENT BLOG -->
+            <!-- Toggle Tema -->
+            <div class="flex items-center gap-5">
+                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== KONTEN BLOG ===== -->
     <main class="flex-grow max-w-7xl mx-auto px-6 py-16 w-full">
         <div class="text-center max-w-xl mx-auto mb-16 space-y-2">
             <h1 class="text-3xl font-black text-slate-900 font-heading">Artikel & Wawasan Terbaru</h1>
             <p class="text-slate-500 text-sm">Temukan tips produktivitas, ulasan produk teknologi, dan edukasi gaya hidup digital.</p>
         </div>
 
-        <!-- Blog Grid -->
-        <div id="daftar-blog" class="grid md:grid-cols-3 gap-8">
-            <!-- Skeleton loading akan di-render oleh JS -->
-        </div>
+        <!-- Grid Artikel -->
+        <div id="daftar-blog" class="grid md:grid-cols-3 gap-8"></div>
 
-        <!-- Pesan jika tidak ada artikel -->
+        <!-- Empty state -->
         <div id="empty-state" class="text-center py-16 hidden">
             <div class="text-6xl text-slate-300 mb-4"><i class="fa-regular fa-newspaper"></i></div>
             <p class="text-slate-500 text-lg font-medium">Belum ada artikel</p>
             <p class="text-slate-400 text-sm">Artikel akan segera hadir. Pantau terus ya!</p>
         </div>
 
-        <!-- Pesan error -->
+        <!-- Error state -->
         <div id="error-state" class="text-center py-16 hidden">
             <div class="text-6xl text-red-300 mb-4"><i class="fa-regular fa-circle-xmark"></i></div>
             <p class="text-red-500 text-lg font-medium">Gagal memuat artikel</p>
@@ -287,17 +273,17 @@
         </div>
     </main>
 
-    <!-- FOOTER — SAMA PERSIS DENGAN INDEX.HTML -->
+    <!-- ===== FOOTER (TANPA LINK ADMIN) ===== -->
     <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
             <div class="col-span-2 md:col-span-4 space-y-4">
                 <div class="flex items-center gap-2">
                     <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
-                <div class="border-l border-slate-200 pl-3">
+                    <div class="border-l border-slate-200 pl-3">
                         <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
-                <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
-            </div>
-        </div>
+                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
                 <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
             </div>
             <div class="col-span-1 md:col-span-2 space-y-3">
@@ -322,16 +308,16 @@
             <div id="ikuti-kami" class="col-span-2 md:col-span-3 space-y-3">
                 <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
                 <div class="flex items-center gap-3">
-    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
-        <i class="fa-brands fa-facebook text-sm"></i>
-    </a>
-    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
-        <i class="fa-brands fa-whatsapp text-sm"></i>
-    </a>
-    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
-    <i class="fa-regular fa-envelope text-sm"></i>
-</a>
-</div>
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
                 <div class="pt-3">
                     <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
                 </div>
@@ -339,7 +325,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DARK MODE -->
+    <!-- ===== SCRIPT DARK MODE ===== -->
     <script>
         const toggleBtn = document.getElementById('themeToggle');
         const icon = toggleBtn.querySelector('i');
@@ -351,28 +337,25 @@
             icon.className = darkMode ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
         });
     </script>
-    <!-- ============================================================ -->
-    <!-- SCRIPT FETCH ARTIKEL DARI GOOGLE SHEETS (APPS SCRIPT)         -->
-    <!-- ============================================================ -->
+
+    <!-- ===== MARKED.JS untuk parse Markdown ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- ===== SCRIPT FETCH ARTIKEL DARI GOOGLE SHEETS ===== -->
     <script>
         (function() {
             'use strict';
 
             // ============================================================
-            // KONFIGURASI — GANTI DENGAN URL APPS SCRIPT ANDA
+            // GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
             // ============================================================
-            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';   // <-- GANTI!
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
 
-            // ============================================================
-            // DOM REFERENSI
-            // ============================================================
             const blogContainer = document.getElementById('daftar-blog');
             const emptyState = document.getElementById('empty-state');
             const errorState = document.getElementById('error-state');
 
-            // ============================================================
-            // FUNGSI RENDER SKELETON LOADING
-            // ============================================================
+            // ===== RENDER SKELETON LOADING =====
             function renderSkeletons(count = 3) {
                 let html = '';
                 for (let i = 0; i < count; i++) {
@@ -394,9 +377,7 @@
                 blogContainer.innerHTML = html;
             }
 
-            // ============================================================
-            // FUNGSI RENDER ARTIKEL (dari data Google Sheets)
-            // ============================================================
+            // ===== RENDER ARTIKEL =====
             function renderArticles(articles) {
                 if (!articles || articles.length === 0) {
                     blogContainer.innerHTML = '';
@@ -405,7 +386,7 @@
                 }
 
                 let html = '';
-                articles.forEach(artikel => {
+                articles.forEach((artikel, index) => {
                     // Format tanggal
                     let formattedDate = '';
                     if (artikel.Tanggal) {
@@ -418,14 +399,20 @@
                                     year: 'numeric'
                                 });
                             }
-                        } catch (_) { /* abaikan */ }
+                        } catch (_) {}
                     }
 
-                    // Konten (potong untuk deskripsi)
-                    const contentText = artikel.Isi || '';
-                    const description = contentText.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1').substring(0, 120) + '...';
+                    // Parse Markdown isi untuk deskripsi (potong 120 karakter)
+                    const rawContent = artikel.Isi || '';
+                    const plainText = rawContent.replace(/\*\*(.*?)\*\*/g, '$1')
+                                                .replace(/\*(.*?)\*/g, '$1')
+                                                .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                                                .replace(/!\[.*?\]\(.*?\)/g, '');
+                    const description = plainText.substring(0, 120) + (plainText.length > 120 ? '...' : '');
 
-                    // Kategori default
+                    // Gunakan marked.js untuk render full konten (untuk halaman detail nanti)
+                    // Di sini kita hanya tampilkan deskripsi pendek
+
                     const category = 'Blog';
 
                     html += `
@@ -439,13 +426,13 @@
                                 <div>
                                     <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider">${category}</span>
                                     <h3 class="text-base font-bold text-slate-900 mt-3 mb-2 font-heading hover:text-blue-600 transition">
-                                        <a href="detail-artikel.html?id=${artikel.ID || ''}">${artikel.Judul || 'Judul Artikel'}</a>
+                                        <a href="blog.html#artikel-${artikel.ID || index}">${artikel.Judul || 'Judul Artikel'}</a>
                                     </h3>
                                     <p class="text-slate-400 text-xs leading-relaxed line-clamp-3">${description}</p>
                                 </div>
                                 <div class="text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
                                     <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate || 'Tanggal terbit'}</span>
-                                    <a href="detail-artikel.html?id=${artikel.ID || ''}" class="font-bold text-blue-600 hover:underline">Baca Selengkapnya</a>
+                                    <a href="detail-artikel.html?id=${artikel.ID || index}" class="font-bold text-blue-600 hover:underline">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -455,236 +442,142 @@
                 blogContainer.innerHTML = html;
                 emptyState.classList.add('hidden');
                 errorState.classList.add('hidden');
+
+                // ===== TAMPILKAN ARTIKEL LENGKAP JIKA ADA ID DI URL =====
+                const hash = window.location.hash;
+                if (hash.startsWith('#artikel-')) {
+                    const id = hash.replace('#artikel-', '');
+                    const target = articles.find(a => String(a.ID) === String(id));
+                    if (target) {
+                        // Tampilkan modal atau halaman detail sederhana
+                        showArticleDetail(target);
+                    }
+                }
             }
 
-            // ============================================================
-            // FUNGSI FETCH DARI GOOGLE SHEETS
-            // ============================================================
+            // ===== FUNGSI TAMPILKAN DETAIL ARTIKEL (Modal Sederhana) =====
+            function showArticleDetail(artikel) {
+                // Parse Markdown full
+                const contentHtml = marked.parse(artikel.Isi || '');
+
+                // Buat modal overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'detail-modal';
+                overlay.style.cssText = `
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0,0,0,0.6);
+                    backdrop-filter: blur(4px);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                    animation: fadeIn 0.3s;
+                `;
+                overlay.innerHTML = `
+                    <div style="
+                        background: white;
+                        max-width: 700px;
+                        width: 100%;
+                        max-height: 90vh;
+                        overflow-y: auto;
+                        border-radius: 16px;
+                        padding: 30px;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                        position: relative;
+                        animation: slideUp 0.3s;
+                    ">
+                        <button onclick="this.closest('#detail-modal').remove()" style="
+                            position: sticky;
+                            top: 0;
+                            float: right;
+                            background: #f1f5f9;
+                            border: none;
+                            border-radius: 50%;
+                            width: 36px;
+                            height: 36px;
+                            font-size: 20px;
+                            cursor: pointer;
+                            color: #1e293b;
+                            transition: 0.2s;
+                        " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                            ✕
+                        </button>
+                        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.8rem;font-weight:800;color:#0f172a;margin:0 0 8px 0;">${artikel.Judul || 'Judul'}</h2>
+                        <div style="color:#94a3b8;font-size:0.9rem;margin-bottom:16px;">
+                            <i class="fa-regular fa-calendar"></i> ${artikel.Tanggal ? new Date(artikel.Tanggal).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) : 'Tanpa tanggal'}
+                        </div>
+                        ${artikel.Gambar ? `<img src="${artikel.Gambar}" style="width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:16px;" onerror="this.style.display='none'">` : ''}
+                        <div style="font-size:1rem;line-height:1.8;color:#1e293b;">
+                            ${contentHtml}
+                        </div>
+                    </div>
+                `;
+
+                // Tambahkan style animasi
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+                    @keyframes slideUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+                `;
+                overlay.appendChild(style);
+
+                document.body.appendChild(overlay);
+
+                // Tutup modal dengan klik di luar konten
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) overlay.remove();
+                });
+
+                // Tutup dengan tombol Escape
+                document.addEventListener('keydown', function esc(e) {
+                    if (e.key === 'Escape') {
+                        const modal = document.getElementById('detail-modal');
+                        if (modal) modal.remove();
+                        document.removeEventListener('keydown', esc);
+                    }
+                });
+            }
+
+            // ===== FETCH ARTIKEL =====
             async function fetchArticles() {
                 try {
                     renderSkeletons(3);
 
                     const response = await fetch(API_URL);
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                     const result = await response.json();
-
-                    if (!result.success) {
-                        throw new Error(result.message || 'Gagal mengambil data');
-                    }
+                    if (!result.success) throw new Error(result.message || 'Gagal mengambil data');
 
                     const articles = result.data || [];
                     renderArticles(articles);
 
                 } catch (error) {
-                    console.error('Error fetching articles:', error);
+                    console.error('Error:', error);
                     blogContainer.innerHTML = '';
                     errorState.classList.remove('hidden');
                 }
             }
 
-            // ============================================================
-            // JALANKAN FETCH SAAT DOM READY
-            // ============================================================
+            // ===== JALANKAN =====
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', fetchArticles);
             } else {
                 fetchArticles();
             }
 
-        })();
-</script>
-<!-- ===== MODAL POP-UP UNTUK KEBIJAKAN ===== -->
-<div id="policyModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 transition-opacity duration-300 opacity-0 pointer-events-none">
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modalOverlay"></div>
-
-    <!-- Konten Modal -->
-    <div class="relative bg-white dark:bg-slate-800 w-full max-w-2xl max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700 transform transition-all duration-300 scale-95" id="modalContent">
-        <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white font-heading" id="modalTitle">Kebijakan Privasi</h3>
-            <button type="button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition text-xl" id="closeModalBtn">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <!-- Body (scrollable) -->
-        <div class="px-6 py-5 overflow-y-auto max-h-[60vh] text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4" id="modalBody">
-            <!-- konten akan diisi oleh JavaScript -->
-        </div>
-
-        <!-- Footer -->
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-end">
-            <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition shadow-md shadow-blue-600/20" id="closeModalBtnFooter">
-                Tutup
-            </button>
-        </div>
-    </div>
-</div>
-
-<script>
-    (function() {
-        // Data konten
-        const policyData = {
-            'privacy': {
-                title: 'Kebijakan Privasi',
-                content: `
-                    <p><strong>Data yang Dikumpulkan:</strong> Kami mengumpulkan informasi yang diberikan secara sukarela oleh pengguna (nama, instansi, kontak) serta data teknis penggunaan aplikasi (log aktivitas, browser yang digunakan) untuk keperluan optimalisasi sistem.</p>
-                    <p><strong>Penggunaan Data:</strong> Data digunakan untuk menyediakan, memelihara, dan meningkatkan kualitas produk di bawah naungan Dongetik Digital (Edu, Gov, Literasi). Kami tidak menjual data pengguna kepada pihak ketiga mana pun.</p>
-                    <p><strong>Keamanan Data:</strong> Kami menerapkan standar enkripsi dan kontrol akses untuk melindungi data Anda dari akses, pengungkapan, atau modifikasi yang tidak sah.</p>
-                    <p><strong>Hak Pengguna:</strong> Anda berhak meminta akses, perbaikan, atau penghapusan data pribadi Anda yang tersimpan di sistem kami melalui kanal dukungan resmi.</p>
-                `
-            },
-            'terms': {
-                title: 'Syarat & Ketentuan',
-                content: `
-                    <p><strong>Definisi:</strong> Dongetik Digital adalah penyedia platform teknologi. Produk mencakup Dongetik Edu (Pendidikan), DongetikGov (Pemerintahan), dan DongetikLiterasi (Digitalisasi Konten).</p>
-                    <p><strong>Penggunaan Layanan:</strong> Pengguna wajib menggunakan layanan sesuai dengan hukum yang berlaku di Indonesia. Dilarang menyalahgunakan sistem untuk aktivitas ilegal atau merusak integritas data.</p>
-                    <p><strong>Hak Kekayaan Intelektual:</strong> Seluruh desain, kode sumber, dan konten pada platform Dongetik Digital adalah hak milik eksklusif Dongetik Digital.</p>
-                    <p><strong>Batasan Tanggung Jawab:</strong> Dongetik Digital berkomitmen menjaga uptime layanan, namun tidak bertanggung jawab atas kerugian tidak langsung yang timbul akibat kegagalan koneksi internet pihak ketiga atau kesalahan input data oleh pengguna.</p>
-                    <p><strong>Perubahan Layanan:</strong> Kami berhak melakukan pembaruan fitur atau pemeliharaan sistem sewaktu-waktu untuk meningkatkan kualitas layanan.</p>
-                `
-            },
-            'refund': {
-                title: 'Refund Policy',
-                content: `
-                    <p><strong>Prinsip Umum:</strong> Langganan layanan Dongetik Digital umumnya bersifat non-refundable (tidak dapat dikembalikan) setelah aktivasi dilakukan.</p>
-                    <p><strong>Kondisi Pengembalian Dana:</strong> Pengembalian dana hanya dimungkinkan jika terdapat kegagalan sistem yang fatal dari pihak kami yang menyebabkan layanan tidak dapat digunakan sama sekali selama lebih dari 7 (tujuh) hari kerja berturut-turut, dan kami tidak mampu memberikan solusi teknis.</p>
-                    <p><strong>Prosedur Pengajuan:</strong> Permintaan refund harus diajukan melalui email resmi dengan melampirkan bukti transaksi dan penjelasan kendala teknis.</p>
-                    <p><strong>Keputusan:</strong> Setiap pengajuan akan ditinjau oleh tim manajemen Dongetik Digital dalam waktu 14 hari kerja. Keputusan kami bersifat final.</p>
-                `
-            }
-        };
-
-        // Elemen modal
-        const modal = document.getElementById('policyModal');
-        const modalContent = document.getElementById('modalContent');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        const overlay = document.getElementById('modalOverlay');
-        const closeBtns = [
-            document.getElementById('closeModalBtn'),
-            document.getElementById('closeModalBtnFooter')
-        ];
-
-        // Fungsi buka modal
-        function openModal(type) {
-            const data = policyData[type];
-            if (!data) return;
-
-            modalTitle.textContent = data.title;
-            modalBody.innerHTML = data.content;
-
-            // Tampilkan modal dengan transisi
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modalContent.classList.remove('scale-95');
-            modalContent.classList.add('scale-100');
-            document.body.style.overflow = 'hidden'; // cegah scroll
-        }
-
-        // Fungsi tutup modal
-        function closeModal() {
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            document.body.style.overflow = '';
-        }
-
-        // Event listener untuk link di footer
-        document.querySelectorAll('footer a[href="#"]').forEach(link => {
-            const text = link.textContent.trim().toLowerCase();
-            let type = null;
-            if (text.includes('privasi')) type = 'privacy';
-            else if (text.includes('syarat') || text.includes('ketentuan')) type = 'terms';
-            else if (text.includes('refund')) type = 'refund';
-
-            if (type) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openModal(type);
-                });
-            }
-        });
-
-        // Event tutup modal
-        closeBtns.forEach(btn => {
-            if (btn) btn.addEventListener('click', closeModal);
-        });
-
-        // Tutup saat klik overlay
-        overlay.addEventListener('click', closeModal);
-
-        // Tutup dengan tombol Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
-                closeModal();
-            }
-        });
-
-        // Jika modal terbuka, tutup saat scroll ke atas (opsional, biarkan saja)
-    })();
-</script>
-<script>
-    (function() {
-        // 1. Dapatkan nama file halaman saat ini
-        const path = window.location.pathname;
-        const currentPage = path.split('/').pop() || 'index.html';
-
-        // 2. Mapping halaman ke selector link di navbar
-        const pageMap = {
-            'index.html': 'a[href="#beranda"], a[href="index.html#beranda"]',
-            'tentang-kami.html': 'a[href="tentang-kami.html"]',
-            'blog.html': 'a[href="blog.html"]',
-            'faq.html': 'a[href="faq.html"]'
-        };
-
-        // 3. Ambil semua link di navbar (sesuaikan dengan struktur menu Anda)
-        const nav = document.querySelector('nav');
-        if (!nav) return;
-
-        // Semua link di dalam navbar (termasuk dropdown)
-        const allLinks = nav.querySelectorAll('a');
-
-        // 4. Hapus kelas aktif dari semua link
-        allLinks.forEach(link => {
-            link.classList.remove('text-blue-600', 'font-semibold');
-        });
-
-        // 5. Cari link yang sesuai dengan halaman saat ini
-        let targetSelector = pageMap[currentPage];
-        if (!targetSelector) {
-            // Jika tidak ada mapping (misal halaman lain), fallback ke Beranda
-            targetSelector = pageMap['index.html'];
-        }
-
-        // Coba temukan dengan selector tunggal
-        let activeLink = document.querySelector(targetSelector);
-
-        // Jika tidak ditemukan, coba dengan pendekatan href (lebih fleksibel)
-        if (!activeLink) {
-            // Cari link yang href-nya mengandung nama halaman
-            allLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href && href.includes(currentPage.replace('.html', ''))) {
-                    activeLink = link;
-                }
+            // Jika hash berubah (klik link dari artikel lain), reload detail
+            window.addEventListener('hashchange', function() {
+                // Reload artikel agar modal muncul
+                fetchArticles();
             });
-        }
 
-        // 6. Tambahkan kelas aktif ke link yang ditemukan
-        if (activeLink) {
-            activeLink.classList.add('text-blue-600', 'font-semibold');
-        } else {
-            // Fallback: jika tidak ada yang cocok, tandai Beranda
-            const berandaLink = document.querySelector('a[href="#beranda"], a[href="index.html#beranda"]');
-            if (berandaLink) {
-                berandaLink.classList.add('text-blue-600', 'font-semibold');
-            }
-        }
-    })();
-</script>
+        })();
+    </script>
+
+    <!-- ===== SCRIPT UNTUK MODAL KEBIJAKAN (Opsional) ===== -->
+    <!-- Tidak saya tambahkan agar fokus ke blog, bisa ditambahkan nanti -->
 </body>
 </html>

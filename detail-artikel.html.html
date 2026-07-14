@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Artikel - Dongetik Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo-dongetik.png">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* ===== SAMA DENGAN BLOG.HTML ===== */
+        html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.dark {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        body.dark .bg-white { background: #1e293b; }
+        body.dark .bg-white/80 { background: #1e293b/80; }
+        body.dark .border-slate-100 { border-color: #334155; }
+        body.dark .text-slate-700 { color: #e2e8f0; }
+        body.dark .text-slate-500 { color: #94a3b8; }
+        body.dark .text-slate-400 { color: #94a3b8; }
+        body.dark .text-slate-900 { color: #f1f5f9; }
+        body.dark .bg-slate-50 { background: #1e293b; }
+        body.dark .bg-blue-50 { background: #1e293b; }
+        body.dark .bg-blue-50/80 { background: #1e293b/80; }
+        body.dark .bg-emerald-50 { background: #1e293b; }
+        body.dark .bg-purple-50 { background: #1e293b; }
+        body.dark .border-blue-100 { border-color: #334155; }
+        body.dark .border-emerald-100 { border-color: #334155; }
+        body.dark .border-purple-100 { border-color: #334155; }
+        body.dark .text-blue-600 { color: #60a5fa; }
+        body.dark .text-emerald-600 { color: #34d399; }
+        body.dark .text-purple-600 { color: #a78bfa; }
+        body.dark .bg-blue-600 { background: #2563eb; }
+        body.dark .hover\:text-blue-600:hover { color: #60a5fa; }
+        body.dark .hover\:text-emerald-600:hover { color: #34d399; }
+        body.dark .hover\:text-purple-600:hover { color: #a78bfa; }
+        body.dark .hover\:bg-blue-700:hover { background: #1d4ed8; }
+        body.dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2); }
+        body.dark .bg-white\/80 { background: #1e293b/80; }
+        body.dark .bg-slate-100 { background: #334155; }
+        body.dark .border-slate-200 { border-color: #334155; }
+        body.dark .bg-slate-50\/80 { background: #1e293b/80; }
+        body.dark .bg-slate-50 { background: #1e293b; }
+        body.dark .bg-blue-50\/80 { background: #1e293b/80; }
+        body.dark .text-slate-800 { color: #e2e8f0; }
+        body.dark .bg-blue-50\/50 { background: #1e293b/50; }
+        body.dark .border-slate-100 { border-color: #334155; }
+        body.dark .bg-slate-50\/60 { background: #1e293b/60; }
+        body.dark .border-slate-200\/60 { border-color: #334155/60; }
+        body.dark .bg-slate-100 { background: #334155; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 180px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            padding: 8px 0;
+            z-index: 60;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            transition: all 0.2s;
+        }
+        .dropdown-menu a:hover {
+            background: #f8fafc;
+            color: #2563eb;
+        }
+        .dropdown-wrapper {
+            position: relative;
+        }
+        .dropdown-wrapper:hover .dropdown-menu {
+            display: block;
+        }
+        /* Article content styling */
+        .article-content h1, .article-content h2, .article-content h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+        .article-content h1 { font-size: 2rem; }
+        .article-content h2 { font-size: 1.5rem; }
+        .article-content h3 { font-size: 1.25rem; }
+        .article-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .article-content blockquote {
+            border-left: 4px solid #2563eb;
+            padding-left: 1rem;
+            margin-left: 0;
+            color: #475569;
+            font-style: italic;
+        }
+        .article-content a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        body.dark .article-content h1,
+        body.dark .article-content h2,
+        body.dark .article-content h3 {
+            color: #f1f5f9;
+        }
+        body.dark .article-content blockquote {
+            color: #94a3b8;
+            border-left-color: #60a5fa;
+        }
+        body.dark .article-content a {
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <div class="dropdown-wrapper">
+                    <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://govtech.dongetik.net">Govtech</a>
+                        <a href="https://literasi.dongetik.net">Literasi</a>
+                        <a href="https://edu.dongetik.net">Edukasi</a>
+                    </div>
+                </div>
+                <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="blog.html" class="hover:text-blue-600 transition">Blog</a>
+                <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-5">
+                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== KONTEN DETAIL ===== -->
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-16 w-full">
+        <!-- Loading -->
+        <div id="loading-state" class="text-center py-16">
+            <div class="text-4xl text-blue-600 mb-4"><i class="fa-solid fa-spinner fa-spin"></i></div>
+            <p class="text-slate-500">Memuat artikel...</p>
+        </div>
+
+        <!-- Artikel (disembunyikan dulu) -->
+        <div id="article-content" class="hidden">
+            <div class="mb-6">
+                <a href="blog.html" class="text-blue-600 hover:underline text-sm font-medium">
+                    <i class="fa-regular fa-arrow-left mr-1"></i> Kembali ke Blog
+                </a>
+            </div>
+            <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm dark:bg-slate-800 dark:border-slate-700">
+                <h1 id="article-title" class="text-3xl font-black text-slate-900 font-heading mb-3"></h1>
+                <div id="article-meta" class="text-sm text-slate-500 mb-6 flex items-center gap-4">
+                    <span><i class="fa-regular fa-calendar mr-1"></i> <span id="article-date"></span></span>
+                    <span><span id="article-category" class="text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"></span></span>
+                </div>
+                <div id="article-image" class="mb-6"></div>
+                <div id="article-body" class="article-content text-slate-700 dark:text-slate-300"></div>
+            </div>
+        </div>
+
+        <!-- Error -->
+        <div id="error-state" class="text-center py-16 hidden">
+            <div class="text-6xl text-red-300 mb-4"><i class="fa-regular fa-circle-xmark"></i></div>
+            <p class="text-red-500 text-lg font-medium">Artikel tidak ditemukan</p>
+            <p class="text-slate-400 text-sm">Artikel yang Anda cari mungkin telah dihapus atau dipindahkan.</p>
+            <a href="blog.html" class="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-sm font-semibold">Kembali ke Blog</a>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="index.html" class="hover:text-blue-600 transition">Beranda</a></li>
+                    <li><a href="index.html#produk" class="hover:text-blue-600 transition">Produk</a></li>
+                    <li><a href="blog.html" class="hover:text-blue-600 transition">Blog</a></li>
+                    <li><a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
+                    <li><a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-3 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Syarat & Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="ikuti-kami" class="col-span-2 md:col-span-3 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPT DARK MODE ===== -->
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        const icon = toggleBtn.querySelector('i');
+        let darkMode = false;
+        toggleBtn.addEventListener('click', () => {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark', darkMode);
+            icon.className = darkMode ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+        });
+    </script>
+
+    <!-- ===== SCRIPT AMBIL DATA ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
+            // ============================================================
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
+
+            const loadingState = document.getElementById('loading-state');
+            const articleContainer = document.getElementById('article-content');
+            const errorState = document.getElementById('error-state');
+
+            // Ambil ID dari URL (?id=1)
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+
+            async function loadArticle() {
+                // Jika tidak ada ID, tampilkan error
+                if (!articleId) {
+                    loadingState.classList.add('hidden');
+                    errorState.classList.remove('hidden');
+                    document.querySelector('#error-state p.text-red-500').textContent = 'ID Artikel tidak ditemukan.';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(API_URL);
+                    if (!response.ok) throw new Error('Gagal mengambil data');
+
+                    const result = await response.json();
+                    if (!result.success) throw new Error(result.message || 'Gagal mengambil data');
+
+                    const articles = result.data || [];
+                    // Cari artikel berdasarkan ID (konversi ke string agar aman)
+                    const article = articles.find(a => String(a.ID) === String(articleId));
+
+                    if (!article) {
+                        loadingState.classList.add('hidden');
+                        errorState.classList.remove('hidden');
+                        return;
+                    }
+
+                    // ===== RENDER ARTIKEL =====
+                    renderArticle(article);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    loadingState.classList.add('hidden');
+                    errorState.classList.remove('hidden');
+                }
+            }
+
+            function renderArticle(article) {
+                // Judul
+                document.getElementById('article-title').textContent = article.Judul || 'Tanpa Judul';
+
+                // Tanggal
+                const dateEl = document.getElementById('article-date');
+                if (article.Tanggal) {
+                    try {
+                        const d = new Date(article.Tanggal);
+                        if (!isNaN(d)) {
+                            dateEl.textContent = d.toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            });
+                        } else {
+                            dateEl.textContent = article.Tanggal;
+                        }
+                    } catch (_) {
+                        dateEl.textContent = article.Tanggal;
+                    }
+                } else {
+                    dateEl.textContent = 'Tanggal tidak tersedia';
+                }
+
+                // Kategori (default)
+                document.getElementById('article-category').textContent = 'Blog';
+
+                // Gambar
+                const imgContainer = document.getElementById('article-image');
+                if (article.Gambar && article.Gambar.trim() !== '') {
+                    imgContainer.innerHTML = `
+                        <img src="${article.Gambar}" 
+                             alt="${article.Judul || 'Gambar artikel'}" 
+                             class="w-full max-h-[400px] object-cover rounded-xl shadow-sm"
+                             onerror="this.style.display='none'"
+                        />
+                    `;
+                } else {
+                    imgContainer.innerHTML = '';
+                }
+
+                // Body (parse Markdown)
+                const bodyEl = document.getElementById('article-body');
+                if (article.Isi) {
+                    bodyEl.innerHTML = marked.parse(article.Isi);
+                } else {
+                    bodyEl.innerHTML = '<p class="text-slate-400">Konten artikel kosong.</p>';
+                }
+
+                // Tampilkan konten, sembunyikan loading
+                loadingState.classList.add('hidden');
+                articleContainer.classList.remove('hidden');
+            }
+
+            // Jalankan
+            loadArticle();
+
+        })();
+    </script>
+
+</body>
+</html>
