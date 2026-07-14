@@ -1,8 +1,9 @@
 backend:
   name: github
-  repo: dongetikdigital/dongetik   # Ganti dengan repo Anda
+  repo: dongetikdigital/dongetik
   branch: main
-  auth_type: implicit              # ← Sveltia mendukung implicit OAuth
+  base_url: https://dongetik-oauth.dongetikdigital.workers.dev   # URL Worker Anda
+  auth_endpoint: /auth   # Endpoint login di Worker
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
