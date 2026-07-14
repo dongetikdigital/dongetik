@@ -6,10 +6,9 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Content Manager - Dongetik Digital</title>
     <script>
-        // 🌟 PENTING: Beri tahu CMS untuk TIDAK membaca file config.yml eksternal agar tidak bentrok
         window.CMS_MANUAL_INIT = true;
 
-        // 1. PENANGKAP TOKEN DARI WORKERS URL
+        // PENANGKAP TOKEN DARI WORKERS URL
         (function() {
             const hash = window.location.hash;
             if (hash && hash.includes("token=")) {
@@ -50,9 +49,10 @@
                     public_folder: "/images/uploads",
                     collections: [
                         {
-                            name: "blog",
+                            // 🌟 Diubah menjadi 'artikel_blog' agar tidak bentrok dengan internal CMS
+                            name: "artikel_blog", 
                             label: "Artikel Blog",
-                            folder: "content/blog",
+                            folder: "content/blog", // Tetap menyimpan ke folder content/blog Anda
                             extension: "json",
                             format: "json",
                             create: true,
