@@ -351,20 +351,17 @@
             icon.className = darkMode ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
         });
     </script>
-
     <!-- ============================================================ -->
-    <!-- SCRIPT FETCH ARTIKEL DARI GITHUB + RENDER KE HTML              -->
+    <!-- SCRIPT FETCH ARTIKEL DARI GOOGLE SHEETS (APPS SCRIPT)         -->
     <!-- ============================================================ -->
     <script>
         (function() {
             'use strict';
 
             // ============================================================
-            // KONFIGURASI — SESUAIKAN DENGAN REPOSITORI ANDA
+            // KONFIGURASI — GANTI DENGAN URL APPS SCRIPT ANDA
             // ============================================================
-            const GITHUB_USERNAME = 'dongetikdigital';   // Ganti dengan username GitHub Anda
-            const GITHUB_REPO = 'dongetik';       // Ganti dengan nama repositori Anda
-            const BLOG_FOLDER = 'content/blog';               // Folder tempat artikel disimpan
+            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';   // <-- GANTI!
 
             // ============================================================
             // DOM REFERENSI
@@ -398,7 +395,7 @@
             }
 
             // ============================================================
-            // FUNGSI RENDER ARTIKEL
+            // FUNGSI RENDER ARTIKEL (dari data Google Sheets)
             // ============================================================
             function renderArticles(articles) {
                 if (!articles || articles.length === 0) {
@@ -409,12 +406,11 @@
 
                 let html = '';
                 articles.forEach(artikel => {
-                    // Konversi tanggal jika ada
-                    const dateStr = artikel.date || artikel.published_at || '';
+                    // Format tanggal
                     let formattedDate = '';
-                    if (dateStr) {
+                    if (artikel.Tanggal) {
                         try {
-                            const d = new Date(dateStr);
+                            const d = new Date(artikel.Tanggal);
                             if (!isNaN(d)) {
                                 formattedDate = d.toLocaleDateString('id-ID', {
                                     day: 'numeric',
@@ -425,38 +421,31 @@
                         } catch (_) { /* abaikan */ }
                     }
 
-                    // Slug untuk link detail
-                    const slug = artikel.slug || artikel.id || '';
+                    // Konten (potong untuk deskripsi)
+                    const contentText = artikel.Isi || '';
+                    const description = contentText.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1').substring(0, 120) + '...';
 
-                    // Warna tag berdasarkan kategori (opsional)
-                    const category = artikel.category || 'Umum';
-                    let tagColor = 'text-blue-600 bg-blue-50';
-                    if (category.toLowerCase().includes('ebook') || category.toLowerCase().includes('literasi')) {
-                        tagColor = 'text-emerald-600 bg-emerald-50';
-                    } else if (category.toLowerCase().includes('govtech') || category.toLowerCase().includes('pemerintahan')) {
-                        tagColor = 'text-purple-600 bg-purple-50';
-                    } else if (category.toLowerCase().includes('produktivitas') || category.toLowerCase().includes('tips')) {
-                        tagColor = 'text-amber-600 bg-amber-50';
-                    }
+                    // Kategori default
+                    const category = 'Blog';
 
                     html += `
                         <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col justify-between">
-                            <img src="${artikel.thumbnail || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'}" 
+                            <img src="${artikel.Gambar || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'}" 
                                  class="w-full h-48 object-cover" 
-                                 alt="${artikel.title || 'Artikel'}"
+                                 alt="${artikel.Judul || 'Artikel'}"
                                  loading="lazy"
                                  onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'">
                             <div class="p-6 flex-grow flex flex-col justify-between">
                                 <div>
-                                    <span class="text-[11px] font-bold ${tagColor} px-2.5 py-1 rounded-full uppercase tracking-wider">${category}</span>
+                                    <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider">${category}</span>
                                     <h3 class="text-base font-bold text-slate-900 mt-3 mb-2 font-heading hover:text-blue-600 transition">
-                                        <a href="detail-artikel.html?id=${encodeURIComponent(slug)}">${artikel.title || 'Judul Artikel'}</a>
+                                        <a href="detail-artikel.html?id=${artikel.ID || ''}">${artikel.Judul || 'Judul Artikel'}</a>
                                     </h3>
-                                    <p class="text-slate-400 text-xs leading-relaxed line-clamp-3">${artikel.description || ''}</p>
+                                    <p class="text-slate-400 text-xs leading-relaxed line-clamp-3">${description}</p>
                                 </div>
                                 <div class="text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
                                     <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate || 'Tanggal terbit'}</span>
-                                    <a href="detail-artikel.html?id=${encodeURIComponent(slug)}" class="font-bold text-blue-600 hover:underline">Baca Selengkapnya</a>
+                                    <a href="detail-artikel.html?id=${artikel.ID || ''}" class="font-bold text-blue-600 hover:underline">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -469,76 +458,24 @@
             }
 
             // ============================================================
-            // FUNGSI FETCH DAFTAR ARTIKEL DARI GITHUB
+            // FUNGSI FETCH DARI GOOGLE SHEETS
             // ============================================================
             async function fetchArticles() {
                 try {
-                    // Tampilkan skeleton loading
                     renderSkeletons(3);
 
-                    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${BLOG_FOLDER}`;
-                    const response = await fetch(url);
-
+                    const response = await fetch(API_URL);
                     if (!response.ok) {
-                        if (response.status === 404) {
-                            // Folder belum ada
-                            blogContainer.innerHTML = '';
-                            emptyState.classList.remove('hidden');
-                            return;
-                        }
                         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                     }
 
-                    const files = await response.json();
+                    const result = await response.json();
 
-                    if (!Array.isArray(files) || files.length === 0) {
-                        blogContainer.innerHTML = '';
-                        emptyState.classList.remove('hidden');
-                        return;
+                    if (!result.success) {
+                        throw new Error(result.message || 'Gagal mengambil data');
                     }
 
-                    // Filter hanya file JSON
-                    const jsonFiles = files.filter(file => file.name.endsWith('.json'));
-
-                    if (jsonFiles.length === 0) {
-                        blogContainer.innerHTML = '';
-                        emptyState.classList.remove('hidden');
-                        return;
-                    }
-
-                    // Baca konten setiap file JSON
-                    const articles = [];
-                    for (const file of jsonFiles) {
-                        try {
-                            const fileResponse = await fetch(file.download_url);
-                            if (!fileResponse.ok) continue;
-                            const articleData = await fileResponse.json();
-
-                            // Tambahkan slug dari nama file (tanpa ekstensi .json)
-                            const slug = file.name.replace(/\.json$/, '');
-                            articles.push({
-                                ...articleData,
-                                id: slug,
-                                slug: slug,
-                                // Pastikan properti yang dibutuhkan ada
-                                title: articleData.title || 'Judul Artikel',
-                                description: articleData.description || '',
-                                thumbnail: articleData.thumbnail || articleData.image || '',
-                                category: articleData.category || articleData.kategori || 'Umum',
-                                date: articleData.date || articleData.published_at || articleData.tanggal || ''
-                            });
-                        } catch (err) {
-                            console.warn('Gagal membaca file:', file.name, err);
-                        }
-                    }
-
-                    // Urutkan berdasarkan tanggal terbaru (jika ada)
-                    articles.sort((a, b) => {
-                        const dateA = a.date ? new Date(a.date) : new Date(0);
-                        const dateB = b.date ? new Date(b.date) : new Date(0);
-                        return dateB - dateA;
-                    });
-
+                    const articles = result.data || [];
                     renderArticles(articles);
 
                 } catch (error) {
@@ -558,7 +495,7 @@
             }
 
         })();
-    </script>
+</script>
 <!-- ===== MODAL POP-UP UNTUK KEBIJAKAN ===== -->
 <div id="policyModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 transition-opacity duration-300 opacity-0 pointer-events-none">
     <!-- Overlay -->
