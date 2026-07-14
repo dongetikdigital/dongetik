@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dongetikdigital/dongetik
   branch: main
-  base_url: https://dongetik-oauth.dongetikdigital.workers.dev
+  auth_type: implicit   # ← Kunci!
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
