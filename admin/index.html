@@ -15,11 +15,16 @@
     <script>
         window.addEventListener("message", (event) => {
             if (typeof event.data === "string" && event.data.startsWith("authorization:github:success:")) {
-                console.log("Token login diterima! Membuka dasbor...");
-                // Memaksa CMS membaca token secara lokal jika sistem otomatisnya terlambat
+                console.log("Token login diterima!");
                 const tokenStr = event.data.replace("authorization:github:success:", "");
                 const tokenData = JSON.parse(tokenStr);
+                
+                // Menyimpan dengan format yang dikenali langsung oleh Decap CMS
+                localStorage.setItem("decap-cms-user", JSON.stringify(tokenData));
                 localStorage.setItem("netlify-cms-user", JSON.stringify(tokenData));
+                
+                // Memicu muat ulang halaman agar CMS langsung membaca status login yang baru disimpan
+                window.location.reload();
             }
         }, false);
     </script>
