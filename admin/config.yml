@@ -1,20 +1,20 @@
-# backend: tentukan dimana repo Anda disimpan
 backend:
-  name: git-gateway
+  name: github
+  repo: dongetikdigital/dongetik
   branch: main
-  auth_type: pkce   # ← PENTING! Menggunakan PKCE untuk keamanan
-# media_folder: tempat menyimpan gambar
+  base_url: https://dongetik-oauth.dongetikdigital.workers.dev   # URL Worker Anda
+  auth_endpoint: /auth   # Endpoint untuk login
+
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
-# collections: daftar jenis konten (dalam hal ini blog)
 collections:
-  - name: "blog"                     # Nama koleksi
-    label: "Artikel Blog"            # Label di dashboard
-    folder: "content/blog"           # Folder penyimpanan file .md (akan dibuat otomatis)
-    create: true                     # Izinkan membuat artikel baru
-    slug: "{{slug}}"                 # Format nama file (misal judul-artikel.md)
-    fields:                          # Field / kolom yang diisi saat menulis
+  - name: "blog"
+    label: "Artikel Blog"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
       - { label: "Judul", name: "title", widget: "string" }
       - { label: "Tanggal", name: "date", widget: "datetime" }
       - { label: "Isi Artikel", name: "body", widget: "markdown" }
