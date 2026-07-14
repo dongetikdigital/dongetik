@@ -9,126 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="icon" type="image/png" href="logo-dongetik.png" />
     <style>
-        /* Reset sederhana */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            transition: background 0.3s, color 0.3s;
-        }
-        body.dark {
-            background: #0f172a;
-            color: #e2e8f0;
-        }
-        /* Dark mode overrides */
-        body.dark .bg-white { background: #1e293b; }
-        body.dark .bg-white/80 { background: #1e293b/80; }
-        body.dark .border-slate-100 { border-color: #334155; }
-        body.dark .text-slate-700 { color: #e2e8f0; }
-        body.dark .text-slate-500 { color: #94a3b8; }
-        body.dark .text-slate-400 { color: #94a3b8; }
-        body.dark .text-slate-900 { color: #f1f5f9; }
-        body.dark .bg-slate-50 { background: #1e293b; }
-        body.dark .bg-blue-50 { background: #1e293b; }
-        body.dark .text-blue-600 { color: #60a5fa; }
-        body.dark .bg-blue-600 { background: #2563eb; }
-        body.dark .hover\:text-blue-600:hover { color: #60a5fa; }
-        body.dark .bg-slate-100 { background: #334155; }
-        body.dark .border-slate-200 { border-color: #334155; }
-
-        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        /* Dropdown (sama seperti sebelumnya) */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 180px;
-            border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            border: 1px solid #f1f5f9;
-            padding: 8px 0;
-            z-index: 60;
-        }
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #1e293b;
-            transition: 0.2s;
-        }
-        .dropdown-menu a:hover {
-            background: #f8fafc;
-            color: #2563eb;
-        }
-        .dropdown-wrapper { position: relative; }
-        .dropdown-wrapper:hover .dropdown-menu { display: block; }
-
-        /* Skeleton */
-        .skeleton {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 0.3; }
-        }
-        .skeleton .s-img {
-            background: #e2e8f0;
-            height: 192px;
-            border-radius: 12px;
-        }
-        .skeleton .s-title {
-            background: #e2e8f0;
-            height: 24px;
-            border-radius: 8px;
-            width: 80%;
-            margin-top: 12px;
-        }
-        .skeleton .s-desc {
-            background: #e2e8f0;
-            height: 16px;
-            border-radius: 8px;
-            margin-top: 8px;
-            width: 100%;
-        }
-        .skeleton .s-desc.short { width: 70%; }
-        body.dark .skeleton .s-img,
-        body.dark .skeleton .s-title,
-        body.dark .skeleton .s-desc {
-            background: #334155;
-        }
-
-        /* Line clamp */
-        .line-clamp-3 {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Blog card */
+        body { font-family: 'Inter', sans-serif; background: #ffffff; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
         .blog-card {
             background: white;
             border: 1px solid #f1f5f9;
             border-radius: 16px;
             overflow: hidden;
-            transition: box-shadow 0.2s;
+            transition: box-shadow 0.2s, transform 0.15s;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
         .blog-card:hover {
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-        body.dark .blog-card {
-            background: #1e293b;
-            border-color: #334155;
+            transform: translateY(-2px);
         }
         .blog-card img {
             width: 100%;
@@ -154,10 +50,6 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        body.dark .blog-card .card-body .top .category {
-            background: #1e293b;
-            color: #60a5fa;
-        }
         .blog-card .card-body .top h3 {
             font-size: 1.05rem;
             font-weight: 700;
@@ -166,16 +58,11 @@
             margin-bottom: 0.5rem;
             line-height: 1.4;
         }
-        body.dark .blog-card .card-body .top h3 {
-            color: #f1f5f9;
-        }
         .blog-card .card-body .top h3 a {
             color: inherit;
             text-decoration: none;
         }
-        .blog-card .card-body .top h3 a:hover {
-            color: #2563eb;
-        }
+        .blog-card .card-body .top h3 a:hover { color: #2563eb; }
         .blog-card .card-body .top p {
             font-size: 0.85rem;
             color: #94a3b8;
@@ -191,21 +78,12 @@
             font-size: 12px;
             color: #94a3b8;
         }
-        body.dark .blog-card .card-body .footer-meta {
-            border-top-color: #334155;
-        }
         .blog-card .card-body .footer-meta .read-more {
             font-weight: 700;
             color: #2563eb;
             text-decoration: none;
         }
-        .blog-card .card-body .footer-meta .read-more:hover {
-            text-decoration: underline;
-        }
-        body.dark .blog-card .card-body .footer-meta .read-more {
-            color: #60a5fa;
-        }
-
+        .blog-card .card-body .footer-meta .read-more:hover { text-decoration: underline; }
         @media (max-width: 640px) {
             .blog-card img { height: 160px; }
         }
@@ -214,7 +92,7 @@
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
     <!-- ===== NAVBAR ===== -->
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
@@ -225,22 +103,14 @@
             </div>
             <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
                 <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
-                <div class="dropdown-wrapper">
-                    <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="https://govtech.dongetik.net">Govtech</a>
-                        <a href="https://literasi.dongetik.net">Literasi</a>
-                        <a href="https://edu.dongetik.net">Edukasi</a>
-                    </div>
-                </div>
+                <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
                 <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="blog.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Blog</a>
-                <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
+                <a href="blog.html" class="text-blue-600 font-semibold">Blog</a>
+                <a href="faq.html" class="hover:text-blue-600 transition">FAQ</a>
+                <a href="#kontak" class="hover:text-blue-600 transition">Kontak</a>
             </div>
             <div class="flex items-center gap-5">
-                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
-                    <i class="fa-regular fa-sun"></i>
-                </button>
+                <button class="text-slate-600 hover:text-blue-600 transition text-lg"><i class="fa-regular fa-sun"></i></button>
             </div>
         </div>
     </nav>
@@ -252,229 +122,128 @@
             <p class="text-slate-500 text-sm">Temukan tips produktivitas, ulasan produk teknologi, dan edukasi gaya hidup digital.</p>
         </div>
 
-        <div id="daftar-blog" class="grid md:grid-cols-3 gap-8"></div>
+        <!-- Grid Artikel (semua link mengarah ke folder artikel/) -->
+        <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- Empty -->
-        <div id="empty-state" class="text-center py-16 hidden">
-            <div class="text-6xl text-slate-300 mb-4"><i class="fa-regular fa-newspaper"></i></div>
-            <p class="text-slate-500 text-lg font-medium">Belum ada artikel</p>
-            <p class="text-slate-400 text-sm">Artikel akan segera hadir. Pantau terus ya!</p>
-        </div>
+            <!-- Card 1: Produktivitas -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Produktivitas Digital" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Produktivitas</span>
+                        <h3><a href="artikel/produktivitas-digital.html">5 Tips Produktivitas Digital untuk Kerja Hybrid</a></h3>
+                        <p>Pelajari cara mengelola waktu dan fokus dengan tools digital yang tepat.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/produktivitas-digital.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Error -->
-        <div id="error-state" class="text-center py-16 hidden">
-            <div class="text-6xl text-red-300 mb-4"><i class="fa-regular fa-circle-xmark"></i></div>
-            <p class="text-red-500 text-lg font-medium">Gagal memuat artikel</p>
-            <p class="text-slate-400 text-sm">Terjadi kesalahan saat mengambil data. Silakan muat ulang halaman.</p>
-            <button onclick="location.reload()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-sm font-semibold">Muat Ulang</button>
+            <!-- Card 2: Bisnis -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Bisnis Online" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Bisnis</span>
+                        <h3><a href="artikel/panduan-bisnis-online.html">Panduan Lengkap Memulai Bisnis Online di 2026</a></h3>
+                        <p>Langkah praktis membangun bisnis digital dari nol hingga menghasilkan.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/panduan-bisnis-online.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Keuangan -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80" alt="Aplikasi Keuangan" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Keuangan</span>
+                        <h3><a href="artikel/aplikasi-keuangan-terbaik.html">Review 5 Aplikasi Pengelola Keuangan Terbaik</a></h3>
+                        <p>Bandingkan fitur dan harga aplikasi keuangan untuk pribadi dan bisnis.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/aplikasi-keuangan-terbaik.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Ebook -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" alt="Ebook" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Literasi</span>
+                        <h3><a href="artikel/efisiensi-ebook.html">Mengapa Membaca Ebook Lebih Efisien di Era Sekarang?</a></h3>
+                        <p>Keuntungan membaca ebook dibanding buku fisik di tengah kesibukan digital.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/efisiensi-ebook.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Kesehatan (berhenti merokok) -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80" alt="Kesehatan" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Kesehatan</span>
+                        <h3><a href="artikel/berhenti-merokok.html">Kenapa Sulit Berhenti Merokok? Satu Alasan Rasional</a></h3>
+                        <p>Perokok hanya perlu 1 alasan untuk berhenti, alasan yang paling rasional tak bisa terbantahkan.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/berhenti-merokok.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Pendidikan (tes diagnosis) -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c7f1?auto=format&fit=crop&w=400&q=80" alt="Pendidikan" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Pendidikan</span>
+                        <h3><a href="artikel/pentingnya-tes-diagnosis.html">Pentingnya Tes Diagnosis untuk Siswa</a></h3>
+                        <p>Mengidentifikasi kelemahan siswa sejak dini demi hasil belajar yang optimal.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/pentingnya-tes-diagnosis.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Promosi Sangkatan -->
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80" alt="Buku Alumni" loading="lazy" />
+                <div class="card-body">
+                    <div class="top">
+                        <span class="category">Produk</span>
+                        <h3><a href="artikel/buku-alumni-sangkatan.html">Masih Perlukan Buku Alumni untuk Lulusan?</a></h3>
+                        <p>Kenali Sangkatan, platform digital yang mengubah buku fisik alumni menjadi online dan abadi.</p>
+                    </div>
+                    <div class="footer-meta">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
+                        <a href="artikel/buku-alumni-sangkatan.html" class="read-more">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
-            <div class="col-span-2 md:col-span-4 space-y-4">
-                <div class="flex items-center gap-2">
-                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
-                    <div class="border-l border-slate-200 pl-3">
-                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
-                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
-                    </div>
-                </div>
-                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
-            </div>
-            <div class="col-span-1 md:col-span-2 space-y-3">
-                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
-                <ul class="space-y-2 text-xs font-medium">
-                    <li><a href="index.html" class="hover:text-blue-600 transition">Beranda</a></li>
-                    <li><a href="index.html#produk" class="hover:text-blue-600 transition">Produk</a></li>
-                    <li><a href="blog.html" class="hover:text-blue-600 transition">Blog</a></li>
-                    <li><a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
-                    <li><a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a></li>
-                </ul>
-            </div>
-            <div class="col-span-1 md:col-span-3 space-y-3">
-                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
-                <ul class="space-y-2 text-xs font-medium">
-                    <li><a href="faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition">Syarat & Ketentuan</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
-                </ul>
-            </div>
-            <div id="ikuti-kami" class="col-span-2 md:col-span-3 space-y-3">
-                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
-                <div class="flex items-center gap-3">
-                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
-                        <i class="fa-brands fa-facebook text-sm"></i>
-                    </a>
-                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                    </a>
-                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
-                        <i class="fa-regular fa-envelope text-sm"></i>
-                    </a>
-                </div>
-                <div class="pt-3">
-                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
-                </div>
-            </div>
-        </div>
+    <footer class="bg-white border-t border-slate-100 py-8 text-center text-xs text-slate-400 mt-auto">
+        <p>&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
     </footer>
 
-    <!-- ===== DARK MODE ===== -->
-    <script>
-        (function() {
-            const toggle = document.getElementById('themeToggle');
-            const icon = toggle.querySelector('i');
-            let dark = false;
-            toggle.addEventListener('click', () => {
-                dark = !dark;
-                document.body.classList.toggle('dark', dark);
-                icon.className = dark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
-            });
-        })();
-    </script>
-
-    <!-- ===== MARKED.JS ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- ===== SCRIPT FETCH ===== -->
-    <script>
-        (function() {
-            'use strict';
-
-            // ============================================================
-            // GANTI URL INI DENGAN URL APPS SCRIPT ANDA!
-            // ============================================================
-            const API_URL = 'https://script.google.com/macros/s/AKfycbwds7xi_neyia3A6YRXuuqRt9KhJSvRSdK94ngbbIcigirFI3eK6mhsyG3cZlSBrSKpWA/exec';
-
-            const blogContainer = document.getElementById('daftar-blog');
-            const emptyState = document.getElementById('empty-state');
-            const errorState = document.getElementById('error-state');
-
-            // ===== RENDER SKELETON =====
-            function renderSkeletons(count = 3) {
-                let html = '';
-                for (let i = 0; i < count; i++) {
-                    html += `
-                        <div class="skeleton">
-                            <div class="blog-card">
-                                <div class="s-img"></div>
-                                <div class="card-body">
-                                    <div class="top">
-                                        <div class="s-title"></div>
-                                        <div class="s-desc mt-2"></div>
-                                        <div class="s-desc short mt-1"></div>
-                                    </div>
-                                    <div class="footer-meta">
-                                        <span class="s-desc" style="width:60px;height:14px;"></span>
-                                        <span class="s-desc" style="width:80px;height:14px;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-                blogContainer.innerHTML = html;
-            }
-
-            // ===== STRIP MARKDOWN =====
-            function stripMarkdown(text) {
-                if (!text) return '';
-                return text
-                    .replace(/\*\*(.*?)\*\*/g, '$1')
-                    .replace(/\*(.*?)\*/g, '$1')
-                    .replace(/\[(.*?)\]\(.*?\)/g, '$1')
-                    .replace(/!\[.*?\]\(.*?\)/g, '')
-                    .replace(/#{1,6}\s/g, '')
-                    .replace(/`{1,3}.*?`{1,3}/g, '')
-                    .replace(/\n/g, ' ')
-                    .trim();
-            }
-
-            // ===== RENDER ARTIKEL =====
-            function renderArticles(articles) {
-                if (!articles || articles.length === 0) {
-                    blogContainer.innerHTML = '';
-                    emptyState.classList.remove('hidden');
-                    return;
-                }
-
-                let html = '';
-                articles.forEach((artikel) => {
-                    const id = artikel.ID || 0;
-                    const judul = artikel.Judul || 'Judul Artikel';
-                    const tanggal = artikel.Tanggal || '';
-                    const gambar = artikel.Gambar || '';
-                    const isi = artikel.Isi || '';
-
-                    let formattedDate = '';
-                    if (tanggal) {
-                        try {
-                            const d = new Date(tanggal);
-                            if (!isNaN(d)) {
-                                formattedDate = d.toLocaleDateString('id-ID', {
-                                    day: 'numeric',
-                                    month: 'short',
-                                    year: 'numeric'
-                                });
-                            }
-                        } catch (_) {}
-                    }
-
-                    const plain = stripMarkdown(isi);
-                    const description = plain.substring(0, 120) + (plain.length > 120 ? '...' : '');
-
-                    const imgSrc = gambar || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80';
-
-                    html += `
-                        <div class="blog-card">
-                            <img src="${imgSrc}" alt="${judul}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80'">
-                            <div class="card-body">
-                                <div class="top">
-                                    <span class="category">Blog</span>
-                                    <h3><a href="detail-artikel.html?id=${id}">${judul}</a></h3>
-                                    <p class="line-clamp-3">${description}</p>
-                                </div>
-                                <div class="footer-meta">
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate || 'Tanpa tanggal'}</span>
-                                    <a href="detail-artikel.html?id=${id}" class="read-more">Baca Selengkapnya</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                blogContainer.innerHTML = html;
-                emptyState.classList.add('hidden');
-                errorState.classList.add('hidden');
-            }
-
-            // ===== FETCH =====
-            async function fetchArticles() {
-                try {
-                    renderSkeletons(3);
-                    const response = await fetch(API_URL);
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    const result = await response.json();
-                    if (!result.success) throw new Error(result.message || 'Gagal mengambil data');
-                    const articles = result.data || [];
-                    renderArticles(articles);
-                } catch (error) {
-                    console.error('Error:', error);
-                    blogContainer.innerHTML = '';
-                    errorState.classList.remove('hidden');
-                }
-            }
-
-            // ===== JALANKAN =====
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', fetchArticles);
-            } else {
-                fetchArticles();
-            }
-        })();
-    </script>
 </body>
 </html>
