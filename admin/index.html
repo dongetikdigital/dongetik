@@ -38,6 +38,9 @@
         if (typeof CMS !== 'undefined') {
             CMS.init({
                 config: {
+                    // ⭐⭐⭐ TAMBAHKAN BARIS INI ⭐⭐⭐
+                    load_config_file: false,
+                    
                     backend: {
                         name: "github",
                         repo: "dongetikdigital/dongetik",
@@ -49,10 +52,9 @@
                     public_folder: "/images/uploads",
                     collections: [
                         {
-                            // 🌟 Diubah menjadi 'artikel_blog' agar tidak bentrok dengan internal CMS
                             name: "artikel_blog", 
                             label: "Artikel Blog",
-                            folder: "content/blog", // Tetap menyimpan ke folder content/blog Anda
+                            folder: "content/blog",
                             extension: "json",
                             format: "json",
                             create: true,
