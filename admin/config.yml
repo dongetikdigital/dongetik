@@ -1,17 +1,18 @@
 backend:
   name: github
-  repo: username-github-anda/nama-repositori-anda # ⚠️ Ganti dengan repo github Anda
-  branch: main # Atau nama branch Cloudflare Anda
+  repo: dongetikdigital/dongetik # Sesuai repo Anda
+  branch: main
+  base_url: https://decap-cms-oauth.onrender.com # Gerbang login otomatis gratis
 
-media_folder: "images/uploads" # Folder otomatis untuk menyimpan gambar upload artikel
+media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "blog"
     label: "Artikel Blog"
-    folder: "content/blog" # Tempat file artikel disimpan
-    extension: "json"      # 🌟 Ditambahkan agar CMS menyimpan dalam bentuk .json
-    format: "json"         # 🌟 Ditambahkan agar isi file berformat JSON sesuai blog.html Anda
+    folder: "content/blog"
+    extension: "json"
+    format: "json"
     create: true
     slug: "{{slug}}"
     fields:
