@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dongetik Digital - Solusi Digital</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" type="image/png" href="logo-dongetik.png" />
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5.5rem;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.dark {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        body.dark .bg-white {
+            background: #1e293b;
+        }
+        body.dark .bg-slate-50\/60 {
+            background: #1e293b;
+        }
+        body.dark .border-slate-100 {
+            border-color: #334155;
+        }
+        body.dark .text-slate-700 {
+            color: #e2e8f0;
+        }
+        body.dark .text-slate-500 {
+            color: #94a3b8;
+        }
+        body.dark .text-slate-400 {
+            color: #94a3b8;
+        }
+        body.dark .text-slate-900 {
+            color: #f1f5f9;
+        }
+        body.dark .text-slate-800 {
+            color: #e2e8f0;
+        }
+        body.dark .bg-slate-50 {
+            background: #1e293b;
+        }
+        body.dark .bg-blue-50 {
+            background: #1e293b;
+        }
+        body.dark .bg-blue-50\/50 {
+            background: #1e293b;
+        }
+        body.dark .bg-white\/80 {
+            background: #1e293b/80;
+        }
+        body.dark .hero-bg {
+            background: #0f172a;
+        }
+        body.dark .bg-slate-50\/60 {
+            background: #1e293b;
+        }
+        body.dark .bg-blue-50\/50 {
+            background: #1e293b;
+        }
+        body.dark .bg-blue-100\/70 {
+            border-color: #334155;
+            background: #1e293b;
+        }
+        body.dark .bg-emerald-100\/70 {
+            border-color: #334155;
+            background: #1e293b;
+        }
+        body.dark .bg-purple-100\/70 {
+            border-color: #334155;
+            background: #1e293b;
+        }
+        body.dark .border-blue-100 {
+            border-color: #334155;
+        }
+        body.dark .border-emerald-100 {
+            border-color: #334155;
+        }
+        body.dark .border-purple-100 {
+            border-color: #334155;
+        }
+        body.dark .dropdown-menu {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        body.dark .dropdown-menu a {
+            color: #e2e8f0;
+        }
+        body.dark .dropdown-menu a:hover {
+            background: #2d3a4f;
+            color: #60a5fa;
+        }
+        body.dark .mockup-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        body.dark .mockup-item .label {
+            color: #e2e8f0;
+        }
+        body.dark .text-blue-600 {
+            color: #60a5fa;
+        }
+        body.dark .bg-blue-600 {
+            background: #2563eb;
+        }
+        body.dark .bg-blue-600\/20 {
+            background: #2563eb/20;
+        }
+        body.dark .bg-blue-50\/50 {
+            background: #1e293b;
+        }
+        h1,
+        h2,
+        h3,
+        .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 180px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            padding: 8px 0;
+            z-index: 60;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            transition: all 0.2s;
+        }
+        .dropdown-menu a:hover {
+            background: #f8fafc;
+            color: #2563eb;
+        }
+        .dropdown-wrapper {
+            position: relative;
+        }
+        .dropdown-wrapper:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* ===== MOCKUP SLIDER - FULL WIDTH, TANPA BORDER ===== */
+        .mockup-slider-wrapper {
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .mockup-slider {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: nowrap;
+            padding: 0 1.5rem;
+        }
+        .mockup-slider .mockup-item {
+            flex: 1 1 0;
+            min-width: 0;
+            background: white;
+            border-radius: 20px;
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f1f5f9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .mockup-slider .mockup-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        .mockup-slider .mockup-item img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+        .mockup-slider .mockup-item .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-top: 8px;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        body.dark .mockup-slider .mockup-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        body.dark .mockup-slider .mockup-item .label {
+            color: #e2e8f0;
+        }
+
+        /* transisi lebih lambat & halus */
+        .mockup-item {
+            transition: opacity 1.2s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .mockup-slider .mockup-item.fade-transition {
+            opacity: 0;
+        }
+        .mockup-slider .mockup-item.fade-transition.show {
+            opacity: 1;
+        }
+
+        /* ===== TOMBOL SCROLL KE ATAS ===== */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, transform 0.3s ease, background 0.2s;
+            transform: translateY(20px);
+        }
+        #scrollTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scrollTopBtn:hover {
+            background: #1d4ed8;
+            transform: scale(1.05);
+        }
+        body.dark #scrollTopBtn {
+            background: #3b82f6;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        body.dark #scrollTopBtn:hover {
+            background: #60a5fa;
+        }
+
+        /* header bg (tidak berubah) */
+        .header-bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: url('gambar.header.png');
+            background-size: cover;
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+        .header-overlay-gradient {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0.88) 30%,
+                    rgba(255, 255, 255, 0.50) 60%,
+                    transparent 80%);
+            pointer-events: none;
+        }
+        body.dark .header-overlay-gradient {
+            background: linear-gradient(to right,
+                    rgba(15, 23, 42, 0.88) 30%,
+                    rgba(15, 23, 42, 0.50) 60%,
+                    transparent 80%);
+        }
+        .header-deco {
+            z-index: 2;
+            pointer-events: none;
+        }
+        .header-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        @media (max-width: 1024px) {
+            .header-bg-layer {
+                background-position: center;
+            }
+            .header-overlay-gradient {
+                background: rgba(255, 255, 255, 0.75);
+            }
+            body.dark .header-overlay-gradient {
+                background: rgba(15, 23, 42, 0.80);
+            }
+            .mockup-slider {
+                padding: 0 1rem;
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .mockup-slider {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+            }
+            .mockup-slider .mockup-item {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- Brand / Logo -->
+        <div class="flex items-center gap-2">
+            <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+            <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+            </div>
+        </div>
+
+        <!-- Menu Navigasi Desktop -->
+        <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+            <a href="index.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Beranda</a>
+            <div class="dropdown-wrapper">
+                <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+                <div class="dropdown-menu">
+                    <a href="https://govtech.dongetik.net">Govtech</a>
+                    <a href="https://literasi.dongetik.net">Literasi</a>
+                    <a href="https://edu.dongetik.net">Edukasi</a>
+                </div>
+            </div>
+            <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+            <a href="blog.html" class="hover:text-blue-600 transition">Blog</a>
+            <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
+        </div>
+
+        <!-- Tombol Tema (Dark/Light) -->
+        <div class="flex items-center gap-5">
+            <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
+                <i class="fa-regular fa-sun"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <!-- ===== HEADER ===== -->
+    <header id="beranda" class="relative overflow-hidden bg-white dark:bg-slate-900 transition-colors duration-300 min-h-[70vh] flex items-center">
+
+        <div class="header-bg-layer"></div>
+        <div class="header-overlay-gradient"></div>
+
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-400/10 blur-[120px] header-deco"></div>
+        <div class="absolute bottom-[-10%] right-[-5%] w-[550px] h-[550px] rounded-full bg-indigo-400/15 blur-[140px] header-deco"></div>
+
+        <div class="header-content max-w-7xl mx-auto px-6 w-full py-12">
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-6 text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/80 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold tracking-wide w-fit backdrop-blur-sm">
+                        <i class="fa-regular fa-bookmark"></i> Panduan · Ebook · Tools Digital
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-[1.15] tracking-tight font-heading">
+                        Transformasi <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Digital</span> Mudah untuk Solusi yang Tepat.
+                    </h1>
+                    <p class="text-slate-700 dark:text-slate-200 leading-relaxed max-w-lg text-[16px]">
+                        Mengintegrasikan panduan, literasi, dan perangkat digital premium untuk mendukung produktivitas, akademik, dan kualitas hidup Anda.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#produk" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg shadow-blue-600/20 transform hover:-translate-y-0.5 transition-all duration-200 text-sm flex items-center gap-2">
+                            Jelajahi Produk <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="#produk" class="px-8 py-3.5 bg-white/80 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-full border border-slate-200 dark:border-slate-700 transition-all duration-200 text-sm flex items-center justify-center gap-2 backdrop-blur-sm">
+                            Lihat Kategori <i class="fa-solid fa-table-cells text-xs text-slate-400"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-200/60 max-w-md">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-50/80 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-xs backdrop-blur-sm"><i class="fa-solid fa-shield-halved"></i></div>
+                            <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">Kualitas Premium</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-50/80 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-xs backdrop-blur-sm"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+                            <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">Akses Instan</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-50/80 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-xs backdrop-blur-sm"><i class="fa-solid fa-lock"></i></div>
+                            <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">Aman Terpercaya</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-6 hidden lg:block"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PRODUK -->
+    <section id="produk" class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-xl mx-auto mb-16 space-y-2">
+                <h2 class="text-3xl font-black text-slate-900 font-heading">Kategori Produk</h2>
+                <p class="text-slate-500 text-sm">Pilih kategori yang sesuai dengan kebutuhan Anda.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Govtech -->
+                <div class="bg-gradient-to-b from-blue-50/50 to-white border border-blue-100/70 p-8 rounded-3xl shadow-sm flex flex-col justify-between hover:shadow-md transition relative overflow-hidden group">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-blue-600/20"><i class="fa-solid fa-landmark"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2 font-heading">Govtech</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6">Sistem dan solusi digital untuk instansi pemerintah dan publik.</p>
+                        <ul class="space-y-3 mb-8 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500"></i> Panduan Implementasi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500"></i> Template & Dokumen</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500"></i> Sistem & Aplikasi</li>
+                        </ul>
+                    </div>
+                    <a href="https://govtech.dongetik.net/" class="text-blue-600 font-bold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">Kunjungi Halaman <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none translate-y-4 translate-x-4"><i class="fa-solid fa-building text-9xl"></i></div>
+                </div>
+                <!-- Literasi -->
+                <div class="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100/70 p-8 rounded-3xl shadow-sm flex flex-col justify-between hover:shadow-md transition relative overflow-hidden group">
+                    <div>
+                        <div class="w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-emerald-500/20"><i class="fa-solid fa-book-open"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2 font-heading">Literasi</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6">Koleksi ebook premium untuk belajar, produktivitas, dan pengembangan diri.</p>
+                        <ul class="space-y-3 mb-8 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Pengembangan Diri</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Produktivitas</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Kesehatan & Gaya Hidup</li>
+                        </ul>
+                    </div>
+                    <a href="https://literasi.dongetik.net" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">Kunjungi Halaman <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none translate-y-4 translate-x-4"><i class="fa-solid fa-book text-9xl"></i></div>
+                </div>
+                <!-- Edukasi -->
+                <div class="bg-gradient-to-b from-purple-50/50 to-white border border-purple-100/70 p-8 rounded-3xl shadow-sm flex flex-col justify-between hover:shadow-md transition relative overflow-hidden group">
+                    <div>
+                        <div class="w-14 h-14 bg-purple-600 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-purple-600/20"><i class="fa-solid fa-laptop-code"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2 font-heading">Edukasi</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6">Produk digital siap pakai untuk kebutuhan pendidikan, tes, dan komunitas.</p>
+                        <ul class="space-y-3 mb-8 text-xs font-medium text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500"></i> Sangkatan - Website Buku Alumni Online</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500"></i> SiDika - Tes Diagnosis Non Kognitif</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500"></i> ADIS - Absensi Digital Siswa Terintergrasi</li>
+                        </ul>
+                    </div>
+                    <a href="https://edu.dongetik.net" class="text-purple-600 font-bold text-xs inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">Kunjungi Halaman <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none translate-y-4 translate-x-4"><i class="fa-solid fa-display text-9xl"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEUNGGULAN -->
+    <section class="pb-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-slate-50/60 border border-slate-100 rounded-3xl">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-bold text-slate-900 font-heading">Praktis & Efisien</h4>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Materi ringkas, langsung bisa diterapkan.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg flex-shrink-0"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-bold text-slate-900 font-heading">Terpercaya</h4>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Konten berkualitas dan selalu diperbarui.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg flex-shrink-0"><i class="fa-solid fa-lock"></i></div>
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-bold text-slate-900 font-heading">Akses Seumur Hidup</h4>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Beli sekali, gunakan kapan saja.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg flex-shrink-0"><i class="fa-solid fa-headset"></i></div>
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-bold text-slate-900 font-heading">Dukungan</h4>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Kami siap membantu kapan pun Anda butuh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MOCKUP SLIDER - FULL WIDTH, TANPA BORDER ===== -->
+    <section class="pb-20 bg-white transition-colors duration-300">
+        <div class="mockup-slider-wrapper">
+            <!-- tanpa border, tanpa padding samping berlebih -->
+            <div class="bg-blue-50/50 py-12 transition-colors duration-300">
+                <div class="text-center mb-10 px-4">
+                    <h3 class="text-2xl font-black text-slate-900 font-heading">Mockup Produk Dongetik</h3>
+                    <p class="text-slate-500 text-sm mt-1">Koleksi produk unggulan kami</p>
+                </div>
+                <div id="mockupContainer" class="mockup-slider overflow-hidden relative">
+                    <!-- diisi oleh JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="kontak" class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+            </div>
+        </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="index.html" class="hover:text-blue-600 transition">Beranda</a></li>
+                    <li><a href="#produk" class="hover:text-blue-600 transition">Produk</a></li>
+                    <li><a href="blog.html" class="hover:text-blue-600 transition">Blog</a></li>
+                    <li><a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
+                    <li><a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-3 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Syarat & Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="ikuti-kami" class="col-span-2 md:col-span-3 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+        <i class="fa-brands fa-facebook text-sm"></i>
+    </a>
+    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+        <i class="fa-brands fa-whatsapp text-sm"></i>
+    </a>
+    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+    <i class="fa-regular fa-envelope text-sm"></i>
+</a>
+</div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== TOMBOL SCROLL KE ATAS ===== -->
+    <button id="scrollTopBtn" aria-label="Scroll ke atas">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Dark mode toggle
+        const toggleBtn = document.getElementById('themeToggle');
+        const icon = toggleBtn.querySelector('i');
+        let darkMode = false;
+
+        toggleBtn.addEventListener('click', () => {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark', darkMode);
+            icon.className = darkMode ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+        });
+
+        // ===== MOCKUP SLIDER dengan transisi lambat & halus =====
+        const images = [
+            { src: 'gasekin.png', label: 'Gasekin' },
+            { src: 'sasuke.png', label: 'Sasuke' },
+            { src: 'sangkatan.png', label: 'Sangkatan' },
+            { src: '100alasan.png', label: '100 Alasan' },
+            { src: 'sidika.png', label: 'SiDika' },
+            { src: 'Adis.png', label: 'Adis' }
+        ];
+
+        const container = document.getElementById('mockupContainer');
+        let currentIndex = 0;
+        let slideInterval;
+
+        function renderItems(startIndex, animate = true) {
+            container.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                const idx = (startIndex + i) % images.length;
+                const item = images[idx];
+                const div = document.createElement('div');
+                div.className = 'mockup-item';
+                // Tambahkan kelas fade jika animate true
+                if (animate) {
+                    div.classList.add('fade-transition');
+                }
+                div.innerHTML = `<img src="${item.src}" alt="${item.label}" loading="lazy"><div class="label">${item.label}</div>`;
+                container.appendChild(div);
+                // Trigger reflow untuk memulai transisi
+                if (animate) {
+                    // Biarkan transisi CSS bekerja
+                    requestAnimationFrame(() => {
+                        div.classList.add('show');
+                    });
+                }
+            }
+        }
+
+        function slideNext() {
+            // Sembunyikan dengan cepat, lalu ganti konten dan munculkan perlahan
+            const items = container.querySelectorAll('.mockup-item');
+            items.forEach(el => el.classList.remove('show'));
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                renderItems(currentIndex, true);
+            }, 400); // waktu transisi keluar
+        }
+
+        // Inisialisasi pertama tanpa animasi
+        renderItems(0, false);
+        // Tambahkan kelas show setelah mount
+        setTimeout(() => {
+            document.querySelectorAll('.mockup-item').forEach(el => el.classList.add('show'));
+        }, 50);
+
+        // Set interval dengan durasi lebih lama (5 detik) agar transisi terasa lambat
+        slideInterval = setInterval(slideNext, 5000);
+
+        // ===== TOMBOL SCROLL KE ATAS =====
+        const scrollBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+<!-- ===== MODAL POP-UP UNTUK KEBIJAKAN ===== -->
+<div id="policyModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modalOverlay"></div>
+
+    <!-- Konten Modal -->
+    <div class="relative bg-white dark:bg-slate-800 w-full max-w-2xl max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700 transform transition-all duration-300 scale-95" id="modalContent">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white font-heading" id="modalTitle">Kebijakan Privasi</h3>
+            <button type="button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition text-xl" id="closeModalBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Body (scrollable) -->
+        <div class="px-6 py-5 overflow-y-auto max-h-[60vh] text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4" id="modalBody">
+            <!-- konten akan diisi oleh JavaScript -->
+        </div>
+
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-end">
+            <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition shadow-md shadow-blue-600/20" id="closeModalBtnFooter">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Data konten
+        const policyData = {
+            'privacy': {
+                title: 'Kebijakan Privasi',
+                content: `
+                    <p><strong>Data yang Dikumpulkan:</strong> Kami mengumpulkan informasi yang diberikan secara sukarela oleh pengguna (nama, instansi, kontak) serta data teknis penggunaan aplikasi (log aktivitas, browser yang digunakan) untuk keperluan optimalisasi sistem.</p>
+                    <p><strong>Penggunaan Data:</strong> Data digunakan untuk menyediakan, memelihara, dan meningkatkan kualitas produk di bawah naungan Dongetik Digital (Edu, Gov, Literasi). Kami tidak menjual data pengguna kepada pihak ketiga mana pun.</p>
+                    <p><strong>Keamanan Data:</strong> Kami menerapkan standar enkripsi dan kontrol akses untuk melindungi data Anda dari akses, pengungkapan, atau modifikasi yang tidak sah.</p>
+                    <p><strong>Hak Pengguna:</strong> Anda berhak meminta akses, perbaikan, atau penghapusan data pribadi Anda yang tersimpan di sistem kami melalui kanal dukungan resmi.</p>
+                `
+            },
+            'terms': {
+                title: 'Syarat & Ketentuan',
+                content: `
+                    <p><strong>Definisi:</strong> Dongetik Digital adalah penyedia platform teknologi. Produk mencakup Dongetik Edu (Pendidikan), DongetikGov (Pemerintahan), dan DongetikLiterasi (Digitalisasi Konten).</p>
+                    <p><strong>Penggunaan Layanan:</strong> Pengguna wajib menggunakan layanan sesuai dengan hukum yang berlaku di Indonesia. Dilarang menyalahgunakan sistem untuk aktivitas ilegal atau merusak integritas data.</p>
+                    <p><strong>Hak Kekayaan Intelektual:</strong> Seluruh desain, kode sumber, dan konten pada platform Dongetik Digital adalah hak milik eksklusif Dongetik Digital.</p>
+                    <p><strong>Batasan Tanggung Jawab:</strong> Dongetik Digital berkomitmen menjaga uptime layanan, namun tidak bertanggung jawab atas kerugian tidak langsung yang timbul akibat kegagalan koneksi internet pihak ketiga atau kesalahan input data oleh pengguna.</p>
+                    <p><strong>Perubahan Layanan:</strong> Kami berhak melakukan pembaruan fitur atau pemeliharaan sistem sewaktu-waktu untuk meningkatkan kualitas layanan.</p>
+                `
+            },
+            'refund': {
+                title: 'Refund Policy',
+                content: `
+                    <p><strong>Prinsip Umum:</strong> Langganan layanan Dongetik Digital umumnya bersifat non-refundable (tidak dapat dikembalikan) setelah aktivasi dilakukan.</p>
+                    <p><strong>Kondisi Pengembalian Dana:</strong> Pengembalian dana hanya dimungkinkan jika terdapat kegagalan sistem yang fatal dari pihak kami yang menyebabkan layanan tidak dapat digunakan sama sekali selama lebih dari 7 (tujuh) hari kerja berturut-turut, dan kami tidak mampu memberikan solusi teknis.</p>
+                    <p><strong>Prosedur Pengajuan:</strong> Permintaan refund harus diajukan melalui email resmi dengan melampirkan bukti transaksi dan penjelasan kendala teknis.</p>
+                    <p><strong>Keputusan:</strong> Setiap pengajuan akan ditinjau oleh tim manajemen Dongetik Digital dalam waktu 14 hari kerja. Keputusan kami bersifat final.</p>
+                `
+            }
+        };
+
+        // Elemen modal
+        const modal = document.getElementById('policyModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const overlay = document.getElementById('modalOverlay');
+        const closeBtns = [
+            document.getElementById('closeModalBtn'),
+            document.getElementById('closeModalBtnFooter')
+        ];
+
+        // Fungsi buka modal
+        function openModal(type) {
+            const data = policyData[type];
+            if (!data) return;
+
+            modalTitle.textContent = data.title;
+            modalBody.innerHTML = data.content;
+
+            // Tampilkan modal dengan transisi
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden'; // cegah scroll
+        }
+
+        // Fungsi tutup modal
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Event listener untuk link di footer
+        document.querySelectorAll('footer a[href="#"]').forEach(link => {
+            const text = link.textContent.trim().toLowerCase();
+            let type = null;
+            if (text.includes('privasi')) type = 'privacy';
+            else if (text.includes('syarat') || text.includes('ketentuan')) type = 'terms';
+            else if (text.includes('refund')) type = 'refund';
+
+            if (type) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal(type);
+                });
+            }
+        });
+
+        // Event tutup modal
+        closeBtns.forEach(btn => {
+            if (btn) btn.addEventListener('click', closeModal);
+        });
+
+        // Tutup saat klik overlay
+        overlay.addEventListener('click', closeModal);
+
+        // Tutup dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+                closeModal();
+            }
+        });
+
+        // Jika modal terbuka, tutup saat scroll ke atas (opsional, biarkan saja)
+    })();
+</script>
+<script>
+    (function() {
+        // 1. Dapatkan nama file halaman saat ini
+        const path = window.location.pathname;
+        const currentPage = path.split('/').pop() || 'index.html';
+
+        // 2. Mapping halaman ke selector link di navbar
+        const pageMap = {
+            'index.html': 'a[href="#beranda"], a[href="index.html#beranda"]',
+            'tentang-kami.html': 'a[href="tentang-kami.html"]',
+            'blog.html': 'a[href="blog.html"]',
+            'faq.html': 'a[href="faq.html"]'
+        };
+
+        // 3. Ambil semua link di navbar (sesuaikan dengan struktur menu Anda)
+        const nav = document.querySelector('nav');
+        if (!nav) return;
+
+        // Semua link di dalam navbar (termasuk dropdown)
+        const allLinks = nav.querySelectorAll('a');
+
+        // 4. Hapus kelas aktif dari semua link
+        allLinks.forEach(link => {
+            link.classList.remove('text-blue-600', 'font-semibold');
+        });
+
+        // 5. Cari link yang sesuai dengan halaman saat ini
+        let targetSelector = pageMap[currentPage];
+        if (!targetSelector) {
+            // Jika tidak ada mapping (misal halaman lain), fallback ke Beranda
+            targetSelector = pageMap['index.html'];
+        }
+
+        // Coba temukan dengan selector tunggal
+        let activeLink = document.querySelector(targetSelector);
+
+        // Jika tidak ditemukan, coba dengan pendekatan href (lebih fleksibel)
+        if (!activeLink) {
+            // Cari link yang href-nya mengandung nama halaman
+            allLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.includes(currentPage.replace('.html', ''))) {
+                    activeLink = link;
+                }
+            });
+        }
+
+        // 6. Tambahkan kelas aktif ke link yang ditemukan
+        if (activeLink) {
+            activeLink.classList.add('text-blue-600', 'font-semibold');
+        } else {
+            // Fallback: jika tidak ada yang cocok, tandai Beranda
+            const berandaLink = document.querySelector('a[href="#beranda"], a[href="index.html#beranda"]');
+            if (berandaLink) {
+                berandaLink.classList.add('text-blue-600', 'font-semibold');
+            }
+        }
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: username-github-anda/nama-repositori-anda # ⚠️ Ganti dengan repo github Anda
+  branch: main # Atau nama branch Cloudflare Anda
+
+media_folder: "images/uploads" # Folder otomatis untuk menyimpan gambar upload artikel
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Artikel Blog"
+    folder: "content/blog" # Tempat file artikel disimpan
+    extension: "json"      # 🌟 Ditambahkan agar CMS menyimpan dalam bentuk .json
+    format: "json"         # 🌟 Ditambahkan agar isi file berformat JSON sesuai blog.html Anda
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Judul Artikel", name: "title", widget: "string" }
+      - { label: "Tanggal Rilis", name: "date", widget: "datetime" }
+      - { label: "Gambar Sampul", name: "thumbnail", widget: "image" }
+      - { label: "Deskripsi Singkat", name: "description", widget: "string" }
+      - { label: "Isi Artikel", name: "body", widget: "markdown" }
