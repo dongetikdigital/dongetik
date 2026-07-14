@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS Artikel – Generator + AI Integration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .form-card { background: white; border-radius: 1.5rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        .label-form { font-weight: 600; color: #0f172a; font-size: 0.9rem; }
+        .input-form, .textarea-form {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.7rem 1rem;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            background: #fafbfc;
+        }
+        .input-form:focus, .textarea-form:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            background: white;
+        }
+        .textarea-form { min-height: 120px; font-family: 'Inter', monospace; line-height: 1.6; }
+        .btn-primary {
+            background: #1e293b;
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-primary:hover { background: #0f172a; transform: scale(1.02); }
+        .btn-blue {
+            background: #3b82f6;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-blue:hover { background: #2563eb; }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #e2e8f0;
+            color: #1e293b;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover { background: #f1f5f9; }
+        .btn-prompt {
+            background: #8b5cf6;
+            color: white;
+            padding: 0.6rem 1.8rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-prompt:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-green {
+            background: #22c55e;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-green:hover { background: #16a34a; }
+        .generated-html pre, .card-code pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .toolbar-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.15s;
+            color: #0f172a;
+        }
+        .toolbar-btn:hover { background: #e2e8f0; }
+        .parse-area textarea { min-height: 150px; }
+
+        /* Login overlay */
+        #loginOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
+        #loginOverlay.hidden { opacity: 0; pointer-events: none; }
+        .login-box {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .login-box input {
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            font-size: 1.8rem;
+            letter-spacing: 0.5rem;
+            text-align: center;
+            width: 100%;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+        }
+        .login-box .error { color: #ef4444; font-size: 0.9rem; margin-top: 0.5rem; min-height: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay">
+        <div class="login-box">
+            <div class="text-5xl mb-3">🔐</div>
+            <h2 class="text-2xl font-black text-slate-800 font-heading">Akses Generator</h2>
+            <p class="text-slate-500 text-sm mb-4">Masukkan PIN 6 digit untuk melanjutkan</p>
+            <input type="password" id="pinInput" maxlength="6" placeholder="••••••" autofocus />
+            <div id="pinError" class="error"></div>
+            <button id="loginBtn" class="btn-blue w-full mt-3">Buka Generator</button>
+            <p class="text-xs text-slate-400 mt-4">BACA BASMALAH</p>
+        </div>
+    </div>
+
+    <!-- KONTEN UTAMA (disembunyikan sampai login benar) -->
+    <div id="mainContent" class="antialiased p-4 md:p-8 min-h-screen flex items-start justify-center" style="display:none;">
+
+        <div class="max-w-7xl w-full">
+
+            <!-- HEADER dengan tombol Prompt -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <h1 class="text-3xl md:text-4xl font-black text-slate-800 font-heading">🧩 Generator Artikel <span class="text-blue-600">Dongetik</span></h1>
+                <button id="copyPromptBtn" class="btn-prompt text-sm">
+                    <i class="fa-regular fa-copy mr-2"></i> Salin Prompt AI
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+                <!-- FORM KIRI (3/5) -->
+                <div class="lg:col-span-3 space-y-6">
+
+                    <!-- Parse AI -->
+                    <div class="form-card p-5 parse-area">
+                        <label class="label-form block mb-1"><i class="fa-regular fa-robot mr-2 text-blue-500"></i>Tempel Hasil AI & Isi Otomatis</label>
+                        <div class="flex gap-2 mb-2">
+                            <textarea id="aiInput" class="textarea-form flex-1" placeholder="Tempel output AI di sini (format: Judul: ..., Tanggal: ..., dll.)"></textarea>
+                        </div>
+                        <button id="parseBtn" class="btn-blue text-sm"><i class="fa-regular fa-pen-to-square mr-1"></i> Parse & Isi Form</button>
+                        <span class="text-xs text-slate-400 ml-3">Pastikan format sesuai: Judul:, Tanggal:, Penulis:, Kategori:, Gambar:, Deskripsi:, Tags:, Konten:</span>
+                    </div>
+
+                    <!-- Form Utama -->
+                    <div class="form-card p-6 md:p-8">
+                        <form id="articleForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="label-form block mb-1">ID Card (opsional, kosongkan untuk otomatis)</label>
+                                    <input type="number" id="cardId" class="input-form" placeholder="7" value="" />
+                                </div>
+                                <div>
+                                    <label class="label-form block mb-1">Tanggal</label>
+                                    <input type="date" id="tanggal" class="input-form" value="2026-07-14" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Judul Artikel</label>
+                                <input type="text" id="judul" class="input-form" placeholder="Masih Perlukan Buku Alumni..." value="Masih Perlukan Buku Alumni untuk Lulusan Sekolah/Kampus?" />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Penulis</label>
+                                <input type="text" id="penulis" class="input-form" placeholder="Admin" value="Admin Dongetik" />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Kategori</label>
+                                <input type="text" id="kategori" class="input-form" placeholder="Produk" value="Produk" />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">URL Gambar (Cover)</label>
+                                <input type="text" id="gambar" class="input-form" placeholder="https://..." value="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80" />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Deskripsi (meta & OG)</label>
+                                <input type="text" id="deskripsi" class="input-form" placeholder="Deskripsi singkat" value="Kenali Sangkatan, platform digital yang mengubah buku fisik alumni menjadi online dan abadi." />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Tag (pisahkan koma)</label>
+                                <input type="text" id="tags" class="input-form" placeholder="Sangkatan, BukuAlumni" value="Sangkatan, BukuAlumni, Digital" />
+                            </div>
+                            <div>
+                                <label class="label-form block mb-1">Konten (teks biasa)</label>
+                                <div class="flex flex-wrap gap-2 mb-2">
+                                    <button type="button" class="toolbar-btn" id="boldBtn"><i class="fa-solid fa-bold"></i> Bold</button>
+                                    <button type="button" class="toolbar-btn" id="italicBtn"><i class="fa-solid fa-italic"></i> Italic</button>
+                                    <span class="text-xs text-slate-400 self-center">Gunakan **teks** atau *teks*</span>
+                                </div>
+                                <textarea id="konten" class="textarea-form" rows="10" placeholder="Tulis artikel di sini. Pisahkan paragraf dengan baris kosong.">Buku alumni fisik seringkali menjadi barang yang hilang, rusak, atau terlupakan begitu saja. Padahal, data alumni sangat berharga untuk membangun jaringan profesional, silaturahmi, dan bahkan promosi institusi.
+
+**Sangkatan** hadir sebagai solusi digital yang modern. Platform ini mengubah buku alumni konvensional menjadi **website interaktif** yang bisa diakses kapan saja, di mana saja, dan oleh siapa saja yang diizinkan.
+
+Keunggulan Sangkatan:
+* **Abadi** – tidak lapuk, tidak basah, dan tidak hilang. Data tersimpan di cloud.
+* **Mudah diupdate** – data alumni bisa diperbarui kapan pun tanpa perlu cetak ulang.
+* **Integrasi media sosial** – alumni bisa terhubung langsung melalui platform digital.
+* **Ramah lingkungan** – mengurangi penggunaan kertas dan biaya cetak.
+* **Pencarian instan** – cari alumni berdasarkan nama, tahun lulus, atau jurusan dengan cepat.
+
+Dengan Sangkatan, sekolah dan kampus memiliki arsip alumni yang rapi, profesional, dan selalu terkini. Selain itu, platform ini juga memudahkan alumni untuk tetap terhubung dengan almamaternya.
+
+Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.com</textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="button" id="generateBtn" class="btn-primary w-full md:w-auto">
+                                    <i class="fa-solid fa-code mr-2"></i> Generate HTML
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- HASIL KANAN (2/5) -->
+                <div class="lg:col-span-2 flex flex-col gap-4">
+                    <div class="form-card p-6 flex-1 flex flex-col">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h2 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-regular fa-copy text-blue-500"></i> Kode HTML</h2>
+                            <div class="flex gap-2">
+                                <button id="copyBtn" class="btn-blue text-sm py-1.5 px-3"><i class="fa-regular fa-clipboard mr-1"></i> Salin</button>
+                                <button id="downloadBtn" class="btn-primary text-sm py-1.5 px-3"><i class="fa-regular fa-file-arrow-down mr-1"></i> Unduh</button>
+                            </div>
+                        </div>
+                        <div class="generated-html flex-1">
+                            <pre id="outputCode" class="text-sm"><span class="text-slate-400">// Hasil akan muncul di sini</span></pre>
+                        </div>
+                    </div>
+
+                    <!-- KODE CARD BLOG (format JavaScript object) -->
+                    <div class="form-card p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h2 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-regular fa-copy text-green-500"></i> Kode Card Blog (JS Object)</h2>
+                            <button id="copyCardBtn" class="btn-green text-sm py-1.5 px-3"><i class="fa-regular fa-clipboard mr-1"></i> Salin Card</button>
+                        </div>
+                        <div class="card-code">
+                            <pre id="cardOutput" class="text-sm"><span class="text-slate-400">// Kode card akan muncul di sini</span></pre>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2">Salin object ini ke <strong>blog.html</strong> di bagian array data artikel.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ----- LOGIN -----
+            const loginOverlay = document.getElementById('loginOverlay');
+            const mainContent = document.getElementById('mainContent');
+            const pinInput = document.getElementById('pinInput');
+            const pinError = document.getElementById('pinError');
+            const loginBtn = document.getElementById('loginBtn');
+            const CORRECT_PIN = '170323';
+
+            function attemptLogin() {
+                const entered = pinInput.value.trim();
+                if (entered === CORRECT_PIN) {
+                    loginOverlay.classList.add('hidden');
+                    mainContent.style.display = 'flex';
+                    pinError.textContent = '';
+                    pinInput.value = '';
+                    generateAll();
+                    document.getElementById('judul').focus();
+                } else {
+                    pinError.textContent = '❌ PIN salah. Coba lagi.';
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+            }
+
+            loginBtn.addEventListener('click', attemptLogin);
+            pinInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') attemptLogin();
+                if (!/^[0-9]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Enter' && e.key !== 'Tab') {
+                    e.preventDefault();
+                }
+            });
+            pinInput.addEventListener('input', function() {
+                if (this.value.length > 6) this.value = this.value.slice(0, 6);
+            });
+
+            // ----- DOM refs -----
+            const generateBtn = document.getElementById('generateBtn');
+            const output = document.getElementById('outputCode');
+            const cardOutput = document.getElementById('cardOutput');
+            const copyBtn = document.getElementById('copyBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const copyCardBtn = document.getElementById('copyCardBtn');
+            const copyPromptBtn = document.getElementById('copyPromptBtn');
+
+            const judul = document.getElementById('judul');
+            const tanggal = document.getElementById('tanggal');
+            const penulis = document.getElementById('penulis');
+            const kategori = document.getElementById('kategori');
+            const gambar = document.getElementById('gambar');
+            const deskripsi = document.getElementById('deskripsi');
+            const tags = document.getElementById('tags');
+            const konten = document.getElementById('konten');
+            const cardId = document.getElementById('cardId');
+
+            // ----- Fungsi pembuatan slug -----
+            function createSlug(title) {
+                return title.toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '-')
+                    .substring(0, 60);
+            }
+
+            // ----- Toolbar (bold/italic) -----
+            function insertMarkdown(tag) {
+                const start = konten.selectionStart;
+                const end = konten.selectionEnd;
+                const selected = konten.value.substring(start, end);
+                const before = konten.value.substring(0, start);
+                const after = konten.value.substring(end);
+                let newText;
+                if (selected) {
+                    newText = before + tag + selected + tag + after;
+                } else {
+                    newText = before + tag + tag + after;
+                    const cursorPos = before.length + tag.length;
+                    konten.value = newText;
+                    konten.selectionStart = konten.selectionEnd = cursorPos;
+                    konten.focus();
+                    return;
+                }
+                konten.value = newText;
+                const newCursor = before.length + tag.length + selected.length + tag.length;
+                konten.selectionStart = konten.selectionEnd = newCursor;
+                konten.focus();
+            }
+            document.getElementById('boldBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown('**'); });
+            document.getElementById('italicBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown('*'); });
+
+            // ----- Konversi teks biasa -> HTML (markdown sederhana) -----
+            function convertMarkdownToHTML(text) {
+                let paragraphs = text.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                paragraphs = paragraphs.map(p => {
+                    let html = p
+                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.+?)\*/g, '<em>$1</em>');
+                    html = html.replace(/\n/g, '<br>');
+                    return `<p>${html}</p>`;
+                });
+                return paragraphs.join('\n');
+            }
+
+            // ----- Generate HTML lengkap + Card -----
+            function generateAll() {
+                const data = getFormData();
+                const html = generateArticleHTML(data);
+                output.textContent = html;
+                const card = generateCardObject(data);
+                cardOutput.textContent = card;
+            }
+
+            function generateArticleHTML(data) {
+                const { judul: j, tanggal: t, penulis: p, kategori: k, gambar: g, deskripsi: d, tags: tagRaw, kontenRaw } = data;
+                const kontenHTML = convertMarkdownToHTML(kontenRaw);
+                const tagArray = tagRaw.split(',').map(tg => tg.trim()).filter(tg => tg);
+                const tagSpans = tagArray.map(tg => `<span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#${tg.replace(/\s/g,'')}</span>`).join('');
+                const artikelUrl = 'https://dongetik.net/artikel/buku-alumni-sangkatan.html';
+
+                return `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${j} - Dongetik Digital</title>
+    <meta name="description" content="${d}" />
+    <meta property="og:title" content="${j}" />
+    <meta property="og:description" content="${d}" />
+    <meta property="og:image" content="${g}" />
+    <meta property="og:url" content="${artikelUrl}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+    <\/style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="../logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="../index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"><\/i></a>
+                <a href="../tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="../blog.html" class="text-blue-600 font-semibold">Blog</a>
+                <a href="../index.html#kontak" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-5">
+                <button class="text-slate-600 hover:text-blue-600 transition text-lg"><i class="fa-regular fa-sun"><\/i><\/button>
+            <\/div>
+        <\/div>
+    <\/nav>
+
+    <main class="flex-grow max-w-3xl mx-auto px-6 py-12 w-full">
+        
+        <div class="mb-8">
+            <a href="../blog.html" class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-2 transition group">
+                <i class="fa-solid fa-arrow-left transition group-hover:-translate-x-1"><\/i> Kembali ke Blog
+            <\/a>
+        <\/div>
+
+        <header class="space-y-4 mb-8">
+            <span class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider inline-block">${k}<\/span>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 font-heading leading-tight">
+                ${j}
+            <\/h1>
+            <div class="flex items-center gap-4 text-xs text-slate-400 pt-2">
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"><\/i> ${t}<\/span>
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-user"><\/i> Oleh ${p}<\/span>
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock"><\/i> 4 Menit Baca<\/span>
+            <\/div>
+        <\/header>
+
+        <div class="mb-10 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <img src="${g}" class="w-full h-[350px] object-cover" alt="${j}">
+        <\/div>
+
+        <article class="text-slate-600 leading-relaxed space-y-6 text-[15px]">
+            ${kontenHTML}
+        <\/article>
+
+        <div class="mt-12 pt-6 border-t border-slate-100 flex flex-wrap gap-3 items-center justify-between">
+            <div class="flex gap-2 flex-wrap">
+                ${tagSpans}
+            <\/div>
+            <div class="flex items-center gap-3 text-slate-400 text-sm">
+                <span>Bagikan:<\/span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(artikelUrl)}" target="_blank" class="hover:text-blue-600"><i class="fa-brands fa-facebook"><\/i><\/a>
+                <a href="https://wa.me/?text=${encodeURIComponent(j + ' - ' + artikelUrl)}" target="_blank" class="hover:text-green-500"><i class="fa-brands fa-whatsapp"><\/i><\/a>
+                <button onclick="navigator.clipboard.writeText('${artikelUrl}'); alert('Link artikel disalin!')" class="hover:text-slate-700"><i class="fa-regular fa-copy"><\/i><\/button>
+            <\/div>
+        <\/div>
+
+    <\/main>
+
+    <footer class="bg-white border-t border-slate-100 py-8 text-center text-xs text-slate-400 mt-auto">
+        <p>&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.<\/p>
+    <\/footer>
+
+<\/body>
+<\/html>`;
+            }
+
+            // ----- Generate card dalam format JavaScript object -----
+            function generateCardObject(data) {
+                const { judul: j, tanggal: t, kategori: k, gambar: g, deskripsi: d } = data;
+                // format tanggal ke "dd Mmm yyyy"
+                const dateObj = new Date(t + 'T00:00:00');
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                const month = months[dateObj.getMonth()];
+                const year = dateObj.getFullYear();
+                const formattedDate = `${day} ${month} ${year}`;
+
+                // buat slug dari judul
+                const slug = createSlug(j);
+
+                // ambil ID dari form atau generate otomatis (timestamp)
+                let id = cardId.value.trim();
+                if (!id) {
+                    id = Date.now().toString().slice(-6);
+                }
+
+                return `{
+    id: ${id},
+    judul: '${j.replace(/'/g, "\\'")}',
+    kategori: '${k}',
+    deskripsi: '${d.replace(/'/g, "\\'")}',
+    tanggal: '${formattedDate}',
+    gambar: '${g}',
+    link: 'artikel/${slug}.html'
+}`;
+            }
+
+            // ----- Ambil data form -----
+            function getFormData() {
+                return {
+                    judul: judul.value.trim() || 'Judul Artikel',
+                    tanggal: tanggal.value || new Date().toISOString().split('T')[0],
+                    penulis: penulis.value.trim() || 'Admin',
+                    kategori: kategori.value.trim() || 'Umum',
+                    gambar: gambar.value.trim() || 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+                    deskripsi: deskripsi.value.trim() || 'Deskripsi artikel',
+                    tags: tags.value.trim() || 'Artikel',
+                    kontenRaw: konten.value || 'Tulis konten di sini.'
+                };
+            }
+
+            // ----- Generate & tampilkan -----
+            generateBtn.addEventListener('click', generateAll);
+
+            // ----- Salin HTML -----
+            copyBtn.addEventListener('click', function() {
+                const code = output.textContent;
+                if (!code || code.includes('// Hasil akan muncul')) {
+                    alert('Silakan generate terlebih dahulu.');
+                    return;
+                }
+                navigator.clipboard.writeText(code).then(() => alert('✅ Kode HTML disalin!'))
+                    .catch(() => {
+                        const range = document.createRange();
+                        range.selectNode(output);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                        document.execCommand('copy');
+                        alert('✅ Kode HTML disalin!');
+                    });
+            });
+
+            // ----- Salin Card -----
+            copyCardBtn.addEventListener('click', function() {
+                const code = cardOutput.textContent;
+                if (!code || code.includes('// Kode card akan muncul')) {
+                    alert('Silakan generate terlebih dahulu.');
+                    return;
+                }
+                navigator.clipboard.writeText(code).then(() => alert('✅ Kode Card Blog disalin!'))
+                    .catch(() => {
+                        const range = document.createRange();
+                        range.selectNode(cardOutput);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                        document.execCommand('copy');
+                        alert('✅ Kode Card Blog disalin!');
+                    });
+            });
+
+            // ----- Unduh HTML (dengan nama file otomatis dari judul) -----
+            downloadBtn.addEventListener('click', function() {
+                const code = output.textContent;
+                if (!code || code.includes('// Hasil akan muncul')) {
+                    alert('Silakan generate terlebih dahulu.');
+                    return;
+                }
+                const slug = createSlug(judul.value.trim() || 'artikel');
+                const blob = new Blob([code], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = slug + '.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // ----- Parse AI output -----
+            document.getElementById('parseBtn').addEventListener('click', function() {
+                const raw = document.getElementById('aiInput').value;
+                if (!raw.trim()) {
+                    alert('Tempel hasil AI terlebih dahulu.');
+                    return;
+                }
+                const labelMap = {
+                    'Judul': 'judul',
+                    'Tanggal': 'tanggal',
+                    'Penulis': 'penulis',
+                    'Kategori': 'kategori',
+                    'Gambar': 'gambar',
+                    'Deskripsi': 'deskripsi',
+                    'Tags': 'tags',
+                    'Konten': 'konten'
+                };
+                const lines = raw.split('\n');
+                let isKonten = false;
+                const extracted = {};
+
+                for (let line of lines) {
+                    line = line.trim();
+                    if (!line) continue;
+                    let matched = false;
+                    for (const [label, field] of Object.entries(labelMap)) {
+                        if (line.toLowerCase().startsWith(label.toLowerCase() + ':')) {
+                            let value = line.substring(label.length + 1).trim();
+                            if (field === 'konten') {
+                                isKonten = true;
+                                extracted[field] = '';
+                                const rest = line.substring(label.length + 1).trim();
+                                if (rest) extracted[field] = rest + '\n';
+                            } else {
+                                extracted[field] = value;
+                            }
+                            matched = true;
+                            break;
+                        }
+                    }
+                    if (!matched && isKonten) {
+                        extracted['konten'] = (extracted['konten'] || '') + line + '\n';
+                    } else if (!matched && !isKonten) {
+                        if (!extracted['konten']) {
+                            isKonten = true;
+                            extracted['konten'] = line + '\n';
+                        } else {
+                            extracted['konten'] += line + '\n';
+                        }
+                    }
+                }
+                if (extracted['konten']) extracted['konten'] = extracted['konten'].trim();
+
+                if (extracted['judul']) judul.value = extracted['judul'];
+                if (extracted['tanggal']) tanggal.value = extracted['tanggal'];
+                if (extracted['penulis']) penulis.value = extracted['penulis'];
+                if (extracted['kategori']) kategori.value = extracted['kategori'];
+                if (extracted['gambar']) gambar.value = extracted['gambar'];
+                if (extracted['deskripsi']) deskripsi.value = extracted['deskripsi'];
+                if (extracted['tags']) tags.value = extracted['tags'];
+                if (extracted['konten']) konten.value = extracted['konten'];
+
+                const filled = Object.keys(extracted).filter(k => extracted[k]).length;
+                alert(`✅ Berhasil mengisi ${filled} field dari hasil AI.`);
+                generateAll();
+            });
+
+            // ----- Salin Prompt AI -----
+            copyPromptBtn.addEventListener('click', function() {
+                const prompt = `Kamu adalah penulis konten profesional untuk **Dongetik Digital**, sebuah platform yang fokus pada solusi digital, pendidikan, dan teknologi.
+
+Setiap kali aku memintamu menulis artikel tentang topik tertentu, kamu HARUS memberikan jawaban dengan format STRUKTUR berikut. Jangan tambahkan teks di luar format ini, kecuali jika aku meminta klarifikasi.
+
+FORMAT WAJIB:
+
+Judul: [Judul artikel yang menarik, maksimal 60 karakter]
+Tanggal: [Tanggal hari ini dalam format YYYY-MM-DD]
+Penulis: Admin Dongetik
+Kategori: [Satu kata/kategori, misal: Produk, Teknologi, Pendidikan, Bisnis, dll.]
+Gambar: [URL gambar cover dari Unsplash yang relevan dengan topik, gunakan ukuran w=1200&q=80, misal: https://images.unsplash.com/photo-xxxx?auto=format&fit=crop&w=1200&q=80]
+Deskripsi: [Kalimat singkat untuk meta description dan OG, maksimal 160 karakter]
+Tags: [3-5 tag, pisahkan dengan koma, tanpa spasi berlebih, misal: Sangkatan, BukuAlumni, Digital]
+
+Konten:
+[Tulis artikel di sini dalam TEKS BIASA. Gunakan **teks** untuk huruf TEBAL dan *teks* untuk huruf MIRING. Pisahkan setiap paragraf dengan BARIS KOSONG (enter dua kali). Gunakan daftar (bullet) dengan tanda * di awal baris jika diperlukan. Buat artikel minimal 4 paragraf, informatif, dan sesuai dengan gaya penulisan blog Dongetik Digital yang modern, profesional, dan mudah dipahami.]
+
+---
+
+Contoh penggunaan prompt:
+"Tulis artikel tentang pentingnya website untuk usaha kecil."`;
+
+                navigator.clipboard.writeText(prompt).then(() => {
+                    alert('✅ Prompt AI berhasil disalin ke clipboard!');
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = prompt;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    alert('✅ Prompt AI berhasil disalin!');
+                });
+            });
+
+            // Generate otomatis setelah login
+            window.generateAll = generateAll;
+
+        })();
+    </script>
+</body>
+</html>

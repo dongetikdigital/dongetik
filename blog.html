@@ -12,6 +12,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
         .blog-card {
             background: white;
             border: 1px solid #f1f5f9;
@@ -26,10 +27,32 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
             transform: translateY(-2px);
         }
-        .blog-card img {
+        .blog-card .image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-card .image-wrapper img {
             width: 100%;
             height: 192px;
             object-fit: cover;
+            display: block;
+        }
+        .blog-card .image-wrapper .category-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.15);
+            pointer-events: none;
+            white-space: nowrap;
         }
         .blog-card .card-body {
             padding: 1.25rem 1.5rem 1.5rem;
@@ -39,22 +62,11 @@
             justify-content: space-between;
         }
         .blog-card .card-body .top { flex: 1; }
-        .blog-card .card-body .top .category {
-            font-size: 11px;
-            font-weight: 700;
-            color: #2563eb;
-            background: #eff6ff;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
         .blog-card .card-body .top h3 {
             font-size: 1.05rem;
             font-weight: 700;
             color: #0f172a;
-            margin-top: 0.75rem;
+            margin-top: 0.2rem;
             margin-bottom: 0.5rem;
             line-height: 1.4;
         }
@@ -84,8 +96,86 @@
             text-decoration: none;
         }
         .blog-card .card-body .footer-meta .read-more:hover { text-decoration: underline; }
+
+        /* Search bar */
+        .search-wrapper {
+            position: relative;
+            max-width: 480px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .search-wrapper input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 60px;
+            background: white;
+            font-size: 0.9rem;
+            color: #1e293b;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .search-wrapper input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .search-wrapper input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* Load more button */
+        .load-more-btn {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e293b;
+            background: white;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .load-more-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+        .load-more-btn i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Hidden state for extra articles */
+        .blog-card.extra {
+            display: none;
+        }
+        .blog-card.extra.visible {
+            display: flex;
+        }
+
+        /* Transition for smooth appearance */
+        .blog-card.extra {
+            animation: fadeUp 0.4s ease forwards;
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 640px) {
-            .blog-card img { height: 160px; }
+            .blog-card .image-wrapper img { height: 160px; }
+            .search-wrapper { max-width: 100%; }
         }
     </style>
 </head>
@@ -106,6 +196,7 @@
                 <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
                 <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
                 <a href="blog.html" class="text-blue-600 font-semibold">Blog</a>
+                <a href="faq.html" class="hover:text-blue-600 transition">FAQ</a>
                 <a href="#kontak" class="hover:text-blue-600 transition">Kontak</a>
             </div>
             <div class="flex items-center gap-5">
@@ -116,130 +207,308 @@
 
     <!-- ===== MAIN ===== -->
     <main class="flex-grow max-w-7xl mx-auto px-6 py-16 w-full">
-        <div class="text-center max-w-xl mx-auto mb-16 space-y-2">
+        <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
             <h1 class="text-3xl font-black text-slate-900 font-heading">Artikel & Wawasan Terbaru</h1>
             <p class="text-slate-500 text-sm">Temukan tips produktivitas, ulasan produk teknologi, dan edukasi gaya hidup digital.</p>
         </div>
 
-        <!-- Grid Artikel (semua link mengarah ke folder artikel/) -->
-        <div class="grid md:grid-cols-3 gap-8">
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Cari artikel judul atau kategori..." />
+        </div>
 
-            <!-- Card 1: Produktivitas -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Produktivitas Digital" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Produktivitas</span>
-                        <h3><a href="artikel/produktivitas-digital.html">5 Tips Produktivitas Digital untuk Kerja Hybrid</a></h3>
-                        <p>Pelajari cara mengelola waktu dan fokus dengan tools digital yang tepat.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/produktivitas-digital.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
+        <!-- Grid Artikel -->
+        <div id="blogGrid" class="grid md:grid-cols-3 gap-8">
+            <!-- Artikel akan di-render oleh JavaScript -->
+        </div>
 
-            <!-- Card 2: Bisnis -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Bisnis Online" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Bisnis</span>
-                        <h3><a href="artikel/panduan-bisnis-online.html">Panduan Lengkap Memulai Bisnis Online di 2026</a></h3>
-                        <p>Langkah praktis membangun bisnis digital dari nol hingga menghasilkan.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/panduan-bisnis-online.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
+        <!-- Load More Button -->
+        <div class="text-center">
+            <button id="loadMoreBtn" class="load-more-btn">
+                <i class="fa-regular fa-plus"></i> Lihat Semua Artikel
+            </button>
+        </div>
 
-            <!-- Card 3: Keuangan -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80" alt="Aplikasi Keuangan" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Keuangan</span>
-                        <h3><a href="artikel/aplikasi-keuangan-terbaik.html">Review 5 Aplikasi Pengelola Keuangan Terbaik</a></h3>
-                        <p>Bandingkan fitur dan harga aplikasi keuangan untuk pribadi dan bisnis.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/aplikasi-keuangan-terbaik.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Ebook -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" alt="Ebook" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Literasi</span>
-                        <h3><a href="artikel/efisiensi-ebook.html">Mengapa Membaca Ebook Lebih Efisien di Era Sekarang?</a></h3>
-                        <p>Keuntungan membaca ebook dibanding buku fisik di tengah kesibukan digital.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/efisiensi-ebook.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5: Kesehatan (berhenti merokok) -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80" alt="Kesehatan" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Kesehatan</span>
-                        <h3><a href="artikel/berhenti-merokok.html">Kenapa Sulit Berhenti Merokok? Satu Alasan Rasional</a></h3>
-                        <p>Perokok hanya perlu 1 alasan untuk berhenti, alasan yang paling rasional tak bisa terbantahkan.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/berhenti-merokok.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6: Pendidikan (tes diagnosis) -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c7f1?auto=format&fit=crop&w=400&q=80" alt="Pendidikan" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Pendidikan</span>
-                        <h3><a href="artikel/pentingnya-tes-diagnosis.html">Pentingnya Tes Diagnosis untuk Siswa</a></h3>
-                        <p>Mengidentifikasi kelemahan siswa sejak dini demi hasil belajar yang optimal.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/pentingnya-tes-diagnosis.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 7: Promosi Sangkatan -->
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80" alt="Buku Alumni" loading="lazy" />
-                <div class="card-body">
-                    <div class="top">
-                        <span class="category">Produk</span>
-                        <h3><a href="artikel/buku-alumni-sangkatan.html">Masih Perlukan Buku Alumni untuk Lulusan?</a></h3>
-                        <p>Kenali Sangkatan, platform digital yang mengubah buku fisik alumni menjadi online dan abadi.</p>
-                    </div>
-                    <div class="footer-meta">
-                        <span><i class="fa-regular fa-calendar mr-1"></i> 14 Jul 2026</span>
-                        <a href="artikel/buku-alumni-sangkatan.html" class="read-more">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Pesan jika tidak ada hasil pencarian -->
+        <div id="noResult" class="text-center py-10 hidden">
+            <p class="text-slate-400 text-sm"><i class="fa-regular fa-face-frown mr-1"></i> Tidak ada artikel yang sesuai dengan pencarian Anda.</p>
         </div>
     </main>
 
-    <!-- FOOTER — SAMA PERSIS DENGAN BLOG.HTML, FAQ.HTML, INDEX.HTML -->
+    <!-- ===== SCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // DATA ARTIKEL (Sesuai dengan 7 artikel yang sudah dibuat)
+            // ============================================================
+            const articles = [
+                {
+                    id: 1,
+                    judul: '5 Tips Produktivitas Digital untuk Kerja Hybrid',
+                    kategori: 'Produktivitas',
+                    deskripsi: 'Pelajari cara mengelola waktu dan fokus dengan tools digital yang tepat.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/produktivitas-digital.html'
+                },
+                {
+                    id: 2,
+                    judul: 'Panduan Lengkap Memulai Bisnis Online di 2026',
+                    kategori: 'Bisnis',
+                    deskripsi: 'Langkah praktis membangun bisnis digital dari nol hingga menghasilkan.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/panduan-bisnis-online.html'
+                },
+                {
+                    id: 3,
+                    judul: 'Review 5 Aplikasi Pengelola Keuangan Terbaik',
+                    kategori: 'Keuangan',
+                    deskripsi: 'Bandingkan fitur dan harga aplikasi keuangan untuk pribadi dan bisnis.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/aplikasi-keuangan-terbaik.html'
+                },
+                {
+                    id: 4,
+                    judul: 'Mengapa Membaca Ebook Lebih Efisien di Era Sekarang?',
+                    kategori: 'Literasi',
+                    deskripsi: 'Keuntungan membaca ebook dibanding buku fisik di tengah kesibukan digital.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/efisiensi-ebook.html'
+                },
+                {
+                    id: 5,
+                    judul: 'Kenapa Sulit Berhenti Merokok? Satu Alasan Rasional',
+                    kategori: 'Kesehatan',
+                    deskripsi: 'Perokok hanya perlu 1 alasan untuk berhenti, alasan yang paling rasional tak bisa terbantahkan.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/berhenti-merokok.html'
+                },
+                {
+                    id: 6,
+                    judul: 'Pentingnya Tes Diagnosis untuk Siswa',
+                    kategori: 'Pendidikan',
+                    deskripsi: 'Mengidentifikasi kelemahan siswa sejak dini demi hasil belajar yang optimal.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/pentingnya-tes-diagnosis.html'
+                },
+                {
+                    id: 7,
+                    judul: 'Masih Perlukan Buku Alumni untuk Lulusan?',
+                    kategori: 'Produk',
+                    deskripsi: 'Kenali Sangkatan, platform digital yang mengubah buku fisik alumni menjadi online dan abadi.',
+                    tanggal: '14 Jul 2026',
+                    gambar: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80',
+                    link: 'artikel/buku-alumni-sangkatan.html'
+                },
+{
+    id: 8,
+    judul: 'Absensi Digital Sekolah: Solusi Tenang untuk Orang Tua',
+    kategori: 'Pendidikan',
+    deskripsi: 'Sistem absensi digital terintegrasi web memberikan pendataan sekolah yang tertib sekaligus ketenangan pikiran bagi wali murid secara real-time.',
+    tanggal: '15 Jul 2026',
+    gambar: '[https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80](https://www.google.com/search?q=https://images.unsplash.com/photo-1580582932707-520aed937b7b%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1200%26q%3D80)',
+    link: 'artikel/absensi-digital-sekolah-solusi-tenang-untuk-orang-tua.html'
+},
+                    {
+    id: 9,
+    judul: 'Gasekin: Solusi Cerdas Kelola Laporan eKinerja ASN',
+    kategori: 'Produk',
+    deskripsi: 'Kelola eKinerja ASN tanpa pusing dengan Gasekin. Simak tips input harian mudah agar akhir bulan tinggal salin tempel tanpa beban.',
+    tanggal: '01 Jul 2026',
+    gambar: '[https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80](https://www.google.com/search?q=https://images.unsplash.com/photo-1460925895917-afdab827c52f%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1200%26q%3D80)',
+    link: 'artikel/gasekin-solusi-cerdas-kelola-laporan-ekinerja-asn.html'
+},
+{
+    id: 10,
+    judul: 'Digitalisasi Kelurahan: Solusi Layanan Publik Responsif',
+    kategori: 'Teknologi',
+    deskripsi: 'Transformasi digital di kelurahan mempercepat pengurusan surat domisili hingga ahli waris demi pelayanan publik yang lebih prima.',
+    tanggal: '14 Jul 2026',
+    gambar: '[https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80](https://www.google.com/search?q=https://images.unsplash.com/photo-1450133064473-71024230f91b%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1200%26q%3D80)',
+    link: 'artikel/digitalisasi-kelurahan-solusi-layanan-publik-responsif.html'
+},
+{
+    id: 11,
+    judul: 'Manajemen Lupa: Solusi Cerdas Hadapi Sifat Alami Manusia',
+    kategori: 'Teknologi',
+    deskripsi: 'Sifat lupa tidak bisa ditolak, namun harus diantisipasi. Simak pentingnya manajemen lupa agar tidak merugikan waktu, finansial, dan reputasi Anda.',
+    tanggal: '15 Jul 2026',
+    gambar: '[https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80](https://www.google.com/search?q=https://images.unsplash.com/photo-1516321318423-f06f85e504b3%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1200%26q%3D80)',
+    link: 'artikel/manajemen-lupa-solusi-cerdas-hadapi-sifat-alami-manusia.html'
+},
+{
+    id: 12,
+    judul: 'Stop Jadi Penonton! Lakukan Ini Saat Ada Kecelakaan',
+    kategori: 'Pendidikan',
+    deskripsi: 'Mengubah fenomena penonton kecelakaan menjadi aksi nyata yang menyelamatkan nyawa dengan panduan langkah darurat yang tepat.',
+    tanggal: '15 Jul 2026',
+    gambar: '[https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=1200&q=80](https://www.google.com/search?q=https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1200%26q%3D80)',
+    link: 'artikel/stop-jadi-penonton-lakukan-ini-saat-ada-kecelakaan.html'
+}
+            ];
+
+            // ============================================================
+            // DOM REFERENSI
+            // ============================================================
+            const grid = document.getElementById('blogGrid');
+            const searchInput = document.getElementById('searchInput');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const noResult = document.getElementById('noResult');
+
+            // ============================================================
+            // RENDER FUNGSI
+            // ============================================================
+            function renderArticles(filtered, showAll = false) {
+                // Tentukan jumlah yang ditampilkan: 6 jika tidak showAll, else semua
+                const limit = showAll ? filtered.length : Math.min(6, filtered.length);
+                const visible = filtered.slice(0, limit);
+                const hidden = filtered.slice(limit);
+
+                // Bersihkan grid
+                grid.innerHTML = '';
+
+                // Jika tidak ada hasil
+                if (filtered.length === 0) {
+                    noResult.classList.remove('hidden');
+                    loadMoreBtn.style.display = 'none';
+                    return;
+                } else {
+                    noResult.classList.add('hidden');
+                }
+
+                // Render visible
+                visible.forEach((art, index) => {
+                    grid.appendChild(createCard(art, false));
+                });
+
+                // Render hidden (extra) dengan class extra
+                hidden.forEach((art) => {
+                    const card = createCard(art, true);
+                    card.classList.add('extra');
+                    grid.appendChild(card);
+                });
+
+                // Tampilkan/sembunyikan tombol load more
+                if (hidden.length > 0 && filtered.length > 6) {
+                    loadMoreBtn.style.display = 'inline-block';
+                    // Jika sedang showAll, ubah teks tombol
+                    if (showAll) {
+                        loadMoreBtn.innerHTML = '<i class="fa-regular fa-minus"></i> Tampilkan Lebih Sedikit';
+                    } else {
+                        loadMoreBtn.innerHTML = '<i class="fa-regular fa-plus"></i> Lihat Semua Artikel';
+                    }
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+
+            function createCard(art, isExtra) {
+                const card = document.createElement('div');
+                card.className = 'blog-card' + (isExtra ? ' extra' : '');
+                if (!isExtra) card.dataset.visible = 'true';
+
+                card.innerHTML = `
+                    <div class="image-wrapper">
+                        <img src="${art.gambar}" alt="${art.judul}" loading="lazy" />
+                        <span class="category-badge">${art.kategori}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="top">
+                            <h3><a href="${art.link}">${art.judul}</a></h3>
+                            <p>${art.deskripsi}</p>
+                        </div>
+                        <div class="footer-meta">
+                            <span><i class="fa-regular fa-calendar mr-1"></i> ${art.tanggal}</span>
+                            <a href="${art.link}" class="read-more">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                `;
+
+                return card;
+            }
+
+            // ============================================================
+            // STATE
+            // ============================================================
+            let currentFilter = '';
+            let showAll = false;
+
+            // ============================================================
+            // FUNGSI FILTER & RENDER
+            // ============================================================
+            function updateDisplay() {
+                const keyword = currentFilter.toLowerCase().trim();
+                let filtered = articles;
+
+                if (keyword) {
+                    filtered = articles.filter(art =>
+                        art.judul.toLowerCase().includes(keyword) ||
+                        art.kategori.toLowerCase().includes(keyword) ||
+                        art.deskripsi.toLowerCase().includes(keyword)
+                    );
+                }
+
+                // Jika showAll true, tampilkan semua yang difilter
+                renderArticles(filtered, showAll);
+
+                // Sembunyikan tombol jika hasil filter <= 6
+                if (filtered.length <= 6) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    // Tampilkan tombol dengan teks sesuai state
+                    if (showAll) {
+                        loadMoreBtn.innerHTML = '<i class="fa-regular fa-minus"></i> Tampilkan Lebih Sedikit';
+                    } else {
+                        loadMoreBtn.innerHTML = '<i class="fa-regular fa-plus"></i> Lihat Semua Artikel';
+                    }
+                    loadMoreBtn.style.display = 'inline-block';
+                }
+            }
+
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
+
+            // Search
+            searchInput.addEventListener('input', function() {
+                currentFilter = this.value;
+                // Jika search aktif, reset showAll agar hanya 6 hasil pertama yang ditampilkan
+                if (currentFilter.trim()) {
+                    showAll = false;
+                }
+                updateDisplay();
+            });
+
+            // Load More / Tampilkan Semua
+            loadMoreBtn.addEventListener('click', function() {
+                // Jika sedang showAll, matikan
+                if (showAll) {
+                    showAll = false;
+                } else {
+                    showAll = true;
+                }
+                updateDisplay();
+            });
+
+            // ============================================================
+            // INISIALISASI
+            // ============================================================
+            updateDisplay();
+
+            // Reset showAll saat pencarian dikosongkan (tambahan)
+            // Sudah tertangani di input event
+
+        })();
+    </script>
+<!-- FOOTER — SAMA PERSIS DENGAN BLOG.HTML & INDEX.HTML -->
     <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
             <div class="col-span-2 md:col-span-4 space-y-4">
