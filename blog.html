@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="icon" type="image/png" href="logo-dongetik.png" />
     <style>
-        /* Reset & Dark Mode */
+        /* Reset sederhana */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
         body {
             font-family: 'Inter', sans-serif;
@@ -22,6 +23,7 @@
             background: #0f172a;
             color: #e2e8f0;
         }
+        /* Dark mode overrides */
         body.dark .bg-white { background: #1e293b; }
         body.dark .bg-white/80 { background: #1e293b/80; }
         body.dark .border-slate-100 { border-color: #334155; }
@@ -36,9 +38,10 @@
         body.dark .hover\:text-blue-600:hover { color: #60a5fa; }
         body.dark .bg-slate-100 { background: #334155; }
         body.dark .border-slate-200 { border-color: #334155; }
+
         h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* Dropdown */
+        /* Dropdown (sama seperti sebelumnya) */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -213,7 +216,6 @@
     <!-- ===== NAVBAR ===== -->
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
                 <div class="border-l border-slate-200 pl-3">
@@ -221,8 +223,6 @@
                     <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
                 </div>
             </div>
-
-            <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
                 <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
                 <div class="dropdown-wrapper">
@@ -237,8 +237,6 @@
                 <a href="blog.html" class="text-blue-600 font-semibold hover:text-blue-600 transition">Blog</a>
                 <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
             </div>
-
-            <!-- Tombol Tema -->
             <div class="flex items-center gap-5">
                 <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg">
                     <i class="fa-regular fa-sun"></i>
@@ -381,7 +379,7 @@
                 blogContainer.innerHTML = html;
             }
 
-            // ===== STRIP MARKDOWN UNTUK DESKRIPSI =====
+            // ===== STRIP MARKDOWN =====
             function stripMarkdown(text) {
                 if (!text) return '';
                 return text
