@@ -413,7 +413,10 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 const kontenHTML = convertMarkdownToHTML(kontenRaw);
                 const tagArray = tagRaw.split(',').map(tg => tg.trim()).filter(tg => tg);
                 const tagSpans = tagArray.map(tg => `<span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#${tg.replace(/\s/g,'')}</span>`).join('');
-                const artikelUrl = 'https://dongetik.net/artikel/buku-alumni-sangkatan.html';
+
+                // --- PERBAIKAN: Buat slug dan URL dinamis ---
+                const slug = createSlug(j);
+                const artikelUrl = 'https://dongetik.net/artikel/' + slug + '.html';
 
                 return `<!DOCTYPE html>
 <html lang="id">
