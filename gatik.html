@@ -315,7 +315,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                     mainContent.style.display = 'flex';
                     pinError.textContent = '';
                     pinInput.value = '';
-                    // Update placeholder hint setelah login
                     updateCardIdHint();
                     generateAll();
                     document.getElementById('judul').focus();
@@ -356,6 +355,24 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 } else {
                     hint.textContent = '💡 Belum ada ID tersimpan, akan otomatis generate dari timestamp';
                 }
+            }
+
+            // ----- FUNGSI PEMBERSIH URL (untuk menghilangkan markdown [url](url)) -----
+            function cleanUrl(url) {
+                if (!url) return '';
+                // Trim spasi
+                let cleaned = url.trim();
+                // Jika mengandung pola [url](url), ekstrak URL di dalam tanda kurung
+                const markdownMatch = cleaned.match(/\[([^\]]+)\]\(([^)]+)\)/);
+                if (markdownMatch) {
+                    // Ambil URL dari bagian kedua (yang di dalam kurung)
+                    cleaned = markdownMatch[2];
+                }
+                // Jika masih ada tanda kurung siku atau kurung biasa di awal/akhir, hilangkan
+                cleaned = cleaned.replace(/^\[|\]$/g, '');
+                cleaned = cleaned.replace(/^\(|\)$/g, '');
+                // Jika URL diawali dengan http:// atau https://, kita pertahankan
+                return cleaned;
             }
 
             // ----- DOM refs -----
@@ -431,7 +448,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 output.textContent = html;
                 const card = generateCardObject(data);
                 cardOutput.textContent = card;
-                // Update hint setelah generate (karena ID mungkin berubah)
                 updateCardIdHint();
             }
 
@@ -441,7 +457,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 const tagArray = tagRaw.split(',').map(tg => tg.trim()).filter(tg => tg);
                 const tagSpans = tagArray.map(tg => `<span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#${tg.replace(/\s/g,'')}</span>`).join('');
 
-                // --- PERBAIKAN: Buat slug dan URL dinamis ---
                 const slug = createSlug(j);
                 const artikelUrl = 'https://dongetik.net/artikel/' + slug + '.html';
 
@@ -544,7 +559,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
             // ----- Generate card dalam format JavaScript object -----
             function generateCardObject(data) {
                 const { judul: j, tanggal: t, kategori: k, gambar: g, deskripsi: d } = data;
-                // format tanggal ke "dd Mmm yyyy"
                 const dateObj = new Date(t + 'T00:00:00');
                 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
                 const day = String(dateObj.getDate()).padStart(2, '0');
@@ -552,13 +566,10 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 const year = dateObj.getFullYear();
                 const formattedDate = `${day} ${month} ${year}`;
 
-                // buat slug dari judul
                 const slug = createSlug(j);
 
-                // ambil ID dari form atau generate otomatis (timestamp)
                 let id = cardId.value.trim();
                 if (!id) {
-                    // Jika kosong, gunakan lastId jika ada, atau generate timestamp
                     const lastId = getLastCardId();
                     if (lastId !== null) {
                         id = lastId;
@@ -568,8 +579,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 } else {
                     id = parseInt(id);
                 }
-
-                // Simpan ID yang digunakan sebagai lastId
                 setLastCardId(id);
 
                 return `{
@@ -583,14 +592,14 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
 }`;
             }
 
-            // ----- Ambil data form -----
+            // ----- Ambil data form (dengan pembersihan URL) -----
             function getFormData() {
                 return {
                     judul: judul.value.trim() || 'Judul Artikel',
                     tanggal: tanggal.value || new Date().toISOString().split('T')[0],
                     penulis: penulis.value.trim() || 'Admin',
                     kategori: kategori.value.trim() || 'Umum',
-                    gambar: gambar.value.trim() || 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+                    gambar: cleanUrl(gambar.value.trim()) || 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
                     deskripsi: deskripsi.value.trim() || 'Deskripsi artikel',
                     tags: tags.value.trim() || 'Artikel',
                     kontenRaw: konten.value || 'Tulis konten di sini.'
@@ -636,7 +645,7 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                     });
             });
 
-            // ----- Unduh HTML (dengan nama file otomatis dari judul) -----
+            // ----- Unduh HTML -----
             downloadBtn.addEventListener('click', function() {
                 const code = output.textContent;
                 if (!code || code.includes('// Hasil akan muncul')) {
@@ -655,7 +664,7 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 URL.revokeObjectURL(url);
             });
 
-            // ----- Parse AI output -----
+            // ----- Parse AI output (dengan pembersihan URL) -----
             document.getElementById('parseBtn').addEventListener('click', function() {
                 const raw = document.getElementById('aiInput').value;
                 if (!raw.trim()) {
@@ -689,6 +698,10 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                                 const rest = line.substring(label.length + 1).trim();
                                 if (rest) extracted[field] = rest + '\n';
                             } else {
+                                // Bersihkan nilai jika field adalah gambar
+                                if (field === 'gambar') {
+                                    value = cleanUrl(value);
+                                }
                                 extracted[field] = value;
                             }
                             matched = true;
@@ -717,7 +730,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 if (extracted['tags']) tags.value = extracted['tags'];
                 if (extracted['konten']) konten.value = extracted['konten'];
 
-                // --- PERBAIKAN: Jika ID Card kosong, isi dengan lastId jika ada ---
                 if (!cardId.value.trim()) {
                     const lastId = getLastCardId();
                     if (lastId !== null) {
