@@ -87,7 +87,18 @@
             transition: 0.2s;
         }
         .btn-green:hover { background: #16a34a; }
-        .generated-html pre, .card-code pre {
+        .btn-amber {
+            background: #f59e0b;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-amber:hover { background: #d97706; }
+        .generated-html pre, .card-code pre, .caption-code pre {
             white-space: pre-wrap;
             word-wrap: break-word;
             background: #1e293b;
@@ -111,6 +122,7 @@
         }
         .toolbar-btn:hover { background: #e2e8f0; }
         .parse-area textarea { min-height: 150px; }
+        .caption-output pre { max-height: 200px; }
 
         /* Login overlay */
         #loginOverlay {
@@ -169,12 +181,12 @@
         </div>
     </div>
 
-    <!-- KONTEN UTAMA (disembunyikan sampai login benar) -->
+    <!-- KONTEN UTAMA -->
     <div id="mainContent" class="antialiased p-4 md:p-8 min-h-screen flex items-start justify-center" style="display:none;">
 
         <div class="max-w-7xl w-full">
 
-            <!-- HEADER dengan tombol Prompt -->
+            <!-- HEADER -->
             <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <h1 class="text-3xl md:text-4xl font-black text-slate-800 font-heading">🧩 Generator Artikel <span class="text-blue-600">Dongetik</span></h1>
                 <button id="copyPromptBtn" class="btn-prompt text-sm">
@@ -187,9 +199,15 @@
                 <!-- FORM KIRI (3/5) -->
                 <div class="lg:col-span-3 space-y-6">
 
-                    <!-- Parse AI -->
+                    <!-- Parse AI dengan Toolbar -->
                     <div class="form-card p-5 parse-area">
                         <label class="label-form block mb-1"><i class="fa-regular fa-robot mr-2 text-blue-500"></i>Tempel Hasil AI & Isi Otomatis</label>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <button type="button" class="toolbar-btn" id="aiBoldBtn"><i class="fa-solid fa-bold"></i> Bold</button>
+                            <button type="button" class="toolbar-btn" id="aiItalicBtn"><i class="fa-solid fa-italic"></i> Italic</button>
+                            <button type="button" class="toolbar-btn" id="aiLinkBtn"><i class="fa-solid fa-link"></i> Link</button>
+                            <span class="text-xs text-slate-400 self-center ml-1">Gunakan **teks**, *teks*, atau [teks](url)</span>
+                        </div>
                         <div class="flex gap-2 mb-2">
                             <textarea id="aiInput" class="textarea-form flex-1" placeholder="Tempel output AI di sini (format: Judul: ..., Tanggal: ..., dll.)"></textarea>
                         </div>
@@ -240,7 +258,8 @@
                                 <div class="flex flex-wrap gap-2 mb-2">
                                     <button type="button" class="toolbar-btn" id="boldBtn"><i class="fa-solid fa-bold"></i> Bold</button>
                                     <button type="button" class="toolbar-btn" id="italicBtn"><i class="fa-solid fa-italic"></i> Italic</button>
-                                    <span class="text-xs text-slate-400 self-center">Gunakan **teks** atau *teks*</span>
+                                    <button type="button" class="toolbar-btn" id="linkBtn"><i class="fa-solid fa-link"></i> Link</button>
+                                    <span class="text-xs text-slate-400 self-center">**teks** *teks* [teks](url)</span>
                                 </div>
                                 <textarea id="konten" class="textarea-form" rows="10" placeholder="Tulis artikel di sini. Pisahkan paragraf dengan baris kosong.">Buku alumni fisik seringkali menjadi barang yang hilang, rusak, atau terlupakan begitu saja. Padahal, data alumni sangat berharga untuk membangun jaringan profesional, silaturahmi, dan bahkan promosi institusi.
 
@@ -255,7 +274,7 @@ Keunggulan Sangkatan:
 
 Dengan Sangkatan, sekolah dan kampus memiliki arsip alumni yang rapi, profesional, dan selalu terkini. Selain itu, platform ini juga memudahkan alumni untuk tetap terhubung dengan almamaternya.
 
-Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.com</textarea>
+Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanjut.</textarea>
                             </div>
                             <div class="flex justify-end">
                                 <button type="button" id="generateBtn" class="btn-primary w-full md:w-auto">
@@ -268,6 +287,8 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
 
                 <!-- HASIL KANAN (2/5) -->
                 <div class="lg:col-span-2 flex flex-col gap-4">
+
+                    <!-- Kode HTML -->
                     <div class="form-card p-6 flex-1 flex flex-col">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                             <h2 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-regular fa-copy text-blue-500"></i> Kode HTML</h2>
@@ -281,7 +302,7 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                         </div>
                     </div>
 
-                    <!-- KODE CARD BLOG (format JavaScript object) -->
+                    <!-- Kode Card Blog -->
                     <div class="form-card p-6">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                             <h2 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-regular fa-copy text-green-500"></i> Kode Card Blog (JS Object)</h2>
@@ -292,6 +313,19 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                         </div>
                         <p class="text-xs text-slate-400 mt-2">Salin object ini ke <strong>blog.html</strong> di bagian array data artikel.</p>
                     </div>
+
+                    <!-- Caption Facebook -->
+                    <div class="form-card p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h2 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-brands fa-facebook text-blue-600"></i> Caption Facebook</h2>
+                            <button id="copyCaptionBtn" class="btn-amber text-sm py-1.5 px-3"><i class="fa-regular fa-clipboard mr-1"></i> Salin Caption</button>
+                        </div>
+                        <div class="caption-output">
+                            <pre id="captionOutput" class="text-sm"><span class="text-slate-400">// Caption akan muncul di sini</span></pre>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2">Caption singkat 1 paragraf untuk posting Facebook.</p>
+                    </div>
+
                 </div>
 
             </div>
@@ -336,10 +370,10 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 if (this.value.length > 6) this.value = this.value.slice(0, 6);
             });
 
-            // ----- Manajemen ID Card dengan localStorage -----
+            // ----- Manajemen ID Card dengan localStorage (mulai dari 15 -> selanjutnya 16) -----
             function getLastCardId() {
                 const stored = localStorage.getItem('lastCardId');
-                return stored ? parseInt(stored) : null;
+                return stored ? parseInt(stored) : 15; // default 15
             }
 
             function setLastCardId(id) {
@@ -350,38 +384,60 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
             function updateCardIdHint() {
                 const hint = document.getElementById('cardIdHint');
                 const lastId = getLastCardId();
-                if (lastId !== null) {
-                    hint.textContent = `💡 ID terakhir: ${lastId} (akan otomatis digunakan jika kosong)`;
-                } else {
-                    hint.textContent = '💡 Belum ada ID tersimpan, akan otomatis generate dari timestamp';
-                }
+                hint.textContent = `💡 ID terakhir: ${lastId} (akan otomatis digunakan jika kosong, selanjutnya ${lastId + 1})`;
             }
 
-            // ----- FUNGSI PEMBERSIH URL (untuk menghilangkan markdown [url](url)) -----
+            // ----- Fungsi pembersih URL -----
             function cleanUrl(url) {
                 if (!url) return '';
-                // Trim spasi
                 let cleaned = url.trim();
-                // Jika mengandung pola [url](url), ekstrak URL di dalam tanda kurung
                 const markdownMatch = cleaned.match(/\[([^\]]+)\]\(([^)]+)\)/);
                 if (markdownMatch) {
-                    // Ambil URL dari bagian kedua (yang di dalam kurung)
                     cleaned = markdownMatch[2];
                 }
-                // Jika masih ada tanda kurung siku atau kurung biasa di awal/akhir, hilangkan
                 cleaned = cleaned.replace(/^\[|\]$/g, '');
                 cleaned = cleaned.replace(/^\(|\)$/g, '');
-                // Jika URL diawali dengan http:// atau https://, kita pertahankan
                 return cleaned;
+            }
+
+            // ----- Fungsi insert markdown (untuk semua textarea) -----
+            function insertMarkdown(textarea, tag, promptForUrl = false) {
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const selected = textarea.value.substring(start, end);
+                const before = textarea.value.substring(0, start);
+                const after = textarea.value.substring(end);
+                let newText, cursorPos;
+
+                if (promptForUrl) {
+                    const url = prompt('Masukkan URL link:');
+                    if (url === null) return; // batal
+                    const displayText = selected || 'teks';
+                    newText = before + '[' + displayText + '](' + url + ')' + after;
+                    cursorPos = before.length + 1 + displayText.length + 2 + url.length + 1;
+                } else {
+                    if (selected) {
+                        newText = before + tag + selected + tag + after;
+                        cursorPos = before.length + tag.length + selected.length + tag.length;
+                    } else {
+                        newText = before + tag + tag + after;
+                        cursorPos = before.length + tag.length;
+                    }
+                }
+                textarea.value = newText;
+                textarea.selectionStart = textarea.selectionEnd = cursorPos;
+                textarea.focus();
             }
 
             // ----- DOM refs -----
             const generateBtn = document.getElementById('generateBtn');
             const output = document.getElementById('outputCode');
             const cardOutput = document.getElementById('cardOutput');
+            const captionOutput = document.getElementById('captionOutput');
             const copyBtn = document.getElementById('copyBtn');
             const downloadBtn = document.getElementById('downloadBtn');
             const copyCardBtn = document.getElementById('copyCardBtn');
+            const copyCaptionBtn = document.getElementById('copyCaptionBtn');
             const copyPromptBtn = document.getElementById('copyPromptBtn');
 
             const judul = document.getElementById('judul');
@@ -393,6 +449,35 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
             const tags = document.getElementById('tags');
             const konten = document.getElementById('konten');
             const cardId = document.getElementById('cardId');
+            const aiInput = document.getElementById('aiInput');
+
+            // ----- Toolbar untuk area AI -----
+            document.getElementById('aiBoldBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(aiInput, '**');
+            });
+            document.getElementById('aiItalicBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(aiInput, '*');
+            });
+            document.getElementById('aiLinkBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(aiInput, '', true);
+            });
+
+            // ----- Toolbar untuk konten utama -----
+            document.getElementById('boldBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(konten, '**');
+            });
+            document.getElementById('italicBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(konten, '*');
+            });
+            document.getElementById('linkBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                insertMarkdown(konten, '', true);
+            });
 
             // ----- Fungsi pembuatan slug -----
             function createSlug(title) {
@@ -402,52 +487,29 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                     .substring(0, 60);
             }
 
-            // ----- Toolbar (bold/italic) -----
-            function insertMarkdown(tag) {
-                const start = konten.selectionStart;
-                const end = konten.selectionEnd;
-                const selected = konten.value.substring(start, end);
-                const before = konten.value.substring(0, start);
-                const after = konten.value.substring(end);
-                let newText;
-                if (selected) {
-                    newText = before + tag + selected + tag + after;
-                } else {
-                    newText = before + tag + tag + after;
-                    const cursorPos = before.length + tag.length;
-                    konten.value = newText;
-                    konten.selectionStart = konten.selectionEnd = cursorPos;
-                    konten.focus();
-                    return;
-                }
-                konten.value = newText;
-                const newCursor = before.length + tag.length + selected.length + tag.length;
-                konten.selectionStart = konten.selectionEnd = newCursor;
-                konten.focus();
-            }
-            document.getElementById('boldBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown('**'); });
-            document.getElementById('italicBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown('*'); });
-
-            // ----- Konversi teks biasa -> HTML (markdown sederhana) -----
+            // ----- Konversi markdown ke HTML (termasuk link) -----
             function convertMarkdownToHTML(text) {
                 let paragraphs = text.split(/\n\s*\n/).filter(p => p.trim() !== '');
                 paragraphs = paragraphs.map(p => {
                     let html = p
                         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.+?)\*/g, '<em>$1</em>');
+                        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-blue-600 hover:underline">$1</a>');
                     html = html.replace(/\n/g, '<br>');
                     return `<p>${html}</p>`;
                 });
                 return paragraphs.join('\n');
             }
 
-            // ----- Generate HTML lengkap + Card -----
+            // ----- Generate HTML lengkap + Card + Caption -----
             function generateAll() {
                 const data = getFormData();
                 const html = generateArticleHTML(data);
                 output.textContent = html;
                 const card = generateCardObject(data);
                 cardOutput.textContent = card;
+                const caption = generateCaption(data);
+                captionOutput.textContent = caption;
                 updateCardIdHint();
             }
 
@@ -571,15 +633,12 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 let id = cardId.value.trim();
                 if (!id) {
                     const lastId = getLastCardId();
-                    if (lastId !== null) {
-                        id = lastId;
-                    } else {
-                        id = Date.now().toString().slice(-6);
-                    }
+                    id = lastId;
                 } else {
                     id = parseInt(id);
                 }
-                setLastCardId(id);
+                // Simpan ID yang digunakan, dan increment untuk next
+                setLastCardId(id + 1);
 
                 return `{
     id: ${id},
@@ -590,6 +649,16 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
     gambar: '${g}',
     link: 'artikel/${slug}.html'
 }`;
+            }
+
+            // ----- Generate Caption Facebook (singkat 1 paragraf) -----
+            function generateCaption(data) {
+                const { judul: j, deskripsi: d, kategori: k } = data;
+                const slug = createSlug(j);
+                const url = 'https://dongetik.net/artikel/' + slug + '.html';
+                // Gunakan deskripsi sebagai dasar caption
+                const caption = `📢 ${j}\n\n${d}\n\nBaca selengkapnya di: ${url}`;
+                return caption;
             }
 
             // ----- Ambil data form (dengan pembersihan URL) -----
@@ -645,6 +714,24 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                     });
             });
 
+            // ----- Salin Caption -----
+            copyCaptionBtn.addEventListener('click', function() {
+                const code = captionOutput.textContent;
+                if (!code || code.includes('// Caption akan muncul')) {
+                    alert('Silakan generate terlebih dahulu.');
+                    return;
+                }
+                navigator.clipboard.writeText(code).then(() => alert('✅ Caption Facebook disalin!'))
+                    .catch(() => {
+                        const range = document.createRange();
+                        range.selectNode(captionOutput);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                        document.execCommand('copy');
+                        alert('✅ Caption Facebook disalin!');
+                    });
+            });
+
             // ----- Unduh HTML -----
             downloadBtn.addEventListener('click', function() {
                 const code = output.textContent;
@@ -664,9 +751,9 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 URL.revokeObjectURL(url);
             });
 
-            // ----- Parse AI output (dengan pembersihan URL) -----
+            // ----- Parse AI output (dengan pembersihan URL dan markdown) -----
             document.getElementById('parseBtn').addEventListener('click', function() {
-                const raw = document.getElementById('aiInput').value;
+                const raw = aiInput.value;
                 if (!raw.trim()) {
                     alert('Tempel hasil AI terlebih dahulu.');
                     return;
@@ -698,7 +785,6 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                                 const rest = line.substring(label.length + 1).trim();
                                 if (rest) extracted[field] = rest + '\n';
                             } else {
-                                // Bersihkan nilai jika field adalah gambar
                                 if (field === 'gambar') {
                                     value = cleanUrl(value);
                                 }
@@ -732,9 +818,7 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
 
                 if (!cardId.value.trim()) {
                     const lastId = getLastCardId();
-                    if (lastId !== null) {
-                        cardId.value = lastId;
-                    }
+                    cardId.value = lastId;
                 }
 
                 const filled = Object.keys(extracted).filter(k => extracted[k]).length;
@@ -742,7 +826,7 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 generateAll();
             });
 
-            // ----- Salin Prompt AI -----
+            // ----- Salin Prompt AI (sudah disempurnakan) -----
             copyPromptBtn.addEventListener('click', function() {
                 const prompt = `Kamu adalah penulis konten profesional untuk **Dongetik Digital**, sebuah platform yang fokus pada solusi digital, pendidikan, dan teknologi.
 
@@ -754,12 +838,12 @@ Judul: [Judul artikel yang menarik, maksimal 60 karakter]
 Tanggal: [Tanggal hari ini dalam format YYYY-MM-DD]
 Penulis: Admin Dongetik
 Kategori: [Satu kata/kategori, misal: Produk, Teknologi, Pendidikan, Bisnis, dll.]
-Gambar: [URL gambar cover dari Unsplash yang relevan dengan topik, gunakan ukuran w=1200&q=80, misal: https://images.unsplash.com/photo-xxxx?auto=format&fit=crop&w=1200&q=80]
+Gambar: [URL gambar cover dari Unsplash yang relevan dengan topik, gunakan ukuran w=1200&q=80, contoh: https://images.unsplash.com/photo-xxxx?auto=format&fit=crop&w=1200&q=80. PASTIKAN URL GAMBAR MURNI, TANPA PREFIX GOOGLE SEARCH ATAU MARKDOWN LAINNYA.]
 Deskripsi: [Kalimat singkat untuk meta description dan OG, maksimal 160 karakter]
 Tags: [3-5 tag, pisahkan dengan koma, tanpa spasi berlebih, misal: Sangkatan, BukuAlumni, Digital]
 
 Konten:
-[Tulis artikel di sini dalam TEKS BIASA. Gunakan **teks** untuk huruf TEBAL dan *teks* untuk huruf MIRING. Pisahkan setiap paragraf dengan BARIS KOSONG (enter dua kali). Gunakan daftar (bullet) dengan tanda * di awal baris jika diperlukan. Buat artikel minimal 4 paragraf, informatif, dan sesuai dengan gaya penulisan blog Dongetik Digital yang modern, profesional, dan mudah dipahami.]
+[Tulis artikel di sini dalam TEKS BIASA. Gunakan **teks** untuk huruf TEBAL, *teks* untuk huruf MIRING, dan [teks](url) untuk tautan. Pisahkan setiap paragraf dengan BARIS KOSONG (enter dua kali). Gunakan daftar (bullet) dengan tanda * di awal baris jika diperlukan. Buat artikel minimal 4 paragraf, informatif, dan sesuai dengan gaya penulisan blog Dongetik Digital yang modern, profesional, dan mudah dipahami.]
 
 ---
 
