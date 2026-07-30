@@ -151,6 +151,7 @@
             box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
         }
         .login-box .error { color: #ef4444; font-size: 0.9rem; margin-top: 0.5rem; min-height: 1.5rem; }
+        .placeholder-hint { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
     </style>
 </head>
 <body>
@@ -201,8 +202,9 @@
                         <form id="articleForm" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="label-form block mb-1">ID Card (opsional, kosongkan untuk otomatis)</label>
-                                    <input type="number" id="cardId" class="input-form" placeholder="7" value="" />
+                                    <label class="label-form block mb-1">ID Card (otomatis)</label>
+                                    <input type="number" id="cardId" class="input-form" placeholder="Kosongkan untuk otomatis" value="" />
+                                    <div id="cardIdHint" class="placeholder-hint"></div>
                                 </div>
                                 <div>
                                     <label class="label-form block mb-1">Tanggal</label>
@@ -313,6 +315,8 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                     mainContent.style.display = 'flex';
                     pinError.textContent = '';
                     pinInput.value = '';
+                    // Update placeholder hint setelah login
+                    updateCardIdHint();
                     generateAll();
                     document.getElementById('judul').focus();
                 } else {
@@ -332,6 +336,27 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
             pinInput.addEventListener('input', function() {
                 if (this.value.length > 6) this.value = this.value.slice(0, 6);
             });
+
+            // ----- Manajemen ID Card dengan localStorage -----
+            function getLastCardId() {
+                const stored = localStorage.getItem('lastCardId');
+                return stored ? parseInt(stored) : null;
+            }
+
+            function setLastCardId(id) {
+                localStorage.setItem('lastCardId', String(id));
+                updateCardIdHint();
+            }
+
+            function updateCardIdHint() {
+                const hint = document.getElementById('cardIdHint');
+                const lastId = getLastCardId();
+                if (lastId !== null) {
+                    hint.textContent = `💡 ID terakhir: ${lastId} (akan otomatis digunakan jika kosong)`;
+                } else {
+                    hint.textContent = '💡 Belum ada ID tersimpan, akan otomatis generate dari timestamp';
+                }
+            }
 
             // ----- DOM refs -----
             const generateBtn = document.getElementById('generateBtn');
@@ -406,6 +431,8 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 output.textContent = html;
                 const card = generateCardObject(data);
                 cardOutput.textContent = card;
+                // Update hint setelah generate (karena ID mungkin berubah)
+                updateCardIdHint();
             }
 
             function generateArticleHTML(data) {
@@ -531,8 +558,19 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 // ambil ID dari form atau generate otomatis (timestamp)
                 let id = cardId.value.trim();
                 if (!id) {
-                    id = Date.now().toString().slice(-6);
+                    // Jika kosong, gunakan lastId jika ada, atau generate timestamp
+                    const lastId = getLastCardId();
+                    if (lastId !== null) {
+                        id = lastId;
+                    } else {
+                        id = Date.now().toString().slice(-6);
+                    }
+                } else {
+                    id = parseInt(id);
                 }
+
+                // Simpan ID yang digunakan sebagai lastId
+                setLastCardId(id);
 
                 return `{
     id: ${id},
@@ -678,6 +716,14 @@ Kunjungi *Sangkatan* untuk demo dan informasi lebih lanjut: https://sangkatan.co
                 if (extracted['deskripsi']) deskripsi.value = extracted['deskripsi'];
                 if (extracted['tags']) tags.value = extracted['tags'];
                 if (extracted['konten']) konten.value = extracted['konten'];
+
+                // --- PERBAIKAN: Jika ID Card kosong, isi dengan lastId jika ada ---
+                if (!cardId.value.trim()) {
+                    const lastId = getLastCardId();
+                    if (lastId !== null) {
+                        cardId.value = lastId;
+                    }
+                }
 
                 const filled = Object.keys(extracted).filter(k => extracted[k]).length;
                 alert(`✅ Berhasil mengisi ${filled} field dari hasil AI.`);
