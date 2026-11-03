@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebook - Dongetik Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { blue: '#2563EB', sky: '#0EA5E9', emerald: '#10B981', purple: '#7C3AED' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body.dark ::-webkit-scrollbar-track { background: #1e293b; }
+        body.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        .product-card {
+            background: white; border: 1px solid #f1f5f9; border-radius: 16px;
+            overflow: hidden; transition: box-shadow 0.2s, transform 0.15s, background 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .product-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+        .product-image {
+            width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+            display: block; background: #f8fafc;
+        }
+        .cat-pill {
+            padding: 0.4rem 1rem; border-radius: 60px;
+            font-size: 0.8rem; font-weight: 600;
+            border: 1px solid #e2e8f0; background: white; color: #64748b;
+            cursor: pointer; transition: all 0.15s; white-space: nowrap;
+        }
+        .cat-pill:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .cat-pill.active {
+            background: #059669; border-color: #059669; color: white;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+        }
+        .badge-cat {
+            display: inline-block; padding: 3px 10px; border-radius: 6px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; border: 1px solid;
+        }
+        .tag-pill {
+            display: inline-block; padding: 2px 8px; border-radius: 6px;
+            font-size: 10px; font-weight: 600; color: #64748b;
+            background: #f1f5f9; border: 1px solid #e2e8f0;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .galeri-thumb {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover;
+            border-radius: 8px; border: 2px solid transparent;
+            cursor: pointer; transition: border-color 0.15s, opacity 0.15s;
+            opacity: 0.7;
+        }
+        .galeri-thumb:hover { opacity: 1; }
+        .galeri-thumb.active { border-color: #059669; opacity: 1; }
+        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* ============================================================
+           DARK MODE
+           ============================================================ */
+        body.dark { background: #0f172a; color: #e2e8f0; }
+
+        /* Navbar */
+        body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
+        body.dark .border-slate-100 { border-color: #334155 !important; }
+        body.dark .border-slate-200 { border-color: #334155 !important; }
+
+        /* Teks umum */
+        body.dark .text-slate-900 { color: #f1f5f9 !important; }
+        body.dark .text-slate-800 { color: #e2e8f0 !important; }
+        body.dark .text-slate-700 { color: #e2e8f0 !important; }
+        body.dark .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark .text-slate-500 { color: #94a3b8 !important; }
+        body.dark .text-slate-400 { color: #94a3b8 !important; }
+
+        /* Latar */
+        body.dark .bg-white { background: #1e293b !important; }
+        body.dark .bg-slate-50 { background: #0f172a !important; }
+        body.dark .bg-slate-100 { background: #334155 !important; }
+        body.dark .bg-emerald-50 { background: #1e293b !important; }
+        body.dark .bg-emerald-50\/50 { background: #0f172a !important; }
+        body.dark .bg-emerald-100\/70 { background: #1e293b !important; border-color: #334155 !important; }
+
+        /* Ikon theme: biru terang di mode gelap */
+        #themeToggle { color: #475569; }
+        #themeToggle:hover { color: #059669; }
+        body.dark #themeToggle { color: #60a5fa !important; }
+        body.dark #themeToggle:hover { color: #93c5fd !important; }
+
+        /* Hero: emerald gelap */
+        body.dark .from-emerald-50 { background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%) !important; }
+        body.dark .border-emerald-100\/60 { border-color: #334155 !important; }
+        body.dark .bg-emerald-100\/70 { background: rgba(6, 78, 59, 0.6) !important; color: #6ee7b7 !important; border-color: #065f46 !important; }
+
+        /* Kartu produk */
+        body.dark .product-card { background: #1e293b; border-color: #334155; }
+        body.dark .product-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+        body.dark .product-image { background: #0f172a; }
+
+        /* Badge & tag */
+        body.dark .badge-cat { background: #334155 !important; color: #cbd5e1 !important; border-color: #475569 !important; }
+        body.dark .tag-pill { background: #334155; border-color: #475569; color: #cbd5e1; }
+
+        /* Pill filter */
+        body.dark .cat-pill { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+        body.dark .cat-pill:hover { background: #334155; border-color: #475569; }
+        /* Saat aktif, biarkan warna emerald */
+
+        /* Kartu "untuk siapa" / "masalah" / "bukti" / FAQ */
+        body.dark .bg-gradient-to-b { background: #1e293b !important; }
+        body.dark .bg-gradient-to-br { background: #1e293b !important; }
+        body.dark .border-emerald-100\/80 { border-color: #334155 !important; }
+        body.dark .border-emerald-100 { border-color: #334155 !important; }
+
+        /* Modal detail */
+        body.dark #productDetailModal .bg-white { background: #1e293b !important; }
+        body.dark #productDetailModal .bg-slate-50 { background: #0f172a !important; }
+        body.dark #productDetailModal .border-slate-100,
+        body.dark #productDetailModal .border-slate-200 { border-color: #334155 !important; }
+        body.dark #productDetailModal button[onclick="closeDetailModal()"] { background: #334155; color: #cbd5e1; }
+        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover { background: #475569; }
+        body.dark #productDetailModal a[href="katalog.html#ebook"] { background: #334155; border-color: #475569; color: #e2e8f0; }
+        body.dark #productDetailModal a[href="katalog.html#ebook"]:hover { background: #475569; }
+
+        /* Footer */
+        body.dark footer { background: #0f172a; border-color: #334155; }
+        body.dark footer .bg-slate-50 { background: #1e293b !important; }
+        body.dark footer .border-slate-100 { border-color: #334155 !important; }
+
+        /* CTA section */
+        body.dark section.bg-slate-50 { background: #0f172a !important; }
+
+        /* Tombol reset filter */
+        body.dark button[onclick="resetFilters()"] { background: #059669; }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-emerald-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="index.html" class="hover:text-emerald-600 transition">Beranda</a>
+                <a href="katalog.html" class="hover:text-emerald-600 transition">Katalog</a>
+                <a href="tentang-kami.html" class="hover:text-emerald-600 transition">Tentang Kami</a>
+                <a href="blog.html" class="hover:text-emerald-600 transition">Blog</a>
+                <a href="#kontak" class="hover:text-emerald-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="katalog.html" class="relative inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fa-solid fa-cart-shopping text-emerald-300"></i>
+                    <span class="hidden sm:inline">Pesanan</span>
+                </a>
+                <button id="themeToggle" class="text-slate-600 hover:text-emerald-600 transition text-lg" aria-label="Ubah tema">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-slate-50 border-b border-emerald-100/60 transition-colors duration-300">
+        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-400/10 blur-[120px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-teal-400/10 blur-[120px]"></div>
+        <div class="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/70 text-emerald-700 border border-emerald-200 text-xs font-semibold tracking-wide mb-5">
+                    <i class="fa-solid fa-book-open"></i> Kategori Ebook
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight tracking-tight font-heading mb-5">
+                    Bacaan ringkas untuk <span class="text-emerald-600">satu hal yang ingin Anda ubah</span>.
+                </h1>
+                <p class="text-slate-600 leading-relaxed mb-8 max-w-2xl text-lg">
+                    Ebook Dongetik ditulis untuk pembaca yang ingin mengubah satu hal dalam hidupnya—berhenti dari kebiasaan yang merugikan, menyelesaikan sesuatu yang tertunda, atau memahami topik baru dengan cara yang lebih jernih. Ringkas, jujur, dan bisa langsung dibaca di ponsel.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#unggulan" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm flex items-center gap-2">
+                        Lihat Ebook Unggulan <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                    <a href="katalog.html#ebook" class="px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-full border border-slate-200 transition text-sm flex items-center gap-2">
+                        Lihat Semua di Katalog <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNTUK SIAPA -->
+    <section class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Untuk Siapa</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Ditulis untuk tiga niat pembaca</h2>
+                <p class="text-slate-500 text-sm mt-2">Bukan berdasarkan profesi atau usia, tapi berdasarkan apa yang ingin Anda capai setelah membaca.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-b from-emerald-50/60 to-white border border-emerald-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-seedling"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Ingin berubah</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Untuk pembaca yang ingin berhenti dari kebiasaan lama, membangun rutinitas baru, atau mengambil keputusan yang selama ini ditunda.</p>
+                </div>
+                <div class="bg-gradient-to-b from-emerald-50/60 to-white border border-emerald-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-flag-checkered"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Ingin menyelesaikan sesuatu</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Untuk pembaca yang punya target, proyek, atau tanggung jawab yang tertunda dan butuh panduan langkah demi langkah agar benar-benar selesai.</p>
+                </div>
+                <div class="bg-gradient-to-b from-emerald-50/60 to-white border border-emerald-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-compass"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Ingin memahami</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Untuk pembaca yang ingin mengenal topik baru, menimbang keputusan penting, atau melihat suatu persoalan dengan cara berpikir yang lebih jernih.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASALAH -->
+    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Masalah</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Yang ingin kami jawab lewat tulisan</h2>
+                <p class="text-slate-500 text-sm mt-2">Ebook lahir dari pertanyaan yang berulang, bukan dari daftar materi teoretis.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-emerald-600 text-2xl mb-3"><i class="fa-solid fa-rotate-left"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Kebiasaan sulit dilepas</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Sudah tahu harus berubah, tapi selalu kembali ke titik awal karena tidak ada panduan yang membumi.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-emerald-600 text-2xl mb-3"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Niat tanpa arah</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Punya keinginan, tapi bingung harus mulai dari langkah mana dan apa yang benar-benar penting.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-emerald-600 text-2xl mb-3"><i class="fa-solid fa-comments"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Terlalu banyak saran</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Informasi berserakan di mana-mana, tapi tidak ada yang menuntun langkah demi langkah dengan jujur.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-emerald-600 text-2xl mb-3"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Motivasi cepat padam</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Semangat di awal, lalu menghilang setelah beberapa hari karena tidak ada sistem yang menopang.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUK UNGGULAN -->
+    <section id="unggulan" class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+                <div>
+                    <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Unggulan</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Ebook pilihan</h2>
+                    <p class="text-slate-500 text-sm mt-1">Beberapa judul yang paling sering dibaca. Untuk daftar lengkap, silakan kunjungi katalog.</p>
+                </div>
+            </div>
+            <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div class="text-center mt-12">
+                <a href="katalog.html#ebook" class="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm">
+                    Lihat Semua Ebook di Katalog <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUKTI -->
+    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">PDF</div>
+                    <p class="text-slate-500 text-sm mt-2">Format ringkas yang bisa dibaca di ponsel maupun dicetak</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">Akses</div>
+                    <p class="text-slate-500 text-sm mt-2">Unduh sekali, simpan selamanya—tanpa langganan</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">Bahasa</div>
+                    <p class="text-slate-500 text-sm mt-2">Ditulis dengan bahasa sehari-hari, tanpa istilah rumit</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">FAQ Ebook</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Pertanyaan seputar ebook</h2>
+            </div>
+            <div class="space-y-3" id="faqContainer">
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Apakah ebook ini cocok untuk pembaca yang baru mulai?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Ya. Semua ebook ditulis dengan asumsi pembaca belum mengenal topiknya, memakai bahasa sehari-hari dan langkah yang bisa langsung dicoba tanpa alat atau latar belakang khusus.
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Format apa yang saya dapat setelah membeli?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Anda menerima file PDF yang dioptimalkan untuk dibaca di ponsel dan bisa dicetak. Tautan unduhan dikirim melalui WhatsApp atau email setelah pembayaran dikonfirmasi, dan berlaku permanen untuk penggunaan pribadi.
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Apakah ada versi cetak atau bundel?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Untuk beberapa judul tersedia versi cetak terbatas dan bundel tematik. Silakan cek katalog atau hubungi kami melalui WhatsApp untuk ketersediaan terbaru.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA AKHIR -->
+    <section class="py-16 bg-gradient-to-br from-purple-600 to-indigo-700">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white font-heading mb-3">Masih ingin membaca lebih banyak?</h2>
+            <p class="text-purple-100 text-sm mb-8 max-w-xl mx-auto">Jelajahi judul lain di katalog—atau, jika kebutuhan Anda berupa sistem, lihat Jasa Custom kami.</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="katalog.html#ebook" class="px-6 py-3 bg-white text-emerald-700 font-semibold rounded-full shadow-lg transition text-sm flex items-center gap-2">
+                    Jelajahi Ebook Lainnya <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                <a href="jasa.html" class="px-6 py-3 bg-purple-500/40 hover:bg-purple-500/60 text-white font-semibold rounded-full border border-white/30 transition text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-screwdriver-wrench"></i> Lihat Jasa Custom
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-emerald-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="index.html" class="hover:text-emerald-600 transition">Beranda</a></li>
+                    <li><a href="katalog.html" class="hover:text-emerald-600 transition">Katalog</a></li>
+                    <li><a href="blog.html" class="hover:text-emerald-600 transition">Blog</a></li>
+                    <li><a href="tentang-kami.html" class="hover:text-emerald-600 transition">Tentang Kami</a></li>
+                    <li><a href="#kontak" class="hover:text-emerald-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Kategori</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="apps.html" class="hover:text-blue-600 transition">Aplikasi</a></li>
+                    <li><a href="ebook.html" class="text-emerald-600 font-semibold">Ebook</a></li>
+                    <li><a href="jasa.html" class="hover:text-purple-600 transition">Jasa</a></li>
+                    <li><a href="katalog.html" class="hover:text-emerald-600 transition">Katalog Lengkap</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="faq.html" class="hover:text-emerald-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-emerald-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-emerald-600 transition">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-emerald-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="kontak" class="col-span-2 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
+            <div class="sticky top-0 bg-white border-b border-slate-100 p-4 flex items-center justify-between z-10">
+                <div id="modalCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-md"></div>
+                <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 sm:p-6 space-y-5">
+                <div id="modalImageWrapper" class="hidden">
+                    <img id="modalImage" class="product-image rounded-xl border border-slate-200" alt="" />
+                    <div id="modalThumbs" class="grid grid-cols-5 gap-2 mt-2"></div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div id="modalIcon" class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl"></div>
+                    <div>
+                        <h3 id="modalTitle" class="text-xl font-extrabold text-slate-900 leading-tight font-heading"></h3>
+                        <p id="modalTagline" class="text-xs text-emerald-600 font-semibold mt-1"></p>
+                        <div id="modalTags" class="flex flex-wrap gap-1.5 mt-2"></div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <div class="text-xs text-slate-500 font-medium">Harga</div>
+                        <div class="flex items-baseline gap-2 mt-0.5">
+                            <span id="modalPrice" class="text-2xl font-extrabold text-slate-900"></span>
+                            <span id="modalNormalPrice" class="text-xs text-slate-400 line-through"></span>
+                        </div>
+                    </div>
+                    <span id="modalStatusBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full border"></span>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Deskripsi</h4>
+                    <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed bg-emerald-50/50 p-3.5 rounded-xl border border-emerald-100/60"></p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</h4>
+                    <ul id="modalFeatures" class="space-y-2 text-sm text-slate-700"></ul>
+                </div>
+            </div>
+            <div class="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <a href="katalog.html#ebook" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-200 transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-list"></i> Lihat di Katalog
+                </a>
+                <button id="modalWaBtn" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Pesan via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA PRODUK -->
+    <script src="products.js"></script>
+
+    <script>
+        /* ====== KONFIGURASI ====== */
+        const WA_NUMBER = '6287892585973';
+        const THEME_KEY = 'dongetik_theme';
+        const KATEGORI = 'Ebook';
+        const IKON_MODAL = 'fa-solid fa-book-open';
+
+        /* ====== DATA ====== */
+        const allProducts = window.PRODUCTS || [];
+        const products = allProducts.filter(
+            p => (p.category || '').trim().toLowerCase() === KATEGORI.toLowerCase()
+        );
+
+        function pilihUnggulan(list, max = 6) {
+            const featured = list.filter(p => p.featured === true);
+            const rest = list.filter(p => p.featured !== true);
+            return [...featured, ...rest].slice(0, max);
+        }
+        const featured = pilihUnggulan(products);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!products.length) console.warn('Tidak ada produk untuk kategori ' + KATEGORI);
+            renderFeatured(featured);
+            setupThemeToggle();
+        });
+
+        /* ====== THEME ====== */
+        function setupThemeToggle() {
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const icon = btn.querySelector('i');
+            const saved = localStorage.getItem(THEME_KEY);
+            const isDark = saved === 'dark';
+
+            document.body.classList.toggle('dark', isDark);
+            icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+
+            btn.addEventListener('click', () => {
+                const nowDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', nowDark);
+                icon.className = nowDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+                localStorage.setItem(THEME_KEY, nowDark ? 'dark' : 'light');
+            });
+        }
+
+        /* ====== UTIL ====== */
+        function formatRupiah(n) {
+            if (typeof n !== 'number') return '-';
+            return 'Rp ' + n.toLocaleString('id-ID');
+        }
+
+        function categoryColor(cat) {
+            if (cat === 'Aplikasi') return { bg: '#EFF6FF', text: '#2563EB', border: '#BFDBFE' };
+            if (cat === 'Ebook')    return { bg: '#ECFDF5', text: '#059669', border: '#A7F3D0' };
+            if (cat === 'Jasa')     return { bg: '#F5F3FF', text: '#7C3AED', border: '#DDD6FE' };
+            return { bg: '#F1F5F9', text: '#475569', border: '#E2E8F0' };
+        }
+
+        /* ====== RENDER ====== */
+        function renderFeatured(list) {
+            const grid = document.getElementById('featuredGrid');
+            if (!grid) return;
+
+            if (!list.length) {
+                grid.innerHTML = `<p class="text-center text-slate-400 text-sm col-span-full py-12">Belum ada produk unggulan di kategori ini.</p>`;
+                return;
+            }
+
+            grid.innerHTML = list.map(p => {
+                const price = formatRupiah(p.price);
+                const normal = p.normalPrice ? formatRupiah(p.normalPrice) : '';
+                const galeri = Array.isArray(p.galeri) ? p.galeri : [];
+                const thumb = galeri[0] || '';
+                const hasImage = thumb && thumb.trim() !== '';
+                const tags = Array.isArray(p.tags) ? p.tags : [];
+                const tagHtml = tags.slice(0, 2).map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+                const visual = hasImage
+                    ? `<img src="${thumb}" alt="${p.title}" class="product-image" loading="lazy"
+                           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%2394a3b8%22 font-size=%2240%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E%E2%9C%A6%3C/text%3E%3C/svg%3E';" />`
+                    : `<div class="w-full aspect-square flex items-center justify-center bg-slate-100 text-slate-400 text-3xl"><i class="fa-regular fa-image"></i></div>`;
+
+                const priceHtml = normal
+                    ? `<div class="flex items-baseline gap-2">
+                           <span class="text-lg font-extrabold text-slate-900">${price}</span>
+                           <span class="text-xs text-slate-400 line-through">${normal}</span>
+                       </div>`
+                    : `<span class="text-lg font-extrabold text-slate-900">${price}</span>`;
+
+                const cat = categoryColor(p.category);
+                const safeP = JSON.stringify(p).replace(/'/g, "&apos;");
+
+                return `
+                    <article class="product-card">
+                        <div class="relative">${visual}</div>
+                        <div class="p-5 flex flex-col flex-1 gap-3">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="badge-cat" style="background:${cat.bg};color:${cat.text};border-color:${cat.border};">${p.category}</span>
+                                ${tagHtml}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base leading-snug font-heading line-clamp-1">${p.title}</h3>
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2">${p.subtitle || ''}</p>
+                            </div>
+                            <div class="mt-auto pt-2">${priceHtml}</div>
+                            <div class="flex gap-2 pt-1">
+                                <button onclick='openDetailModal(${safeP})'
+                                        class="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
+                                    Detail
+                                </button>
+                                <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo Admin Dongetik, saya tertarik dengan ' + p.title)}"
+                                   target="_blank" rel="noopener"
+                                   class="flex-1 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-brands fa-whatsapp"></i> Pesan
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        /* ====== MODAL DETAIL ====== */
+        function openDetailModal(p) {
+            const modal = document.getElementById('productDetailModal');
+            if (!modal) return;
+
+            const cat = categoryColor(p.category);
+
+            const badge = document.getElementById('modalCategoryBadge');
+            badge.textContent = p.category;
+            badge.style.background = cat.bg;
+            badge.style.color = cat.text;
+            badge.style.border = '1px solid ' + cat.border;
+
+            document.getElementById('modalTitle').textContent = p.title || '';
+            document.getElementById('modalTagline').textContent = p.subtitle || '';
+            document.getElementById('modalPrice').textContent = formatRupiah(p.price);
+            document.getElementById('modalNormalPrice').textContent = p.normalPrice ? formatRupiah(p.normalPrice) : '';
+
+            const statusEl = document.getElementById('modalStatusBadge');
+            statusEl.textContent = p.status || 'Tersedia';
+            statusEl.className = 'text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700';
+
+            document.getElementById('modalDescription').textContent = p.longDesc || p.shortDesc || '-';
+
+            const tagsWrap = document.getElementById('modalTags');
+            tagsWrap.innerHTML = (Array.isArray(p.tags) ? p.tags : [])
+                .map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+            const featWrap = document.getElementById('modalFeatures');
+            const feats = Array.isArray(p.features) ? p.features : [];
+            featWrap.innerHTML = feats.length
+                ? feats.map(f => `<li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-emerald-500 text-xs mt-1"></i>
+                        <span>${f}</span>
+                    </li>`).join('')
+                : '<li class="text-slate-400 text-xs">Belum ada rincian fitur.</li>';
+
+            const iconEl = document.getElementById('modalIcon');
+            iconEl.style.background = cat.bg;
+            iconEl.style.color = cat.text;
+            iconEl.innerHTML = `<i class="${IKON_MODAL}"></i>`;
+
+            const galeri = Array.isArray(p.galeri) ? p.galeri.filter(x => x && x.trim() !== '') : [];
+            const imgWrap = document.getElementById('modalImageWrapper');
+            const imgEl = document.getElementById('modalImage');
+            const thumbsEl = document.getElementById('modalThumbs');
+
+            if (galeri.length) {
+                imgWrap.classList.remove('hidden');
+                imgEl.src = galeri[0];
+                thumbsEl.innerHTML = galeri.map((src, i) =>
+                    `<img src="${src}" class="galeri-thumb ${i === 0 ? 'active' : ''}"
+                          onclick="pilihGaleri(this, '${src}')" alt="thumb" />`
+                ).join('');
+            } else {
+                imgWrap.classList.add('hidden');
+            }
+
+            const waBtn = document.getElementById('modalWaBtn');
+            waBtn.onclick = () => {
+                const text = encodeURIComponent(`Halo Admin Dongetik, saya tertarik dengan ${p.title} (${p.category}).`);
+                window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank', 'noopener');
+            };
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailModal() {
+            const modal = document.getElementById('productDetailModal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function pilihGaleri(el, src) {
+            document.getElementById('modalImage').src = src;
+            document.querySelectorAll('#modalThumbs .galeri-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('productDetailModal');
+            if (modal && e.target === modal) closeDetailModal();
+        });
+
+        /* ====== FAQ ====== */
+        function toggleFaq(n) {
+            const ans = document.getElementById('faq-ans-' + n);
+            const icon = document.getElementById('faq-icon-' + n);
+            if (!ans || !icon) return;
+            const isHidden = ans.classList.contains('hidden');
+            ans.classList.toggle('hidden');
+            icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    </script>
+</body>
+</html>

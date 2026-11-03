@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk - Dongetik Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { blue: '#2563EB', sky: '#0EA5E9', emerald: '#10B981', purple: '#7C3AED' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body.dark ::-webkit-scrollbar-track { background: #1e293b; }
+        body.dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .product-card {
+            background: white; border: 1px solid #f1f5f9; border-radius: 16px;
+            overflow: hidden; transition: box-shadow 0.2s, transform 0.15s, background 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .product-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+            display: block; background: #f8fafc;
+        }
+
+        .search-wrapper { position: relative; }
+        .search-wrapper i {
+            position: absolute; left: 16px; top: 50%;
+            transform: translateY(-50%); color: #94a3b8; font-size: 0.9rem;
+            pointer-events: none;
+        }
+        .search-wrapper input {
+            width: 100%; padding: 0.65rem 1rem 0.65rem 2.75rem;
+            border: 1px solid #e2e8f0; border-radius: 60px;
+            background: white; font-size: 0.9rem; color: #1e293b;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s; outline: none;
+        }
+        .search-wrapper input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .search-wrapper input::placeholder { color: #94a3b8; font-weight: 400; }
+
+        .filter-select {
+            padding: 0.65rem 1rem; border: 1px solid #e2e8f0;
+            border-radius: 60px; background: white; font-size: 0.9rem;
+            color: #1e293b; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s; cursor: pointer;
+        }
+        .filter-select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .cat-pill {
+            padding: 0.4rem 1rem; border-radius: 60px;
+            font-size: 0.8rem; font-weight: 600;
+            border: 1px solid #e2e8f0; background: white; color: #64748b;
+            cursor: pointer; transition: all 0.15s; white-space: nowrap;
+        }
+        .cat-pill:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .cat-pill.active { background: #2563eb; border-color: #2563eb; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .cat-pill[data-cat="Aplikasi"].active { background: #2563eb; border-color: #2563eb; }
+        .cat-pill[data-cat="Ebook"].active { background: #059669; border-color: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25); }
+        .cat-pill[data-cat="Jasa"].active { background: #7c3aed; border-color: #7c3aed; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25); }
+
+        .tag-pill {
+            display: inline-block; padding: 2px 8px; border-radius: 6px;
+            font-size: 10px; font-weight: 600; color: #64748b;
+            background: #f1f5f9; border: 1px solid #e2e8f0;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .badge-cat {
+            display: inline-block; padding: 3px 10px; border-radius: 6px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; border: 1px solid;
+        }
+
+        .faq-item { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; transition: border-color 0.3s; }
+        .faq-item button { transition: background 0.15s; }
+        .faq-item button:hover { background: #f8fafc; }
+        .faq-icon { transition: transform 0.2s; }
+        .faq-icon.open { transform: rotate(180deg); }
+
+        .drawer-panel { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .toast-animate { animation: slideInRight 0.3s ease-out forwards; }
+
+        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* ===== GALERI MODAL (geser) ===== */
+        #modalImage { transition: opacity 0.15s ease; }
+        .galeri-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            transition: background 0.2s, width 0.2s;
+        }
+        .galeri-dot.active {
+            background: #2563eb;
+            width: 20px;
+        }
+
+        /* ============================================================
+           DARK MODE — KATALOG
+           ============================================================ */
+        body.dark { background: #0f172a; color: #e2e8f0; }
+
+        /* Kartu produk */
+        body.dark .product-card { background: #1e293b; border-color: #334155; }
+        body.dark .product-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+        body.dark .product-image { background: #0f172a; }
+
+        /* Input pencarian & filter */
+        body.dark .search-wrapper input,
+        body.dark .filter-select {
+            background: #1e293b; border-color: #334155; color: #e2e8f0;
+        }
+        body.dark .search-wrapper input::placeholder { color: #64748b; }
+        body.dark .search-wrapper input:focus,
+        body.dark .filter-select:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+        }
+        body.dark .search-wrapper i { color: #64748b; }
+#themeToggle { color: #475569; }
+#themeToggle:hover { color: #2563eb; }
+body.dark #themeToggle { color: #60a5fa !important; }
+body.dark #themeToggle:hover { color: #93c5fd !important; }
+        /* Pill kategori */
+        body.dark .cat-pill {
+            background: #1e293b; border-color: #334155; color: #cbd5e1;
+        }
+        body.dark .cat-pill:hover { background: #334155; border-color: #475569; }
+        /* Saat aktif, biarkan warna kategori (biru/emerald/ungu) — tidak diubah */
+
+        /* Tag & badge */
+        body.dark .tag-pill {
+            background: #334155; border-color: #475569; color: #cbd5e1;
+        }
+
+        /* FAQ */
+        body.dark .faq-item { border-color: #334155; }
+        body.dark .faq-item button { background: #1e293b; color: #e2e8f0; }
+        body.dark .faq-item button:hover { background: #334155; }
+        body.dark .faq-item > div { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+
+        /* Modal & drawer */
+        body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
+        body.dark .bg-slate-50 { background: #0f172a !important; }
+        body.dark .bg-slate-100 { background: #334155 !important; }
+        body.dark .border-slate-100,
+        body.dark .border-slate-200 { border-color: #334155 !important; }
+        body.dark .text-slate-900 { color: #f1f5f9 !important; }
+        body.dark .text-slate-800 { color: #e2e8f0 !important; }
+        body.dark .text-slate-700 { color: #e2e8f0 !important; }
+        body.dark .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark .text-slate-500 { color: #94a3b8 !important; }
+        body.dark .text-slate-400 { color: #94a3b8 !important; }
+
+        /* Tombol "Detail" di kartu */
+        body.dark .product-card button[onclick^="openDetailModal"] {
+            background: #334155; border-color: #475569; color: #e2e8f0;
+        }
+        body.dark .product-card button[onclick^="openDetailModal"]:hover {
+            background: #475569;
+        }
+
+        /* Tombol "Tambah ke Pesanan" di modal */
+        body.dark #modalCartBtn {
+            background: #334155; border-color: #475569; color: #e2e8f0;
+        }
+        body.dark #modalCartBtn:hover { background: #475569; }
+
+        /* Tombol tutup modal (ikon x) */
+        body.dark #productDetailModal button[onclick="closeDetailModal()"] {
+            background: #334155; color: #cbd5e1;
+        }
+        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover {
+            background: #475569;
+        }
+
+        /* Drawer header tetap gelap, footer drawer ikut gelap */
+        body.dark #cartDrawer .bg-slate-50 { background: #0f172a !important; }
+
+        /* Teks "Pilih produk..." di keranjang kosong */
+        body.dark #cartItemsContainer .text-slate-400 { color: #64748b !important; }
+
+        /* Toast */
+        body.dark .toast-animate { background: #334155; border-color: #475569; }
+
+        /* Judul & subjudul katalog */
+        body.dark h1, body.dark h2, body.dark h3 { color: #f1f5f9; }
+
+        /* Header jumlah produk */
+        body.dark .bg-slate-100.rounded-lg { background: #334155 !important; }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="katalog.html" class="text-blue-600 font-semibold">Katalog</a>
+                <a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="blog.html" class="hover:text-blue-600 transition">Blog</a>
+                <a href="#kontak" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCartDrawer()" class="relative inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fa-solid fa-cart-shopping text-blue-300"></i>
+                    <span class="hidden sm:inline">Pesanan</span>
+                    <span id="cartCountBadge" class="bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">0</span>
+                </button>
+                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg" aria-label="Ubah tema">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12 w-full">
+        <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 font-heading">Katalog Produk Dongetik</h1>
+            <p class="text-slate-500 text-sm">Silakan telusuri produk yang sesuai dengan kebutuhan Anda. Untuk informasi lebih lanjut, pembelian, maupun konsultasi, jangan sungkan menghubungi kami melalui WhatsApp. Kami siap melayani Anda.</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto mb-6 space-y-4">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <div class="search-wrapper flex-1">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" oninput="handleSearchAndFilter()" placeholder="Cari nama produk, kata kunci, atau fitur..." />
+                </div>
+                <select id="priceFilter" onchange="handleSearchAndFilter()" class="filter-select sm:w-52">
+                    <option value="all">Semua Harga</option>
+                    <option value="under100">Di bawah Rp 100k</option>
+                    <option value="100to300">Rp 100k - Rp 300k</option>
+                    <option value="above300">Di atas Rp 300k</option>
+                </select>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-1" style="scrollbar-width: none;">
+                <button onclick="filterCategory('all')" class="cat-pill active" data-cat="all">Semua Produk</button>
+                <button onclick="filterCategory('Aplikasi')" class="cat-pill" data-cat="Aplikasi">Aplikasi</button>
+                <button onclick="filterCategory('Ebook')" class="cat-pill" data-cat="Ebook">Ebook</button>
+                <button onclick="filterCategory('Jasa')" class="cat-pill" data-cat="Jasa">Jasa</button>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+            <div>
+                <h2 id="catalogTitle" class="text-lg sm:text-xl font-bold text-slate-900 font-heading">Semua Katalog Produk</h2>
+                <p id="catalogSubtitle" class="text-slate-500 text-xs mt-0.5">Menampilkan seluruh solusi digital yang tersedia</p>
+            </div>
+            <div class="text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1.5 rounded-lg whitespace-nowrap">
+                <span id="productCount" class="font-bold text-slate-800">0</span> Produk
+            </div>
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 lg:gap-6"></div>
+
+        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-2xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 mb-1">Produk Tidak Ditemukan</h3>
+            <p class="text-slate-500 text-sm max-w-md mx-auto mb-6">Coba sesuaikan kata kunci atau ganti filter kategori.</p>
+            <button onclick="resetFilters()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition">
+                Reset Semua Filter
+            </button>
+        </div>
+    </main>
+
+    <!-- FAQ -->
+    <section class="bg-slate-50 border-t border-slate-200 py-14 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Panduan &amp; Bantuan</span>
+                <h2 class="text-2xl font-extrabold text-slate-900 mt-3 font-heading">Pertanyaan Sering Diajukan</h2>
+                <p class="text-slate-500 text-sm mt-1">Informasi seputar lisensi, cara pemesanan, dan garansi layanan.</p>
+            </div>
+            <div class="space-y-3">
+                <div class="faq-item">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Bagaimana cara melakukan pemesanan produk?</span>
+                        <i id="faq-icon-1" class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Klik tombol <span class="font-semibold text-emerald-600"><i class="fa-brands fa-whatsapp"></i> Pesan WA</span> pada produk, atau tambahkan beberapa produk ke keranjang lalu kirim rekap sekaligus ke WhatsApp Admin.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Bagaimana sistem lisensi aplikasi Dongetik?</span>
+                        <i id="faq-icon-2" class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Sebagian besar aplikasi menggunakan skema <strong>Sekali Bayar (One-Time Payment)</strong> atau <strong>Lisensi Tahunan/Instansi</strong>. Setelah membeli, Anda mendapatkan akses source/template penuh dan panduan deployment lengkap.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Apakah bisa memesan kustomisasi fitur?</span>
+                        <i id="faq-icon-3" class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Bisa! Kami menyediakan layanan <strong>Jasa Custom Micro-Web &amp; Otomasi Google Apps Script</strong>. Pilih produk "Jasa" atau konsultasikan via WhatsApp.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="index.html" class="hover:text-blue-600 transition">Beranda</a></li>
+                    <li><a href="katalog.html" class="hover:text-blue-600 transition">Katalog</a></li>
+                    <li><a href="blog.html" class="hover:text-blue-600 transition">Blog</a></li>
+                    <li><a href="tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
+                    <li><a href="#kontak" class="hover:text-blue-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Kategori</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="apps.html" class="hover:text-blue-600 transition">Aplikasi</a></li>
+                    <li><a href="ebook.html" class="hover:text-emerald-600 transition">Ebook</a></li>
+                    <li><a href="jasa.html" class="hover:text-purple-600 transition">Jasa</a></li>
+                    <li><a href="index.html#produk" class="hover:text-blue-600 transition">Kategori Produk</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="ikuti-kami" class="col-span-2 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL PRODUK -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
+            <div class="sticky top-0 bg-white border-b border-slate-100 p-4 flex items-center justify-between z-10">
+                <div id="modalCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-md"></div>
+                <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 sm:p-6 space-y-5">
+                <div id="modalImageWrapper" class="hidden">
+                    <div id="galeriSlider" class="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-50 select-none" style="touch-action: pan-y;">
+                        <img id="modalImage" class="product-image w-full" alt="" draggable="false" />
+                        <button id="galeriPrev" onclick="geserGaleri(-1)" class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md flex items-center justify-center transition" aria-label="Foto sebelumnya">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button id="galeriNext" onclick="geserGaleri(1)" class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md flex items-center justify-center transition" aria-label="Foto berikutnya">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                        <div id="galeriDots" class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5"></div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div id="modalIcon" class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl"></div>
+                    <div>
+                        <h3 id="modalTitle" class="text-xl font-extrabold text-slate-900 leading-tight font-heading"></h3>
+                        <p id="modalTagline" class="text-xs text-blue-600 font-semibold mt-1"></p>
+                        <div id="modalTags" class="flex flex-wrap gap-1.5 mt-2"></div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <div class="text-xs text-slate-500 font-medium">Harga</div>
+                        <div class="flex items-baseline gap-2 mt-0.5">
+                            <span id="modalPrice" class="text-2xl font-extrabold text-slate-900"></span>
+                            <span id="modalNormalPrice" class="text-xs text-slate-400 line-through"></span>
+                        </div>
+                    </div>
+                    <span id="modalStatusBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full border"></span>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Deskripsi</h4>
+                    <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed bg-blue-50/50 p-3.5 rounded-xl border border-blue-100/60"></p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</h4>
+                    <ul id="modalFeatures" class="space-y-2
+ text-sm text-slate-700"></ul>
+                </div>
+            </div>
+            <div class="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <button id="modalCartBtn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-200 transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cart-plus"></i> Tambah ke Pesanan
+                </button>
+                <button id="modalWaBtn" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Pesan via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRAWER KERANJANG -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="absolute inset-y-0 right-0 max-w-md w-full bg-white shadow-2xl flex flex-col border-l border-slate-200 drawer-panel">
+            <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-900 text-white">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping text-blue-300"></i>
+                    <h3 class="font-bold text-base">Daftar Pesanan</h3>
+                </div>
+                <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="cartItemsContainer" class="flex-grow p-4 overflow-y-auto space-y-3"></div>
+            <div class="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-slate-500 font-medium">Total Estimasi:</span>
+                    <span id="cartTotalPrice" class="text-xl font-extrabold text-slate-900">Rp 0</span>
+                </div>
+                <button onclick="checkoutCartWA()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Kirim Rekap ke WhatsApp
+                </button>
+                <button onclick="clearCart()" class="w-full text-center text-xs text-rose-500 hover:underline font-medium">
+                    Kosongkan Keranjang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KEBIJAKAN -->
+    <div id="policyModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modalOverlay"></div>
+        <div class="relative bg-white w-full max-w-2xl max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden border border-slate-200 transform transition-all duration-300 scale-95" id="modalContent">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 font-heading" id="modalTitlePolicy">Kebijakan Privasi</h3>
+                <button type="button" class="text-slate-400 hover:text-slate-600 transition text-xl" id="closeModalBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="px-6 py-5 overflow-y-auto max-h-[60vh] text-sm text-slate-600 leading-relaxed space-y-4" id="modalBodyPolicy"></div>
+            <div class="px-6 py-4 border-t border-slate-200 flex justify-end">
+                <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition shadow-md shadow-blue-600/20" id="closeModalBtnFooter">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA PRODUK -->
+    <script src="products.js"></script>
+
+    <!-- LOGIKA KATALOG -->
+    <script>
+        const WA_NUMBER = '6287892585973';
+        const CART_STORAGE_KEY = 'dongetik_cart_v1';
+        const THEME_KEY = 'dongetik_theme';
+        const products = window.PRODUCTS || [];
+
+        let cart = [];
+        let currentActiveCategory = 'all';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!products.length) console.error('products.js tidak termuat atau array kosong.');
+            loadCartFromStorage();
+            renderProducts(products);
+            updateCartBadge();
+            setupPolicyModal();
+            setupSwipeGaleri();
+            setupThemeToggle();
+            applyHashFilter();
+            window.addEventListener('hashchange', applyHashFilter);
+        });
+
+        // ============================================================
+        // TEMA GELAP/TERANG (preferensi tersimpan di localStorage)
+        // ============================================================
+        function setupThemeToggle() {
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const icon = btn.querySelector('i');
+            const saved = localStorage.getItem(THEME_KEY);
+            const isDark = saved === 'dark';
+
+            document.body.classList.toggle('dark', isDark);
+            icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+
+            btn.addEventListener('click', () => {
+                const nowDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', nowDark);
+                icon.className = nowDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+                localStorage.setItem(THEME_KEY, nowDark ? 'dark' : 'light');
+            });
+        }
+
+        // ============================================================
+        // FILTER OTOMATIS DARI HASH URL
+        // ============================================================
+        function applyHashFilter() {
+            const hash = window.location.hash.replace('#', '').toLowerCase().trim();
+            if (!hash) return;
+
+            const kategoriMap = {
+                apps: 'Aplikasi', aplikasi: 'Aplikasi',
+                ebook: 'Ebook',
+                jasa: 'Jasa'
+            };
+
+            const tagRedirect = {
+                govtech: 'apps.html#govtech',
+                edukasi: 'apps.html#edukasi',
+                literasi: 'ebook.html#literasi',
+                'lintas-sektor': 'apps.html',
+                lintas: 'apps.html',
+                custom: 'jasa.html#custom',
+                otomasi: 'jasa.html#otomasi'
+            };
+
+            if (kategoriMap[hash]) {
+                filterCategory(kategoriMap[hash]);
+                const grid = document.getElementById('productGrid');
+                if (grid) setTimeout(() => grid.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+            } else if (tagRedirect[hash]) {
+                window.location.href = tagRedirect[hash];
+            }
+        }
+
+        // ============================================================
+        // LOCALSTORAGE KERANJANG
+        // ============================================================
+        function saveCartToStorage() {
+            try {
+                const minimal = cart.map(i => ({ id: i.id, qty: i.qty }));
+                localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(minimal));
+            } catch (e) { console.warn('Gagal menyimpan keranjang:', e); }
+        }
+        function loadCartFromStorage() {
+            try {
+                const raw = localStorage.getItem(CART_STORAGE_KEY);
+                if (!raw) return;
+                const saved = JSON.parse(raw);
+                if (!Array.isArray(saved)) return;
+                cart = saved.map(item => {
+                    const product = products.find(p => p.id === item.id);
+                    if (!product) return null;
+                    return { ...product, qty: Math.max(1, parseInt(item.qty) || 1) };
+                }).filter(Boolean);
+            } catch (e) { console.warn('Gagal memuat keranjang:', e); cart = []; }
+        }
+
+        // ============================================================
+        // FILTER KATEGORI
+        // ============================================================
+        function filterCategory(cat) {
+            currentActiveCategory = cat;
+            document.querySelectorAll('.cat-pill[data-cat]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === cat);
+            });
+            const titleEl = document.getElementById('catalogTitle');
+            const subEl = document.getElementById('catalogSubtitle');
+            const map = {
+                all: ['Semua Katalog Produk', 'Menampilkan seluruh solusi digital yang tersedia'],
+                Aplikasi: ['Aplikasi Dongetik', 'Web app & sistem siap pakai untuk berbagai sektor'],
+                Ebook: ['Ebook Dongetik', 'Buku digital dan workbook premium'],
+                Jasa: ['Jasa Dongetik', 'Layanan pengembangan web app, otomasi, dan sistem custom']
+            };
+            const [t, s] = map[cat] || map.all;
+            titleEl.textContent = t;
+            subEl.textContent = s;
+            handleSearchAndFilter();
+        }
+
+        // ============================================================
+        // SEARCH & FILTER
+        // ============================================================
+        function handleSearchAndFilter() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const priceVal = document.getElementById('priceFilter').value;
+
+            const filtered = products.filter(p => {
+                const matchCategory = (currentActiveCategory === 'all') || (p.category === currentActiveCategory);
+                const matchQuery = (p.title || '').toLowerCase().includes(query) ||
+                                   (p.subtitle || '').toLowerCase().includes(query) ||
+                                   (p.shortDesc || '').toLowerCase().includes(query);
+                let matchPrice = true;
+                if (priceVal === 'under100') matchPrice = p.price < 100000;
+                else if (priceVal === '100to300') matchPrice = p.price >= 100000 && p.price <= 300000;
+                else if (priceVal === 'above300') matchPrice = p.price > 300000;
+                return matchCategory && matchQuery && matchPrice;
+            });
+            renderProducts(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('priceFilter').value = 'all';
+            filterCategory('all');
+        }
+
+        // ============================================================
+        // RENDER PRODUK
+        // ============================================================
+        function renderProducts(productList) {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            document.getElementById('productCount').textContent = productList.length;
+
+            if (productList.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = productList.map(p => {
+                const formattedPrice = formatRupiah(p.price);
+                const formattedNormal = p.normalPrice ? formatRupiah(p.normalPrice) : null;
+                const galeri = Array.isArray(p.galeri) ? p.galeri : [];
+                const thumb = galeri[0] || '';
+                const hasImage = thumb && thumb.trim() !== '';
+                const tags = Array.isArray(p.tags) ? p.tags : [];
+
+                const visual = hasImage
+                    ? `<img src="${thumb}" alt="${p.title}" class="product-image" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                       <div class="w-full aspect-square ${p.iconBg} hidden items-center justify-center text-5xl"><i class="${p.icon}"></i></div>`
+                    : `<div class="w-full aspect-square ${p.iconBg} flex items-center justify-center text-5xl"><i class="${p.icon}"></i></div>`;
+
+                const tagHtml = tags.slice(0, 2).map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+                return `
+                    <div class="product-card">
+                        <div class="relative overflow-hidden">
+                            ${visual}
+                            <span class="absolute top-2 left-2 badge-cat ${p.badgeBg}">${p.categoryLabel}</span>
+                        </div>
+                        <div class="p-3 sm:p-4 flex-1 flex flex-col">
+                            <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2">${p.title}</h3>
+                            <p class="hidden sm:block text-xs text-slate-500 font-medium line-clamp-1 mt-0.5">${p.subtitle || ''}</p>
+                            <p class="hidden sm:block text-xs text-slate-600 line-clamp-2 leading-relaxed mt-2">${p.shortDesc || ''}</p>
+                            ${tagHtml ? `<div class="hidden sm:flex flex-wrap gap-1 mt-2">${tagHtml}</div>` : ''}
+                            <div class="pt-2 mt-auto border-t border-slate-100">
+                                <div class="text-[10px] text-slate-400 font-medium">Harga</div>
+                                <div class="flex flex-wrap items-baseline gap-1.5">
+                                    <span class="text-sm sm:text-base font-extrabold text-slate-900">${formattedPrice}</span>
+                                    ${formattedNormal ? `<span class="text-[10px] sm:text-xs text-slate-400 line-through">${formattedNormal}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-3 sm:px-4 pb-3 sm:pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('${p.id}')" class="w-full text-[11px] sm:text-xs font-semibold py-2 px-2 rounded-lg sm:rounded-xl border border-slate-300 text-slate-700 bg-white hover:bg-slate-100 transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-circle-info text-slate-400"></i> Detail
+                            </button>
+                            <button onclick="orderSingleWa('${p.id}')" class="w-full text-[11px] sm:text-xs font-bold py-2 px-2 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan WA
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // MODAL DETAIL
+        // ============================================================
+        let currentGaleri = [];
+        let currentGaleriIndex = 0;
+
+        function openDetailModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modalCategoryBadge').className = `text-xs font-bold px-2.5 py-1 rounded-md border ${product.badgeBg}`;
+            document.getElementById('modalCategoryBadge').textContent = product.categoryLabel;
+
+            document.getElementById('modalIcon').className = `w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl ${product.iconBg}`;
+            document.getElementById('modalIcon').innerHTML = `<i class="${product.icon}"></i>`;
+
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalTagline').textContent = product.subtitle || '';
+            document.getElementById('modalPrice').textContent = formatRupiah(product.price);
+            document.getElementById('modalNormalPrice').textContent = product.normalPrice ? formatRupiah(product.normalPrice) : '';
+            document.getElementById('modalStatusBadge').textContent = product.status || '';
+            document.getElementById('modalStatusBadge').className = `text-xs font-semibold px-2.5 py-1 rounded-full border ${product.badgeBg}`;
+            document.getElementById('modalDescription').textContent = product.longDesc || product.shortDesc || '';
+
+            const tags = Array.isArray(product.tags) ? product.tags : [];
+            document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+            const features = Array.isArray(product.features) ? product.features : [];
+            document.getElementById('modalFeatures').innerHTML = features.map(f => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-sm mt-0.5"></i>
+                    <span>${f}</span>
+                </li>
+            `).join('');
+
+            const imgWrapper = document.getElementById('modalImageWrapper');
+            const imgEl = document.getElementById('modalImage');
+            const dotsEl = document.getElementById('galeriDots');
+            const prevBtn = document.getElementById('galeriPrev');
+            const nextBtn = document.getElementById('galeriNext');
+            currentGaleri = (Array.isArray(product.galeri) ? product.galeri : []).filter(g => g && g.trim() !== '');
+            currentGaleriIndex = 0;
+
+            if (currentGaleri.length > 0) {
+                imgWrapper.classList.remove('hidden');
+                imgEl.style.opacity = '1';
+                imgEl.src = currentGaleri[0];
+                imgEl.alt = product.title;
+
+                if (currentGaleri.length > 1) {
+                    prevBtn.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                    dotsEl.innerHTML = currentGaleri.map((_, i) => `
+                        <span class="galeri-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>
+                    `).join('');
+                } else {
+                    prevBtn.classList.add('hidden');
+                    nextBtn.classList.add('hidden');
+                    dotsEl.innerHTML = '';
+                }
+            } else {
+                imgWrapper.classList.add('hidden');
+                imgEl.src = '';
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                dotsEl.innerHTML = '';
+            }
+
+            document.getElementById('modalCartBtn').onclick = () => {
+                addToCart(product.id);
+                closeDetailModal();
+            };
+            document.getElementById('modalWaBtn').onclick = () => orderSingleWa(product.id);
+
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function switchGaleri(index) {
+            if (!currentGaleri.length) return;
+            currentGaleriIndex = (index + currentGaleri.length) % currentGaleri.length;
+            const imgEl = document.getElementById('modalImage');
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                imgEl.src = currentGaleri[currentGaleriIndex];
+                imgEl.style.opacity = '1';
+            }, 120);
+            document.querySelectorAll('.galeri-dot').forEach((el, i) => {
+                el.classList.toggle('active', i === currentGaleriIndex);
+            });
+        }
+
+        function geserGaleri(delta) {
+            switchGaleri(currentGaleriIndex + delta);
+        }
+
+        function closeDetailModal() {
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        // SWIPE GALERI
+        // ============================================================
+        function setupSwipeGaleri() {
+            const slider = document.getElementById('galeriSlider');
+            if (!slider) return;
+            let startX = 0, startY = 0, tracking = false;
+
+            slider.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                tracking = true;
+            }, { passive: true });
+
+            slider.addEventListener('touchend', (e) => {
+                if (!tracking) return;
+                tracking = false;
+                const dx = e.changedTouches[0].clientX - startX;
+                const dy = e.changedTouches[0].clientY - startY;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    geserGaleri(dx < 0 ? 1 : -1);
+                }
+            }, { passive: true });
+
+            let mouseDown = false;
+            slider.addEventListener('mousedown', (e) => { mouseDown = true; startX = e.clientX; });
+            slider.addEventListener('mouseup', (e) => {
+                if (!mouseDown) return;
+                mouseDown = false;
+                const dx = e.clientX - startX;
+                if (Math.abs(dx) > 60) geserGaleri(dx < 0 ? 1 : -1);
+            });
+            slider.addEventListener('mouseleave', () => { mouseDown = false; });
+        }
+
+        // ============================================================
+        // KERANJANG
+        // ============================================================
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const existing = cart.find(item => item.id === productId);
+            if (existing) existing.qty += 1;
+            else cart.push({ ...product, qty: 1 });
+            saveCartToStorage();
+            updateCartBadge();
+            renderCartItems();
+            showToast(`"${product.title}" ditambahkan ke pesanan.`);
+        }
+        function updateCartBadge() {
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            document.getElementById('cartCountBadge').textContent = totalQty;
+        }
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            if (drawer.classList.contains('hidden')) {
+                renderCartItems();
+                drawer.classList.remove('hidden');
+            } else {
+                drawer.classList.add('hidden');
+            }
+        }
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotalPrice');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-basket-shopping text-4xl mb-3"></i>
+                        <p class="text-sm font-medium">Keranjang pesanan masih kosong.</p>
+                        <p class="text-xs text-slate-400 mt-1">Pilih produk dan klik 'Tambah ke Pesanan'</p>
+                    </div>
+                `;
+                totalEl.textContent = 'Rp 0';
+                return;
+            }
+            let grandTotal = 0;
+            container.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.qty;
+                grandTotal += itemTotal;
+                return `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="flex-grow pr-2 min-w-0">
+                            <h4 class="font-bold text-xs text-slate-800 truncate">${item.title}</h4>
+                            <div class="text-[11px] text-slate-500">${formatRupiah(item.price)} x ${item.qty}</div>
+                            <div class="text-xs font-semibold text-slate-900 mt-0.5">${formatRupiah(itemTotal)}</div>
+                        </div>
+                        <div class="flex items-center gap-1.5 flex-shrink-0">
+                            <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold">+</button>
+                            <button onclick="removeFromCart('${item.id}')" class="ml-1 text-rose-500 hover:text-rose-700 text-xs p-1">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            totalEl.textContent = formatRupiah(grandTotal);
+        }
+        function changeCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) removeFromCart(id);
+            else {
+                saveCartToStorage();
+                updateCartBadge();
+                renderCartItems();
+            }
+        }
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCartToStorage();
+            updateCartBadge();
+            renderCartItems();
+        }
+        function clearCart() {
+            cart = [];
+            saveCartToStorage();
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        // ============================================================
+        // WHATSAPP
+        // ============================================================
+        function orderSingleWa(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+            const tags = Array.isArray(p.tags) ? p.tags.join(', ') : '';
+            const text = `Halo Admin *Dongetik Digital*,\n\nSaya berminat memesan produk:\n\n📌 *Produk:* ${p.title}\n🏷️ *Kategori:* ${p.categoryLabel}${tags ? `\n🔖 *Tag:* ${tags}` : ''}\n💰 *Harga:* ${formatRupiah(p.price)}\n\nMohon info prosedur pemesanan & pembayarannya. Terima kasih!`;
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+        function checkoutCartWA() {
+            if (cart.length === 0) { alert('Keranjang Anda masih kosong!'); return; }
+            let listText = '';
+            let grandTotal = 0;
+            cart.forEach((item, index) => {
+                const sub = item.price * item.qty;
+                grandTotal += sub;
+                listText += `${index + 1}. *${item.title}* (${item.qty}x) = ${formatRupiah(sub)}\n`;
+            });
+            const text = `Halo Admin *Dongetik Digital*,\n\nSaya ingin memesan produk berikut:\n\n${listText}\n💵 *Total Estimasi:* ${formatRupiah(grandTotal)}\n\nMohon dibantu konfirmasi pesanan ini. Terima kasih!`;
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ============================================================
+        // FAQ
+        // ============================================================
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.classList.add('open');
+            } else {
+                ans.classList.add('hidden');
+                icon.classList.remove('open');
+            }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 right-5 z-[60] bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-2 toast-animate';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ============================================================
+        // HELPER
+        // ============================================================
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        // ============================================================
+        // MODAL KEBIJAKAN
+        // ============================================================
+        function setupPolicyModal() {
+            const policyData = {
+                privacy: {
+                    title: 'Kebijakan Privasi',
+                    content: `
+                        <p><strong>Data yang Dikumpulkan:</strong> Kami mengumpulkan informasi yang diberikan secara sukarela oleh pengguna (nama, instansi, kontak) serta data teknis penggunaan aplikasi.</p>
+                        <p><strong>Penggunaan Data:</strong> Data digunakan untuk menyediakan, memelihara, dan meningkatkan kualitas produk Dongetik Digital. Kami tidak menjual data pengguna ke pihak ketiga.</p>
+                        <p><strong>Keamanan Data:</strong> Kami menerapkan standar enkripsi dan kontrol akses untuk melindungi data Anda.</p>
+                        <p><strong>Hak Pengguna:</strong> Anda berhak meminta akses, perbaikan, atau penghapusan data pribadi melalui kanal dukungan resmi.</p>
+                    `
+                },
+                terms: {
+                    title: 'Syarat & Ketentuan',
+                    content: `
+                        <p><strong>Definisi:</strong> Dongetik Digital adalah penyedia platform teknologi. Produk mencakup Aplikasi, Ebook, dan Jasa Pengembangan.</p>
+                        <p><strong>Penggunaan Layanan:</strong> Pengguna wajib menggunakan layanan sesuai hukum yang berlaku di Indonesia.</p>
+                        <p><strong>Hak Kekayaan Intelektual:</strong> Seluruh desain, kode sumber, dan konten adalah hak milik eksklusif Dongetik Digital.</p>
+                        <p><strong>Batasan Tanggung Jawab:</strong> Kami berkomitmen menjaga uptime layanan, namun tidak bertanggung jawab atas kerugian tidak langsung akibat kegagalan koneksi pihak ketiga.</p>
+                    `
+                },
+                refund: {
+                    title: 'Refund Policy',
+                    content: `
+                        <p><strong>Prinsip Umum:</strong> Langganan layanan Dongetik Digital umumnya bersifat non-refundable setelah aktivasi.</p>
+                        <p><strong>Kondisi Pengembalian Dana:</strong> Hanya dimungkinkan jika terjadi kegagalan sistem fatal dari pihak kami selama lebih dari 7 hari kerja berturut-turut.</p>
+                        <p><strong>Prosedur Pengajuan:</strong> Ajukan melalui email resmi dengan bukti transaksi dan penjelasan kendala teknis.</p>
+                        <p><strong>Keputusan:</strong> Ditinjau tim manajemen dalam 14 hari kerja. Keputusan bersifat final.</p>
+                    `
+                }
+            };
+
+            const modal = document.getElementById('policyModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalTitlePolicy = document.getElementById('modalTitlePolicy');
+            const modalBodyPolicy = document.getElementById('modalBodyPolicy');
+            const overlay = document.getElementById('modalOverlay');
+            const closeBtns = [
+                document.getElementById('closeModalBtn'),
+                document.getElementById('closeModalBtnFooter')
+            ];
+
+            function openPolicyModal(type) {
+                const data = policyData[type];
+                if (!data) return;
+                modalTitlePolicy.textContent = data.title;
+                modalBodyPolicy.innerHTML = data.content;
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                document.body.style.overflow = 'hidden';
+            }
+            function closePolicyModal() {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('footer a[href="#"]').forEach(link => {
+                const text = link.textContent.trim().toLowerCase();
+                let type = null;
+                if (text.includes('privasi')) type = 'privacy';
+                else if (text.includes('syarat') || text.includes('ketentuan')) type = 'terms';
+                else if (text.includes('refund')) type = 'refund';
+                if (type) {
+                    link.addEventListener('click', e => {
+                        e.preventDefault();
+                        openPolicyModal(type);
+                    });
+                }
+            });
+
+            closeBtns.forEach(btn => { if (btn) btn.addEventListener('click', closePolicyModal); });
+            overlay.addEventListener('click', closePolicyModal);
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) closePolicyModal();
+            });
+        }
+    </script>
+</body>
+</html>

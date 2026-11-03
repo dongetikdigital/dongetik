@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa - Dongetik Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { blue: '#2563EB', sky: '#0EA5E9', emerald: '#10B981', purple: '#7C3AED' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body.dark ::-webkit-scrollbar-track { background: #1e293b; }
+        body.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        /* ============================================================
+           DARK MODE
+           ============================================================ */
+        body.dark { background: #0f172a; color: #e2e8f0; }
+
+        /* Navbar */
+        body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
+        body.dark .border-slate-100 { border-color: #334155 !important; }
+        body.dark .border-slate-200 { border-color: #334155 !important; }
+
+        /* Teks umum */
+        body.dark .text-slate-900 { color: #f1f5f9 !important; }
+        body.dark .text-slate-800 { color: #e2e8f0 !important; }
+        body.dark .text-slate-700 { color: #e2e8f0 !important; }
+        body.dark .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark .text-slate-500 { color: #94a3b8 !important; }
+        body.dark .text-slate-400 { color: #94a3b8 !important; }
+
+        /* Latar */
+        body.dark .bg-white { background: #1e293b !important; }
+        body.dark .bg-slate-50 { background: #0f172a !important; }
+        body.dark .bg-slate-100 { background: #334155 !important; }
+        body.dark .bg-purple-50 { background: #1e293b !important; }
+        body.dark .bg-purple-100 { background: #334155 !important; }
+        body.dark .bg-purple-100\/70 { background: rgba(59, 7, 100, 0.6) !important; color: #c4b5fd !important; border-color: #6b21a8 !important; }
+
+        /* Ikon theme: biru terang di mode gelap */
+        #themeToggle { color: #475569; }
+        #themeToggle:hover { color: #7c3aed; }
+        body.dark #themeToggle { color: #60a5fa !important; }
+        body.dark #themeToggle:hover { color: #93c5fd !important; }
+
+        /* Hero: ungu gelap */
+        body.dark .from-purple-50 { background: linear-gradient(135deg, #3b0764 0%, #1e293b 100%) !important; }
+        body.dark .border-purple-100\/60 { border-color: #334155 !important; }
+
+        /* Kartu "untuk siapa" / "masalah" / "cara kerja" / "contoh proyek" / "faq" */
+        body.dark .bg-gradient-to-b { background: #1e293b !important; }
+        body.dark .bg-gradient-to-br { background: #1e293b !important; }
+        body.dark .border-purple-100\/80 { border-color: #334155 !important; }
+        body.dark .border-purple-100 { border-color: #334155 !important; }
+
+        /* Footer */
+        body.dark footer { background: #0f172a; border-color: #334155; }
+        body.dark footer .bg-slate-50 { background: #1e293b !important; }
+        body.dark footer .border-slate-100 { border-color: #334155 !important; }
+
+        /* CTA section */
+        body.dark section.bg-slate-50 { background: #0f172a !important; }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-purple-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="index.html" class="hover:text-purple-600 transition">Beranda</a>
+                <a href="katalog.html" class="hover:text-purple-600 transition">Katalog</a>
+                <a href="tentang-kami.html" class="hover:text-purple-600 transition">Tentang Kami</a>
+                <a href="blog.html" class="hover:text-purple-600 transition">Blog</a>
+                <a href="#kontak" class="hover:text-purple-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="katalog.html" class="relative inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fa-solid fa-cart-shopping text-purple-300"></i>
+                    <span class="hidden sm:inline">Pesanan</span>
+                </a>
+                <button id="themeToggle" class="text-slate-600 hover:text-purple-600 transition text-lg" aria-label="Ubah tema">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-slate-50 border-b border-purple-100/60 transition-colors duration-300">
+        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-400/10 blur-[120px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-400/10 blur-[120px]"></div>
+        <div class="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100/70 text-purple-700 border border-purple-200 text-xs font-semibold tracking-wide mb-5">
+                    <i class="fa-solid fa-screwdriver-wrench"></i> Kategori Jasa
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight tracking-tight font-heading mb-5">
+                    Jasa pengembangan yang <span class="text-purple-600">menyesuaikan cara kerja Anda</span>
+                </h1>
+                <p class="text-slate-600 leading-relaxed mb-8 max-w-2xl text-lg">
+                    Ketika aplikasi siap pakai belum cukup, kami merancang sistem custom: dari analisis kebutuhan, desain alur, implementasi, hingga pendampingan. Dikerjakan bertahap, dengan komunikasi yang jelas di setiap fase.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20konsultasi%20jasa%20custom" target="_blank" rel="noopener" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    </a>
+                    <a href="#lingkup" class="px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-full border border-slate-200 transition text-sm flex items-center gap-2">
+                        Lihat Lingkup <i class="fa-solid fa-arrow-down text-xs text-slate-400"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNTUK SIAPA -->
+    <section class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Untuk Siapa</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Tiga konteks yang paling sering kami tangani</h2>
+                <p class="text-slate-500 text-sm mt-2">Setiap proyek dimulai dari pemahaman konteks kerja, bukan dari daftar fitur.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-b from-purple-50/60 to-white border border-purple-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-building-columns"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Instansi &amp; Lembaga</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Sistem internal yang menyesuaikan SOP: persuratan, disposisi, laporan, dan arsip dalam satu alur.</p>
+                </div>
+                <div class="bg-gradient-to-b from-purple-50/60 to-white border border-purple-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Sekolah &amp; Yayasan</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Penerimaan siswa, keuangan, dan komunikasi orang tua yang selama ini tersebar di banyak file.</p>
+                </div>
+                <div class="bg-gradient-to-b from-purple-50/60 to-white border border-purple-100/80 p-7 rounded-2xl transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-store"></i></div>
+                    <h3 class="font-bold text-slate-900 text-base mb-2 font-heading">Bisnis &amp; UMKM</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Katalog, pesanan, dan pelanggan yang ingin dikelola sendiri tanpa biaya langganan bulanan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASALAH -->
+    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Masalah</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Yang kami bantu selesaikan</h2>
+                <p class="text-slate-500 text-sm mt-2">Jasa kami lahir dari kebutuhan yang tidak terpenuhi oleh produk siap pakai.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-2xl mb-3"><i class="fa-solid fa-diagram-project"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Alur kerja unik</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">SOP tidak bisa dipaksa masuk ke aplikasi generik; butuh sistem yang mengikuti proses Anda.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-2xl mb-3"><i class="fa-solid fa-plug-circle-check"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Integrasi terputus</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Data tersebar di spreadsheet, WhatsApp, dan email yang tidak saling terhubung.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-2xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Laporan lambat</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Rekap manual yang memakan waktu dan rawan selisih saat dibutuhkan pimpinan.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-2xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Kontrol akses</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Sulit membatasi siapa boleh melihat atau mengubah data tertentu dalam satu sistem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LINGKUP LAYANAN -->
+    <section id="lingkup" class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+                <!-- Kiri: daftar lingkup -->
+                <div>
+                    <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Lingkup</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading mb-4">Apa yang kami kerjakan</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8">
+                        Kami tidak menjual paket siap pakai. Setiap proyek dimulai dari pemahaman alur kerja Anda, lalu dirancang sesuai kebutuhan—bukan sebaliknya.
+                    </p>
+
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code text-sm"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm font-heading">Custom web app</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed mt-1">Sistem internal berbasis web yang menyesuaikan SOP: persuratan, disposisi, laporan, arsip, keuangan.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gears text-sm"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm font-heading">Otomasi Google Apps Script</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed mt-1">Spreadsheet, dokumen, dan email yang saling terhubung—menggantikan pekerjaan manual berulang.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-plug text-sm"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm font-heading">Integrasi sistem</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed mt-1">Menghubungkan data yang selama ini terpisah di spreadsheet, WhatsApp, dan email.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-compass-drafting text-sm"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm font-heading">Konsultasi alur kerja</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed mt-1">Sesi untuk memetakan proses yang berjalan sekarang dan menilai apakah perlu sistem baru atau cukup perbaikan kecil.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanan: yang perlu disiapkan + CTA -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 transition-colors duration-300">
+                    <h3 class="font-bold text-slate-900 text-base font-heading mb-3">Yang perlu Anda siapkan</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-5">Tidak perlu dokumen teknis. Cukup tiga hal ini:</p>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-6">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1"></i>
+                            <span>Gambaran alur kerja yang ingin diperbaiki</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1"></i>
+                            <span>Siapa saja yang akan memakai sistem</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1"></i>
+                            <span>Hasil seperti apa yang diharapkan</span>
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20konsultasi%20jasa%20custom" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition text-sm w-full">
+                        <i class="fa-brands fa-whatsapp"></i> Mulai Konsultasi
+                    </a>
+                    <p class="text-slate-400 text-xs text-center mt-3">Tidak ada biaya untuk sesi konsultasi awal.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CARA KERJA -->
+    <section class="py-20 bg-white border-t border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Cara Kerja</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Empat langkah, dari obrolan awal sampai sistem berjalan</h2>
+                <p class="text-slate-500 text-sm mt-2">Cukup ceritakan alur kerja Anda. Kami bantu petakan kebutuhan, sebelum bicara biaya.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-xs font-bold mb-2">LANGKAH 1</div>
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-comments"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Konsultasi awal</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Ceritakan alur kerja yang ingin diperbaiki lewat WhatsApp. Tidak perlu proposal atau dokumen—cukup gambaran masalahnya.</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-xs font-bold mb-2">LANGKAH 2</div>
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-file-lines"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Proposal &amp; estimasi</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Kami susun ruang lingkup, estimasi waktu, dan biaya. Anda bisa meninjau dan menyesuaikan sebelum pekerjaan dimulai.</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-xs font-bold mb-2">LANGKAH 3</div>
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-code"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Pengerjaan bertahap</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Sistem dibangun bertahap dengan progres yang bisa dipantau. Anda tidak menunggu sampai selesai untuk melihat hasilnya.</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-purple-600 text-xs font-bold mb-2">LANGKAH 4</div>
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg mb-4"><i class="fa-solid fa-handshake"></i></div>
+                    <h3 class="font-bold text-slate-900 text-sm mb-2 font-heading">Serah terima</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed">Dokumentasi, pelatihan singkat, dan masa garansi perbaikan bug. Tim Anda siap menjalankan sistem sendiri.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20konsultasi%20jasa%20custom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Mulai Konsultasi Gratis
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTOH PROYEK -->
+    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Contoh Proyek</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Sebagian yang pernah kami kerjakan</h2>
+                <p class="text-slate-500 text-sm mt-2">Setiap proyek berangkat dari masalah nyata.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Sistem Persuratan</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Disposisi surat yang tadinya lewat grup WhatsApp</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> surat hilang di tumpukan chat, tidak ada jejak siapa yang sudah menindaklanjuti.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> disposisi tercatat rapi, terlacak per unit, dan rekap bulanan otomatis.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Sistem Kehadiran Sekolah</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Rekap kehadiran yang dulu memakan dua hari</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> wali kelas menghitung manual dari lembar absensi, rawan selisih saat laporan bulanan.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> rekap otomatis, laporan per kelas bisa dilihat kapan saja.</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Katalog UMKM</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pesanan yang tadinya dicatat di buku</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> pesanan tercampur, stok tidak akurat, dan pelanggan harus tanya ketersediaan lewat chat.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> pesanan tercatat rapi, status stok terlihat, pelanggan bisa memesan langsung dari katalog.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">FAQ Jasa</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Pertanyaan seputar jasa custom</h2>
+            </div>
+            <div class="space-y-3" id="faqContainer">
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Bagaimana proses memulai proyek custom?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Dimulai dari sesi konsultasi singkat untuk memahami kebutuhan dan alur kerja. Setelah itu kami menyusun proposal berisi ruang lingkup, estimasi waktu, dan biaya. Pekerjaan dimulai setelah proposal disetujui.
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Berapa lama pengerjaan satu proyek?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Sangat bergantung pada ruang lingkup. Proyek kecil bisa selesai dalam 2–4 minggu, sedangkan sistem dengan integrasi dan multi-peran bisa memakan 1–3 bulan. Estimasi pasti selalu dicantumkan dalam proposal.
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
+                        <span>Apakah ada garansi dan pendampingan setelah serah terima?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                        Ya. Kami memberikan masa garansi perbaikan bug setelah serah terima, serta sesi pelatihan singkat untuk tim Anda. Perawatan berkelanjutan tersedia sebagai layanan terpisah bila dibutuhkan.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- CTA AKHIR -->
+    <section class="py-16 bg-gradient-to-br from-purple-600 to-indigo-700">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white font-heading mb-3">Punya alur kerja yang ingin didigitalkan?</h2>
+            <p class="text-purple-100 text-sm mb-8 max-w-xl mx-auto">
+                Mulai dari percakapan singkat. Tidak ada biaya untuk konsultasi awal. 
+Kami bantu petakan kebutuhan sebelum bicara biaya.
+            </p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20konsultasi%20jasa%20custom" target="_blank" rel="noopener" class="px-6 py-3 bg-white text-purple-700 font-semibold rounded-full shadow-lg transition text-sm flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Konsultasi via WhatsApp
+                </a>
+                <a href="apps.html" class="px-6 py-3 bg-purple-500/40 hover:bg-purple-500/60 text-white font-semibold rounded-full border border-white/30 transition text-sm flex items-center gap-2">
+                    Lihat Web App Tersedia <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-purple-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="index.html" class="hover:text-purple-600 transition">Beranda</a></li>
+                    <li><a href="katalog.html" class="hover:text-purple-600 transition">Katalog</a></li>
+                    <li><a href="blog.html" class="hover:text-purple-600 transition">Blog</a></li>
+                    <li><a href="tentang-kami.html" class="hover:text-purple-600 transition">Tentang Kami</a></li>
+                    <li><a href="#kontak" class="hover:text-purple-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Kategori</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="apps.html" class="hover:text-blue-600 transition">Aplikasi</a></li>
+                    <li><a href="ebook.html" class="hover:text-emerald-600 transition">Ebook</a></li>
+                    <li><a href="jasa.html" class="text-purple-600 font-semibold">Jasa</a></li>
+                    <li><a href="katalog.html" class="hover:text-purple-600 transition">Katalog Lengkap</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="faq.html" class="hover:text-purple-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-purple-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-purple-600 transition">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-purple-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="kontak" class="col-span-2 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const THEME_KEY = 'dongetik_theme';
+
+        function setupThemeToggle() {
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const icon = btn.querySelector('i');
+            const saved = localStorage.getItem(THEME_KEY);
+            const isDark = saved === 'dark';
+
+            document.body.classList.toggle('dark', isDark);
+            icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+
+            btn.addEventListener('click', () => {
+                const nowDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', nowDark);
+                icon.className = nowDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+                localStorage.setItem(THEME_KEY, nowDark ? 'dark' : 'light');
+            });
+        }
+
+        function toggleFaq(n) {
+            const ans = document.getElementById('faq-ans-' + n);
+            const icon = document.getElementById('faq-icon-' + n);
+            if (!ans || !icon) return;
+            const isHidden = ans.classList.contains('hidden');
+            ans.classList.toggle('hidden');
+            icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+        });
+    </script>
+</body>
+</html>
