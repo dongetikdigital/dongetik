@@ -209,6 +209,34 @@ window.PRODUCTS = [
         ]
     },
 
+{
+    id: 'manalupa',
+    title: 'MANALUPA',
+    subtitle: 'Kelola Lupa, Ingat Tanpa Batas',
+    category: 'Aplikasi',
+    categoryLabel: 'Aplikasi',
+    tags: ['Produktivitas', 'Manajemen Waktu', 'Privasi', 'Offline'],
+    price: 10000,
+    normalPrice: 79000,
+    status: 'Siap Pakai',
+    featured: true,
+    galeri: ['images/manalupakatalog.png'],
+    icon: 'fa-solid fa-cloud-arrow-up',
+    iconBg: 'bg-blue-100 text-blue-600',
+    badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
+
+    shortDesc: 'Lupa itu wajar. Manalupa membantumu mencatat, mengingat, dan mengelola beban pikiran tanpa perlu koneksi internet. 100% privat, 0% ribet.',
+
+    longDesc: 'Manalupa adalah asisten anti-lupa pribadi yang berjalan sepenuhnya offline di browser Anda. Dirancang berdasarkan prinsip psikologi kognitif, Manalupa membantu Anda memindahkan beban ingatan dari kepala ke sistem yang aman (Single Point of Capture). Dilengkapi dengan indikator beban pikiran, fitur "Rumah Barang" untuk mencatat lokasi pasti barang, dan aturan "Kalau-Maka" (Implementation Intention) untuk mengikat pengingat pada rutinitas harian. Semua data disimpan secara lokal di perangkat Anda (tidak ada server, tidak ada pelacakan), dan dapat di-backup dengan mudah. Buka, ketik, tutup—kurang dari 10 detik.',
+
+    features: [
+        'Bekerja 100% Offline: Tidak butuh internet, data tersimpan aman di perangkat',
+        'Single Point of Capture: Catat tugas, janji, atau ide dalam waktu < 10 detik',
+        'Indikator Beban Pikiran: Pantau kapasitas kognitif agar tidak overthinking',
+        'Fitur Rumah Barang: Catat lokasi pasti barang agar tak panik saat mencarinya',
+        'Aturan Kalau-Maka: Ikat pengingat baru pada rutinitas yang sudah pasti dilakukan'
+    ]
+},
     // ============================================================
     // KATEGORI: EBOOK (emerald)
     // ============================================================
