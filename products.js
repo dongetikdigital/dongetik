@@ -274,7 +274,7 @@ window.PRODUCTS = [
         'Pendekatan Self-Compassion: berhenti menyalahkan diri karena lupa',
         'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop'
     ]
-}
+},
 
     {
     id: 'sangkatan',
