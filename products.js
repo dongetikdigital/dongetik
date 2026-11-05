@@ -276,6 +276,38 @@ window.PRODUCTS = [
     ]
 },
 
+{
+    id: 'ebook-jangan-jadi-penonton',
+    title: 'Ebook: Jangan Jadi Penonton saat Kecelakaan',
+    subtitle: 'Panduan Hangat untuk Menjadi Penolong yang Cerdas dan Berempati',
+    category: 'Ebook',
+    categoryLabel: 'Ebook',
+    tags: ['Keselamatan', 'Kesehatan', 'Psikologi', 'Kewargaan Digital'],
+    price: 0,
+    normalPrice: 0,
+    status: 'Ebook Digital Gratis',
+    featured: true,
+    galeri: ['images/stopjadipenontonkatalog.png'],
+    icon: 'fa-solid fa-book-open-reader',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+    shortDesc: 'Kecelakaan bukan tontonan. Panduan ringkas, hangat, dan tak menghakimi untuk mengubah kita dari penonton pasif menjadi penolong pertama yang cerdas—tanpa harus jadi dokter.',
+
+    longDesc: 'Setiap hari kita berpapasan dengan kecelakaan di jalan raya. Sayangnya, mayoritas dari kita memilih memperlambat kendaraan, merekam, atau sekadar berkerumun—bukan menolong. Ebook ini hadir bukan untuk menghakimi, melainkan membekali. Ditulis bersama perspektif psikolog, tim medis, dan tim penyelamat, ebook ini memandu Anda mengubah mentalitas dari pengamat menjadi penolong responsif. Dimulai dari memahami fenomena bystander effect, protokol "Amankan, Nilai, Bertindak", nomor darurat yang benar (119, 110, 113, 112), batas aman pertolongan pertama (termasuk kapan JANGAN melepas helm), etika digital di lokasi kejadian, hingga Lampiran "Kartu Cepat" yang bisa disimpan di ponsel atau ditempel di dasbor. Bahasa hangat, tanpa jargon, bisa diterapkan siapa saja—kapan saja.',
+
+    features: [
+        'Penjelasan sederhana fenomena bystander effect dan mengapa kita sering hanya menonton',
+        'Protokol tiga langkah: Amankan, Nilai, Bertindak',
+        'Panduan lengkap nomor darurat Indonesia (119, 110, 113, 112) dan cara menelepon yang benar',
+        'Batas aman pertolongan pertama: apa yang boleh, apa yang jangan, apa yang harus tunggu instruksi',
+        'Etika digital di lokasi kejadian: simpan ponsel, ulurkan tangan',
+        'Lampiran "Kartu Cepat" berisi tiga langkah emas, nomor darurat, dan daftar boleh/tidak boleh',
+        'Bahasa hangat, tak menghakimi, dan mudah dipahami—cocok untuk pembaca umum',
+        'Ebook digital gratis, dirancang nyaman dibaca di HP maupun dicetak A5'
+    ]
+},
+   
     {
     id: 'sangkatan',
     title: 'SANGKATAN',
