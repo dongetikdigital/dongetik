@@ -257,9 +257,9 @@ window.PRODUCTS = [
     status: 'Ebook Digital + Lembar Kerja Interaktif',
     featured: true,
     galeri: ['images/Manajemen Lupa_ Solusi Cerdas.png'],
-    icon: 'fa-solid fa-brain',
-    iconBg: 'bg-indigo-100 text-indigo-600',
-    badgeBg: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    icon: 'fa-solid fa-book-open-reader',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
 
     shortDesc: 'Lupa itu wajar. Yang membedakan individu produktif adalah bagaimana mereka mengantisipasinya. Temukan sistem mitigasi memori berbasis psikologi kognitif untuk melindungi Anda dari keterbatasan alami otak.',
 
