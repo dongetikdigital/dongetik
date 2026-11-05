@@ -245,6 +245,37 @@ window.PRODUCTS = [
     ]
 },
 
+   {
+    id: 'ebook-manajemen-lupa',
+    title: 'Ebook: Manajemen Lupa',
+    subtitle: 'Lupa Itu Wajar — Solusi Cerdas Hadapi Sifat Alami Manusia',
+    category: 'Ebook',
+    categoryLabel: 'Ebook',
+    tags: ['Literasi', 'Produktivitas', 'Psikologi', 'Manajemen Waktu'],
+    price: 45000,
+    normalPrice: 99000,
+    status: 'Ebook Digital + Lembar Kerja Interaktif',
+    featured: true,
+    galeri: ['images/Manajemen Lupa_ Solusi Cerdas.png'],
+    icon: 'fa-solid fa-brain',
+    iconBg: 'bg-indigo-100 text-indigo-600',
+    badgeBg: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+
+    shortDesc: 'Lupa itu wajar. Yang membedakan individu produktif adalah bagaimana mereka mengantisipasinya. Temukan sistem mitigasi memori berbasis psikologi kognitif untuk melindungi Anda dari keterbatasan alami otak.',
+
+    longDesc: 'Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi dengan kontekstualisasi realitas kerja Indonesia (seperti kebiasaan WhatsApp dan budaya "nanti dulu"), 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja (Worksheet) yang bisa langsung Anda isi untuk merancang sistem manajemen lupa versi Anda sendiri.',
+
+    features: [
+        'Pemahaman mendalam tentang anatomi lupa dan 7 jenis dosa memori',
+        'Tiga Pilar Sistem Manajemen Lupa (Offloading, Triggers, Batching)',
+        'Kontekstualisasi solusi untuk realitas kerja Indonesia yang sesungguhnya',
+        '10 Skenario praktis (tagihan, janji temu, instruksi rapat, dokumen, dll)',
+        'Lembar Kerja (Worksheet) interaktif untuk audit dan perancangan sistem',
+        'Pendekatan Self-Compassion: berhenti menyalahkan diri karena lupa',
+        'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop'
+    ]
+}
+
     {
     id: 'sangkatan',
     title: 'SANGKATAN',
