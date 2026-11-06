@@ -370,10 +370,10 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                 if (this.value.length > 6) this.value = this.value.slice(0, 6);
             });
 
-            // ----- Manajemen ID Card dengan localStorage (mulai dari 15 -> selanjutnya 16) -----
+            // ----- Manajemen ID Card dengan localStorage -----
             function getLastCardId() {
                 const stored = localStorage.getItem('lastCardId');
-                return stored ? parseInt(stored) : 15; // default 15
+                return stored ? parseInt(stored) : 15;
             }
 
             function setLastCardId(id) {
@@ -400,7 +400,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                 return cleaned;
             }
 
-            // ----- Fungsi insert markdown (untuk semua textarea) -----
+            // ----- Fungsi insert markdown -----
             function insertMarkdown(textarea, tag, promptForUrl = false) {
                 const start = textarea.selectionStart;
                 const end = textarea.selectionEnd;
@@ -411,7 +411,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
 
                 if (promptForUrl) {
                     const url = prompt('Masukkan URL link:');
-                    if (url === null) return; // batal
+                    if (url === null) return;
                     const displayText = selected || 'teks';
                     newText = before + '[' + displayText + '](' + url + ')' + after;
                     cursorPos = before.length + 1 + displayText.length + 2 + url.length + 1;
@@ -451,33 +451,13 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
             const cardId = document.getElementById('cardId');
             const aiInput = document.getElementById('aiInput');
 
-            // ----- Toolbar untuk area AI -----
-            document.getElementById('aiBoldBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(aiInput, '**');
-            });
-            document.getElementById('aiItalicBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(aiInput, '*');
-            });
-            document.getElementById('aiLinkBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(aiInput, '', true);
-            });
-
-            // ----- Toolbar untuk konten utama -----
-            document.getElementById('boldBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(konten, '**');
-            });
-            document.getElementById('italicBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(konten, '*');
-            });
-            document.getElementById('linkBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                insertMarkdown(konten, '', true);
-            });
+            // ----- Toolbar -----
+            document.getElementById('aiBoldBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(aiInput, '**'); });
+            document.getElementById('aiItalicBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(aiInput, '*'); });
+            document.getElementById('aiLinkBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(aiInput, '', true); });
+            document.getElementById('boldBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(konten, '**'); });
+            document.getElementById('italicBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(konten, '*'); });
+            document.getElementById('linkBtn').addEventListener('click', (e) => { e.preventDefault(); insertMarkdown(konten, '', true); });
 
             // ----- Fungsi pembuatan slug -----
             function createSlug(title) {
@@ -487,7 +467,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                     .substring(0, 60);
             }
 
-            // ----- Konversi markdown ke HTML (termasuk link) -----
+            // ----- Konversi markdown ke HTML -----
             function convertMarkdownToHTML(text) {
                 let paragraphs = text.split(/\n\s*\n/).filter(p => p.trim() !== '');
                 paragraphs = paragraphs.map(p => {
@@ -539,39 +519,72 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/logo-dongetik.png">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; transition: background 0.3s, color 0.3s; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* ============================================================
+           DARK MODE
+           ============================================================ */
+        body.dark { background-color: #0f172a; color: #e2e8f0; }
+
+        body.dark .bg-white\\/80 { background: rgba(30, 41, 59, 0.85) !important; }
+        body.dark .bg-white { background: #1e293b !important; }
+        body.dark .bg-slate-50 { background: #0f172a !important; }
+        body.dark .bg-slate-100 { background: #334155 !important; }
+        body.dark .bg-indigo-50 { background: #1e293b !important; }
+        body.dark .border-slate-100 { border-color: #334155 !important; }
+        body.dark .border-slate-200 { border-color: #334155 !important; }
+
+        body.dark .text-slate-900 { color: #f1f5f9 !important; }
+        body.dark .text-slate-800 { color: #e2e8f0 !important; }
+        body.dark .text-slate-700 { color: #e2e8f0 !important; }
+        body.dark .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark .text-slate-500 { color: #94a3b8 !important; }
+        body.dark .text-slate-400 { color: #94a3b8 !important; }
+        body.dark .text-indigo-600 { color: #a5b4fc !important; }
+
+        #themeToggle { color: #475569; }
+        #themeToggle:hover { color: #2563eb; }
+        body.dark #themeToggle { color: #60a5fa !important; }
+        body.dark #themeToggle:hover { color: #93c5fd !important; }
+
+        body.dark footer { background: #0f172a; border-color: #334155; }
+        body.dark footer .bg-slate-50 { background: #1e293b !important; }
+        body.dark footer .border-slate-100 { border-color: #334155 !important; }
     <\/style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <img src="../logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <img src="/logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
                 <div class="border-l border-slate-200 pl-3">
                     <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
                     <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
-                <a href="../index.html" class="hover:text-blue-600 transition">Beranda</a>
-                <a href="#" class="hover:text-blue-600 transition flex items-center gap-1">Produk <i class="fa-solid fa-chevron-down text-[10px]"><\/i></a>
-                <a href="../tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
-                <a href="../blog.html" class="text-blue-600 font-semibold">Blog</a>
-                <a href="../index.html#kontak" class="hover:text-blue-600 transition">Kontak</a>
+                <a href="/index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="/katalog.html" class="hover:text-blue-600 transition">Katalog</a>
+                <a href="/tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="/blog.html" class="text-blue-600 font-semibold">Blog</a>
+                <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
             </div>
             <div class="flex items-center gap-5">
-                <button class="text-slate-600 hover:text-blue-600 transition text-lg"><i class="fa-regular fa-sun"><\/i><\/button>
+                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg" aria-label="Ubah tema">
+                    <i class="fa-regular fa-sun"><\/i>
+                <\/button>
             <\/div>
         <\/div>
     <\/nav>
 
     <main class="flex-grow max-w-3xl mx-auto px-6 py-12 w-full">
-        
+
         <div class="mb-8">
-            <a href="../blog.html" class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-2 transition group">
+            <a href="/blog.html" class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-2 transition group">
                 <i class="fa-solid fa-arrow-left transition group-hover:-translate-x-1"><\/i> Kembali ke Blog
             <\/a>
         <\/div>
@@ -610,15 +623,89 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
 
     <\/main>
 
-    <footer class="bg-white border-t border-slate-100 py-8 text-center text-xs text-slate-400 mt-auto">
-        <p>&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.<\/p>
-    <\/footer>
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="/logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/index.html" class="hover:text-blue-600 transition">Beranda</a></li>
+                    <li><a href="/katalog.html" class="hover:text-blue-600 transition">Katalog</a></li>
+                    <li><a href="/blog.html" class="hover:text-blue-600 transition">Blog</a></li>
+                    <li><a href="/tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
+                    <li><a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Kategori</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/apps.html" class="hover:text-blue-600 transition">Aplikasi</a></li>
+                    <li><a href="/ebook.html" class="hover:text-emerald-600 transition">Ebook</a></li>
+                    <li><a href="/jasa.html" class="hover:text-purple-600 transition">Jasa</a></li>
+                    <li><a href="/index.html#produk" class="hover:text-blue-600 transition">Kategori Produk</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="ikuti-kami" class="col-span-2 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"><\/i>
+                    <\/a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"><\/i>
+                    <\/a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"><\/i>
+                    <\/a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        (function() {
+            const KEY = 'dongetik_theme';
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const icon = btn.querySelector('i');
+            const saved = localStorage.getItem(KEY);
+            const isDark = saved === 'dark';
+            document.body.classList.toggle('dark', isDark);
+            icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+            btn.addEventListener('click', () => {
+                const nowDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', nowDark);
+                icon.className = nowDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+                localStorage.setItem(KEY, nowDark ? 'dark' : 'light');
+            });
+        })();
+    <\/script>
 <\/body>
 <\/html>`;
             }
 
-            // ----- Generate card dalam format JavaScript object -----
+            // ----- Generate card -----
             function generateCardObject(data) {
                 const { judul: j, tanggal: t, kategori: k, gambar: g, deskripsi: d } = data;
                 const dateObj = new Date(t + 'T00:00:00');
@@ -632,12 +719,10 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
 
                 let id = cardId.value.trim();
                 if (!id) {
-                    const lastId = getLastCardId();
-                    id = lastId;
+                    id = getLastCardId();
                 } else {
                     id = parseInt(id);
                 }
-                // Simpan ID yang digunakan, dan increment untuk next
                 setLastCardId(id + 1);
 
                 return `{
@@ -651,17 +736,15 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
 }`;
             }
 
-            // ----- Generate Caption Facebook (singkat 1 paragraf) -----
+            // ----- Generate Caption Facebook -----
             function generateCaption(data) {
-                const { judul: j, deskripsi: d, kategori: k } = data;
+                const { judul: j, deskripsi: d } = data;
                 const slug = createSlug(j);
                 const url = 'https://dongetik.net/artikel/' + slug + '.html';
-                // Gunakan deskripsi sebagai dasar caption
-                const caption = `📢 ${j}\n\n${d}\n\nBaca selengkapnya di: ${url}`;
-                return caption;
+                return `📢 ${j}\n\n${d}\n\nBaca selengkapnya di: ${url}`;
             }
 
-            // ----- Ambil data form (dengan pembersihan URL) -----
+            // ----- Ambil data form -----
             function getFormData() {
                 return {
                     judul: judul.value.trim() || 'Judul Artikel',
@@ -675,16 +758,12 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                 };
             }
 
-            // ----- Generate & tampilkan -----
             generateBtn.addEventListener('click', generateAll);
 
             // ----- Salin HTML -----
             copyBtn.addEventListener('click', function() {
                 const code = output.textContent;
-                if (!code || code.includes('// Hasil akan muncul')) {
-                    alert('Silakan generate terlebih dahulu.');
-                    return;
-                }
+                if (!code || code.includes('// Hasil akan muncul')) { alert('Silakan generate terlebih dahulu.'); return; }
                 navigator.clipboard.writeText(code).then(() => alert('✅ Kode HTML disalin!'))
                     .catch(() => {
                         const range = document.createRange();
@@ -699,10 +778,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
             // ----- Salin Card -----
             copyCardBtn.addEventListener('click', function() {
                 const code = cardOutput.textContent;
-                if (!code || code.includes('// Kode card akan muncul')) {
-                    alert('Silakan generate terlebih dahulu.');
-                    return;
-                }
+                if (!code || code.includes('// Kode card akan muncul')) { alert('Silakan generate terlebih dahulu.'); return; }
                 navigator.clipboard.writeText(code).then(() => alert('✅ Kode Card Blog disalin!'))
                     .catch(() => {
                         const range = document.createRange();
@@ -717,10 +793,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
             // ----- Salin Caption -----
             copyCaptionBtn.addEventListener('click', function() {
                 const code = captionOutput.textContent;
-                if (!code || code.includes('// Caption akan muncul')) {
-                    alert('Silakan generate terlebih dahulu.');
-                    return;
-                }
+                if (!code || code.includes('// Caption akan muncul')) { alert('Silakan generate terlebih dahulu.'); return; }
                 navigator.clipboard.writeText(code).then(() => alert('✅ Caption Facebook disalin!'))
                     .catch(() => {
                         const range = document.createRange();
@@ -735,10 +808,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
             // ----- Unduh HTML -----
             downloadBtn.addEventListener('click', function() {
                 const code = output.textContent;
-                if (!code || code.includes('// Hasil akan muncul')) {
-                    alert('Silakan generate terlebih dahulu.');
-                    return;
-                }
+                if (!code || code.includes('// Hasil akan muncul')) { alert('Silakan generate terlebih dahulu.'); return; }
                 const slug = createSlug(judul.value.trim() || 'artikel');
                 const blob = new Blob([code], { type: 'text/html' });
                 const url = URL.createObjectURL(blob);
@@ -751,22 +821,13 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                 URL.revokeObjectURL(url);
             });
 
-            // ----- Parse AI output (dengan pembersihan URL dan markdown) -----
+            // ----- Parse AI output -----
             document.getElementById('parseBtn').addEventListener('click', function() {
                 const raw = aiInput.value;
-                if (!raw.trim()) {
-                    alert('Tempel hasil AI terlebih dahulu.');
-                    return;
-                }
+                if (!raw.trim()) { alert('Tempel hasil AI terlebih dahulu.'); return; }
                 const labelMap = {
-                    'Judul': 'judul',
-                    'Tanggal': 'tanggal',
-                    'Penulis': 'penulis',
-                    'Kategori': 'kategori',
-                    'Gambar': 'gambar',
-                    'Deskripsi': 'deskripsi',
-                    'Tags': 'tags',
-                    'Konten': 'konten'
+                    'Judul': 'judul', 'Tanggal': 'tanggal', 'Penulis': 'penulis', 'Kategori': 'kategori',
+                    'Gambar': 'gambar', 'Deskripsi': 'deskripsi', 'Tags': 'tags', 'Konten': 'konten'
                 };
                 const lines = raw.split('\n');
                 let isKonten = false;
@@ -785,9 +846,7 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                                 const rest = line.substring(label.length + 1).trim();
                                 if (rest) extracted[field] = rest + '\n';
                             } else {
-                                if (field === 'gambar') {
-                                    value = cleanUrl(value);
-                                }
+                                if (field === 'gambar') value = cleanUrl(value);
                                 extracted[field] = value;
                             }
                             matched = true;
@@ -816,17 +875,14 @@ Kunjungi [Sangkatan](https://sangkatan.com) untuk demo dan informasi lebih lanju
                 if (extracted['tags']) tags.value = extracted['tags'];
                 if (extracted['konten']) konten.value = extracted['konten'];
 
-                if (!cardId.value.trim()) {
-                    const lastId = getLastCardId();
-                    cardId.value = lastId;
-                }
+                if (!cardId.value.trim()) cardId.value = getLastCardId();
 
                 const filled = Object.keys(extracted).filter(k => extracted[k]).length;
                 alert(`✅ Berhasil mengisi ${filled} field dari hasil AI.`);
                 generateAll();
             });
 
-            // ----- Salin Prompt AI (sudah disempurnakan) -----
+            // ----- Salin Prompt AI -----
             copyPromptBtn.addEventListener('click', function() {
                 const prompt = `Kamu adalah penulis konten profesional untuk **Dongetik Digital**, sebuah platform yang fokus pada solusi digital, pendidikan, dan teknologi.
 
@@ -850,20 +906,18 @@ Konten:
 Contoh penggunaan prompt:
 "Tulis artikel tentang pentingnya website untuk usaha kecil."`;
 
-                navigator.clipboard.writeText(prompt).then(() => {
-                    alert('✅ Prompt AI berhasil disalin ke clipboard!');
-                }).catch(() => {
-                    const textarea = document.createElement('textarea');
-                    textarea.value = prompt;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    alert('✅ Prompt AI berhasil disalin!');
-                });
+                navigator.clipboard.writeText(prompt).then(() => alert('✅ Prompt AI berhasil disalin ke clipboard!'))
+                    .catch(() => {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = prompt;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        alert('✅ Prompt AI berhasil disalin!');
+                    });
             });
 
-            // Generate otomatis setelah login
             window.generateAll = generateAll;
 
         })();
