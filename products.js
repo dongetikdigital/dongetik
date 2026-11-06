@@ -234,7 +234,8 @@ window.PRODUCTS = [
         'Single Point of Capture: Catat tugas, janji, atau ide dalam waktu < 10 detik',
         'Indikator Beban Pikiran: Pantau kapasitas kognitif agar tidak overthinking',
         'Fitur Rumah Barang: Catat lokasi pasti barang agar tak panik saat mencarinya',
-        'Aturan Kalau-Maka: Ikat pengingat baru pada rutinitas yang sudah pasti dilakukan'
+        'Aturan Kalau-Maka: Ikat pengingat baru pada rutinitas yang sudah pasti dilakukan',
+        'Gratis ebook eksklusif: Manajemen Lupa - Solusi Cerdas Hadapi Sifat Alami Manusia'
     ]
 },
     // ============================================================
@@ -280,8 +281,8 @@ window.PRODUCTS = [
     category: 'Ebook',
     categoryLabel: 'Ebook',
     tags: ['Literasi', 'Produktivitas', 'Psikologi', 'Manajemen Waktu'],
-    price: 45000,
-    normalPrice: 99000,
+    price: 10000,
+    normalPrice: 79000,
     status: 'Ebook Digital + Lembar Kerja Interaktif',
     featured: true,
     galeri: ['images/Manajemen Lupa_ Solusi Cerdas.png'],
@@ -300,7 +301,8 @@ window.PRODUCTS = [
         '10 Skenario praktis (tagihan, janji temu, instruksi rapat, dokumen, dll)',
         'Lembar Kerja (Worksheet) interaktif untuk audit dan perancangan sistem',
         'Pendekatan Self-Compassion: berhenti menyalahkan diri karena lupa',
-        'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop'
+        'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop',
+        'Gratis Aplikasi: Manalupa - Kelola Lupa, Ingat Tanpa Batas'
     ]
 },
 
