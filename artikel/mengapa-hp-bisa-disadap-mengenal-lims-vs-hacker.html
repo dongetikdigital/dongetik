@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mengapa HP Bisa Disadap? Mengenal LIMS vs Hacker - Dongetik Digital</title>
+    <meta name="description" content="Belajar dari isu penyadapan LIMS terhadap presiden, mari pahami perbedaan penyadapan jaringan dan peretasan hacker serta tips proteksinya." />
+    <meta property="og:title" content="Mengapa HP Bisa Disadap? Mengenal LIMS vs Hacker" />
+    <meta property="og:description" content="Belajar dari isu penyadapan LIMS terhadap presiden, mari pahami perbedaan penyadapan jaringan dan peretasan hacker serta tips proteksinya." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="og:url" content="https://dongetik.net/artikel/mengapa-hp-bisa-disadap-mengenal-lims-vs-hacker.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/logo-dongetik.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; transition: background 0.3s, color 0.3s; }
+        h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* ============================================================
+           DARK MODE
+           ============================================================ */
+        body.dark { background-color: #0f172a; color: #e2e8f0; }
+
+        body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
+        body.dark .bg-white { background: #1e293b !important; }
+        body.dark .bg-slate-50 { background: #0f172a !important; }
+        body.dark .bg-slate-100 { background: #334155 !important; }
+        body.dark .bg-indigo-50 { background: #1e293b !important; }
+        body.dark .border-slate-100 { border-color: #334155 !important; }
+        body.dark .border-slate-200 { border-color: #334155 !important; }
+
+        body.dark .text-slate-900 { color: #f1f5f9 !important; }
+        body.dark .text-slate-800 { color: #e2e8f0 !important; }
+        body.dark .text-slate-700 { color: #e2e8f0 !important; }
+        body.dark .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark .text-slate-500 { color: #94a3b8 !important; }
+        body.dark .text-slate-400 { color: #94a3b8 !important; }
+        body.dark .text-indigo-600 { color: #a5b4fc !important; }
+
+        #themeToggle { color: #475569; }
+        #themeToggle:hover { color: #2563eb; }
+        body.dark #themeToggle { color: #60a5fa !important; }
+        body.dark #themeToggle:hover { color: #93c5fd !important; }
+
+        body.dark footer { background: #0f172a; border-color: #334155; }
+        body.dark footer .bg-slate-50 { background: #1e293b !important; }
+        body.dark footer .border-slate-100 { border-color: #334155 !important; }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="/logo-dongetik.png" alt="Dongetik" class="h-10 w-auto" />
+                <div class="border-l border-slate-200 pl-3">
+                    <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                    <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-[15px]">
+                <a href="/index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="/katalog.html" class="hover:text-blue-600 transition">Katalog</a>
+                <a href="/tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a>
+                <a href="/blog.html" class="text-blue-600 font-semibold">Blog</a>
+                <a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
+            <div class="flex items-center gap-5">
+                <button id="themeToggle" class="text-slate-600 hover:text-blue-600 transition text-lg" aria-label="Ubah tema">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-3xl mx-auto px-6 py-12 w-full">
+
+        <div class="mb-8">
+            <a href="/blog.html" class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-2 transition group">
+                <i class="fa-solid fa-arrow-left transition group-hover:-translate-x-1"></i> Kembali ke Blog
+            </a>
+        </div>
+
+        <header class="space-y-4 mb-8">
+            <span class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider inline-block">Teknologi</span>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 font-heading leading-tight">
+                Mengapa HP Bisa Disadap? Mengenal LIMS vs Hacker
+            </h1>
+            <div class="flex items-center gap-4 text-xs text-slate-400 pt-2">
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> 2026-11-06</span>
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-user"></i> Oleh Admin Dongetik</span>
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock"></i> 4 Menit Baca</span>
+            </div>
+        </header>
+
+        <div class="mb-10 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" class="w-full h-[350px] object-cover" alt="Mengapa HP Bisa Disadap? Mengenal LIMS vs Hacker">
+        </div>
+
+        <article class="text-slate-600 leading-relaxed space-y-6 text-[15px]">
+            <p>Publik baru-baru ini dikejutkan oleh pemberitaan mengenai dugaan kasus penyadapan yang melibatkan mantan pejabat tinggi negara terhadap Presiden Indonesia menggunakan sistem Lawful Interception Management System (LIMS). Terlepas dari dinamika politik yang ada, peristiwa ini menjadi momentum edukasi yang sangat penting bagi kita semua untuk memahami bagaimana sebuah informasi digital dapat diintersepsi. Banyak masyarakat kini mulai bertanya-tanya, apa sebenarnya perbedaan antara sistem penyadapan canggih berskala negara seperti LIMS ini dengan aksi penyadapan yang biasa dilakukan oleh peretas (<em>hacker</em>) tak dikenal?<br>Secara mendasar, LIMS dan penyadapan oleh peretas berada pada ruang lingkup infrastruktur yang sangat berbeda. LIMS bekerja pada tingkat jaringan inti (<em>core network</em>) operator telekomunikasi, di mana data pembicaraan dan lalu lintas digital ditarik langsung dari pusat server penyedia layanan tanpa perlu memodifikasi ponsel target. Di sisi lain, peretas umum biasanya menggunakan metode <em>device infection</em> atau infeksi perangkat, yaitu dengan menanamkan perangkat lunak berbahaya (<em>malware</em> atau <em>spyware</em>) langsung ke dalam sistem operasi ponsel Anda.<br>Karena LIMS bekerja di tingkat operator, pengguna biasa tidak memiliki kontrol teknis untuk mencegahnya jika nomor mereka telah dimasukkan ke dalam sistem tersebut. Namun, hal ini sangat berbeda dengan penyadapan oleh peretas yang sangat bergantung pada kelengahan kita sebagai pengguna. Penyadapan oleh peretas memerlukan interaksi, seperti ketika kita tidak sengaja mengunduh file berbahaya atau mengklik tautan palsu (<em>phishing</em>) yang memberi mereka pintu masuk ke dalam sistem ponsel.<br>Untuk memastikan ponsel Anda tetap aman dari ancaman peretas tak dikenal, berikut adalah beberapa tips praktis yang bisa segera Anda terapkan:<br>1. Selalu perbarui sistem operasi (OS) dan aplikasi di ponsel Anda ke versi terbaru guna menutup celah keamanan yang sering dieksploitasi peretas.<br>2. Hindari mengklik tautan mencurigakan yang dikirim melalui SMS, email, atau WhatsApp dari nomor yang tidak dikenal.<br>3. Gunakan fitur Autentikasi Dua Faktor (2FA) pada seluruh akun digital Anda untuk mengamankan kredensial masuk.<br>4. Jangan pernah mengunduh atau menginstal aplikasi di luar toko resmi seperti Google Play Store atau Apple App Store.</p>
+        </article>
+
+        <div class="mt-12 pt-6 border-t border-slate-100 flex flex-wrap gap-3 items-center justify-between">
+            <div class="flex gap-2 flex-wrap">
+                <span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#KeamananSiber</span><span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#EdukasiTeknologi</span><span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#PrivasiDigital</span><span class="text-xs bg-slate-100 px-3 py-1 rounded-full text-slate-500">#TipsGadget</span>
+            </div>
+            <div class="flex items-center gap-3 text-slate-400 text-sm">
+                <span>Bagikan:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdongetik.net%2Fartikel%2Fmengapa-hp-bisa-disadap-mengenal-lims-vs-hacker.html" target="_blank" class="hover:text-blue-600"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://wa.me/?text=Mengapa%20HP%20Bisa%20Disadap%3F%20Mengenal%20LIMS%20vs%20Hacker%20-%20https%3A%2F%2Fdongetik.net%2Fartikel%2Fmengapa-hp-bisa-disadap-mengenal-lims-vs-hacker.html" target="_blank" class="hover:text-green-500"><i class="fa-brands fa-whatsapp"></i></a>
+                <button onclick="navigator.clipboard.writeText('https://dongetik.net/artikel/mengapa-hp-bisa-disadap-mengenal-lims-vs-hacker.html'); alert('Link artikel disalin!')" class="hover:text-slate-700"><i class="fa-regular fa-copy"></i></button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 pt-16 pb-12 text-sm text-slate-500 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-4 space-y-4">
+                <div class="flex items-center gap-2">
+                    <img src="/logo-dongetik.png" alt="Dongetik" class="h-8 w-auto" />
+                    <div class="border-l border-slate-200 pl-3">
+                        <span class="text-slate-900 font-black tracking-wider text-base block">DONGETIK</span>
+                        <span class="block text-xs font-bold text-blue-600 tracking-[0.2em] uppercase">Digital</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed max-w-xs">Solusi digital untuk produktivitas, akademik, dan gaya hidup.</p>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Navigasi</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/index.html" class="hover:text-blue-600 transition">Beranda</a></li>
+                    <li><a href="/katalog.html" class="hover:text-blue-600 transition">Katalog</a></li>
+                    <li><a href="/blog.html" class="hover:text-blue-600 transition">Blog</a></li>
+                    <li><a href="/tentang-kami.html" class="hover:text-blue-600 transition">Tentang Kami</a></li>
+                    <li><a href="#ikuti-kami" class="hover:text-blue-600 transition">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Kategori</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/apps.html" class="hover:text-blue-600 transition">Aplikasi</a></li>
+                    <li><a href="/ebook.html" class="hover:text-emerald-600 transition">Ebook</a></li>
+                    <li><a href="/jasa.html" class="hover:text-purple-600 transition">Jasa</a></li>
+                    <li><a href="/index.html#produk" class="hover:text-blue-600 transition">Kategori Produk</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Bantuan</h5>
+                <ul class="space-y-2 text-xs font-medium">
+                    <li><a href="/faq.html" class="hover:text-blue-600 transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div id="ikuti-kami" class="col-span-2 md:col-span-2 space-y-3">
+                <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/6287892585973" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-green-50 hover:text-green-600 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="#" onclick="navigator.clipboard.writeText('dongetikdigital@gmail.com'); alert('Alamat email telah disalin!'); return false;" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                    </a>
+                </div>
+                <div class="pt-3">
+                    <p class="text-xs text-slate-400">&copy; 2026 Dongetik Digital. Hak Cipta Dilindungi.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const KEY = 'dongetik_theme';
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            const icon = btn.querySelector('i');
+            const saved = localStorage.getItem(KEY);
+            const isDark = saved === 'dark';
+            document.body.classList.toggle('dark', isDark);
+            icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+            btn.addEventListener('click', () => {
+                const nowDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', nowDark);
+                icon.className = nowDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+                localStorage.setItem(KEY, nowDark ? 'dark' : 'light');
+            });
+        })();
+    </script>
+</body>
+</html>
