@@ -238,6 +238,35 @@ window.PRODUCTS = [
         'Gratis ebook eksklusif: Manajemen Lupa - Solusi Cerdas Hadapi Sifat Alami Manusia'
     ]
 },
+
+       {
+    id: 'sangkatan',
+    title: 'SANGKATAN',
+    subtitle: 'Platform Digital Komunitas Alumni & Manajemen Kenangan',
+    category: 'Aplikasi',
+    categoryLabel: 'Aplikasi',
+    tags: ['Custom', 'Platform', 'Web App'],
+    price: 149000,                // gratis untuk alumni
+    normalPrice: 499000,
+    status: 'Siap Pakai',
+    featured: true,
+    galeri: ['images/sangkatan.jpg'],
+    icon: 'fa-solid fa-cloud-arrow-up',
+    iconBg: 'bg-blue-100 text-blue-600',
+    badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
+    shortDesc: 'Ruang silaturahmi digital alumni: direktori, kisah inspiratif, galeri kenangan, etalase usaha, dan peta persebaran.',
+    longDesc: 'SANGKATAN adalah platform digital yang dirancang khusus untuk menyatukan seluruh alumni angkatan dalam satu wadah. Dilengkapi direktori alumni dengan profil lengkap, galeri foto kenangan, kisah inspiratif, etalase usaha alumni, agenda kegiatan dengan fitur RSVP, serta peta persebaran alumni. Semua data terintegrasi dengan Google Sheets dan Apps Script, mudah dikelola melalui portal admin, dan dapat diakses kapan saja melalui smartphone maupun PC.',
+    features: [
+        'Direktori alumni lengkap dengan pencarian & filter jurusan',
+        'Galeri kenangan interaktif dengan fitur like (❤️)',
+        'Kisah inspiratif alumni untuk memotivasi sesama',
+        'Etalase usaha alumni untuk mendukung bisnis teman',
+        'Agenda kegiatan dengan konfirmasi kehadiran (RSVP) per alumni',
+        'Peta persebaran alumni otomatis berdasarkan domisili',
+        'Portal admin terpisah untuk mengelola semua konten',
+        'Login aman dengan PIN angkatan + identitas nama alumni'
+    ]
+},
     // ============================================================
     // KATEGORI: EBOOK (emerald)
     // ============================================================
@@ -273,8 +302,40 @@ window.PRODUCTS = [
         'Ebook digital yang praktis dibaca melalui HP atau laptop'
     ]
 },
+   
+   {
+    id: 'ebook-manajemen-lupa',
+    title: 'Ebook: Manajemen Lupa',
+    subtitle: 'Lupa Itu Wajar — Solusi Cerdas Hadapi Sifat Alami Manusia',
+    category: 'Ebook',
+    categoryLabel: 'Ebook',
+    tags: ['Literasi', 'Produktivitas', 'Psikologi', 'Manajemen Waktu'],
+    price: 10000,
+    normalPrice: 79000,
+    status: 'Ebook Digital + Lembar Kerja Interaktif',
+    featured: true,
+    galeri: ['images/Manajemen Lupa_ Solusi Cerdas.png'],
+    icon: 'fa-solid fa-book-open-reader',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
 
-{
+    shortDesc: 'Lupa itu wajar. Yang membedakan individu produktif adalah bagaimana mereka mengantisipasinya. Temukan sistem mitigasi memori berbasis psikologi kognitif untuk melindungi Anda dari keterbatasan alami otak.',
+
+    longDesc: 'Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi dengan kontekstualisasi realitas kerja Indonesia (seperti kebiasaan WhatsApp dan budaya "nanti dulu"), 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja (Worksheet) yang bisa langsung Anda isi untuk merancang sistem manajemen lupa versi Anda sendiri.',
+
+    features: [
+        'Pemahaman mendalam tentang anatomi lupa dan 7 jenis dosa memori',
+        'Tiga Pilar Sistem Manajemen Lupa (Offloading, Triggers, Batching)',
+        'Kontekstualisasi solusi untuk realitas kerja Indonesia yang sesungguhnya',
+        '10 Skenario praktis (tagihan, janji temu, instruksi rapat, dokumen, dll)',
+        'Lembar Kerja (Worksheet) interaktif untuk audit dan perancangan sistem',
+        'Pendekatan Self-Compassion: berhenti menyalahkan diri karena lupa',
+        'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop',
+        'Gratis Aplikasi: Manalupa - Kelola Lupa, Ingat Tanpa Batas'
+    ]
+},
+
+   {
     id: 'ebook-skripsi-beres-tanpa-stres',
     title: 'Ebook: Skripsi Beres Tanpa Stres',
     subtitle: 'Strategi Ampuh Menyelesaikan Skripsi: Dari Pemilihan Topik hingga Sidang',
@@ -309,38 +370,6 @@ window.PRODUCTS = [
       ]
 },
    
-   {
-    id: 'ebook-manajemen-lupa',
-    title: 'Ebook: Manajemen Lupa',
-    subtitle: 'Lupa Itu Wajar — Solusi Cerdas Hadapi Sifat Alami Manusia',
-    category: 'Ebook',
-    categoryLabel: 'Ebook',
-    tags: ['Literasi', 'Produktivitas', 'Psikologi', 'Manajemen Waktu'],
-    price: 10000,
-    normalPrice: 79000,
-    status: 'Ebook Digital + Lembar Kerja Interaktif',
-    featured: true,
-    galeri: ['images/Manajemen Lupa_ Solusi Cerdas.png'],
-    icon: 'fa-solid fa-book-open-reader',
-    iconBg: 'bg-emerald-100 text-emerald-600',
-    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-
-    shortDesc: 'Lupa itu wajar. Yang membedakan individu produktif adalah bagaimana mereka mengantisipasinya. Temukan sistem mitigasi memori berbasis psikologi kognitif untuk melindungi Anda dari keterbatasan alami otak.',
-
-    longDesc: 'Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi dengan kontekstualisasi realitas kerja Indonesia (seperti kebiasaan WhatsApp dan budaya "nanti dulu"), 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja (Worksheet) yang bisa langsung Anda isi untuk merancang sistem manajemen lupa versi Anda sendiri.',
-
-    features: [
-        'Pemahaman mendalam tentang anatomi lupa dan 7 jenis dosa memori',
-        'Tiga Pilar Sistem Manajemen Lupa (Offloading, Triggers, Batching)',
-        'Kontekstualisasi solusi untuk realitas kerja Indonesia yang sesungguhnya',
-        '10 Skenario praktis (tagihan, janji temu, instruksi rapat, dokumen, dll)',
-        'Lembar Kerja (Worksheet) interaktif untuk audit dan perancangan sistem',
-        'Pendekatan Self-Compassion: berhenti menyalahkan diri karena lupa',
-        'Ebook digital dengan tata letak modern, nyaman dibaca di HP maupun laptop',
-        'Gratis Aplikasi: Manalupa - Kelola Lupa, Ingat Tanpa Batas'
-    ]
-},
-
 {
     id: 'ebook-jangan-jadi-penonton',
     title: 'Ebook: Jangan Jadi Penonton saat Kecelakaan',
@@ -372,64 +401,34 @@ window.PRODUCTS = [
         'Ebook digital gratis, dirancang nyaman dibaca di HP maupun dicetak A5'
     ]
 },
-   
-    {
-    id: 'sangkatan',
-    title: 'SANGKATAN',
-    subtitle: 'Platform Digital Komunitas Alumni & Manajemen Kenangan',
-    category: 'Jasa',
-    categoryLabel: 'Jasa',
-    tags: ['Custom', 'Platform', 'Web App'],
-    price: 199000,                // gratis untuk alumni
-    normalPrice: 499000,
-    status: 'Siap Pakai',
-    featured: true,
-    galeri: ['images/sangkatan.jpg'],
-    icon: 'fa-solid fa-users',
-    iconBg: 'bg-purple-100 text-purple-600',
-    badgeBg: 'bg-purple-50 text-purple-700 border-purple-200',
-    shortDesc: 'Ruang silaturahmi digital alumni: direktori, kisah inspiratif, galeri kenangan, etalase usaha, dan peta persebaran.',
-    longDesc: 'SANGKATAN adalah platform digital yang dirancang khusus untuk menyatukan seluruh alumni angkatan dalam satu wadah. Dilengkapi direktori alumni dengan profil lengkap, galeri foto kenangan, kisah inspiratif, etalase usaha alumni, agenda kegiatan dengan fitur RSVP, serta peta persebaran alumni. Semua data terintegrasi dengan Google Sheets dan Apps Script, mudah dikelola melalui portal admin, dan dapat diakses kapan saja melalui smartphone maupun PC.',
-    features: [
-        'Direktori alumni lengkap dengan pencarian & filter jurusan',
-        'Galeri kenangan interaktif dengan fitur like (❤️)',
-        'Kisah inspiratif alumni untuk memotivasi sesama',
-        'Etalase usaha alumni untuk mendukung bisnis teman',
-        'Agenda kegiatan dengan konfirmasi kehadiran (RSVP) per alumni',
-        'Peta persebaran alumni otomatis berdasarkan domisili',
-        'Portal admin terpisah untuk mengelola semua konten',
-        'Login aman dengan PIN angkatan + identitas nama alumni'
-    ]
-},
 
     // ============================================================
     // KATEGORI: JASA (ungu)
     // ============================================================
 
-    {
-        id: 'jasa-custom',
-        title: 'Jasa Custom Micro-Web',
-        subtitle: 'Solusi Pengembangan Sistem Kerja Khusus',
-        category: 'Jasa',
-        categoryLabel: 'Jasa',
-        tags: ['Custom', 'Otomasi', 'Web App'],
-        price: 499000,
-        normalPrice: 999000,
-        status: 'Pre-Order',
-        featured: true,
-        galeri: ['images/jasa.jpg'],
-        icon: 'fa-solid fa-laptop-code',
-        iconBg: 'bg-purple-100 text-purple-600',
-        badgeBg: 'bg-purple-50 text-purple-700 border-purple-200',
-        shortDesc: 'Layanan rancang bangun web internal, spreadsheet otomatis, atau aplikasi dinas sesuai spesifikasi unik Anda.',
-        longDesc: 'Tim Dongetik Digital akan menganalisis alur kerja manual di instansi/sekolah/bisnis Anda dan mengubahnya menjadi aplikasi berbasis web yang cepat & efisien. Pengerjaan 3-7 hari kerja, sertifikat garansi teknis.',
-        features: [
-            'Konsultasi kebutuhan alur sistem via WA/Zoom',
-            'Desain antarmuka bersih & ramah pengguna HP',
-            'Garansi perbaikan bug & pendampingan penggunaan',
-            'Biaya fleksibel menyesuaikan tingkat kerumitan'
-        ]
-    }
+{
+    id: 'jasa-custom',
+    title: 'Jasa Custom Micro-Web',
+    subtitle: 'Solusi Pengembangan Sistem Kerja Khusus',
+    category: 'Jasa',
+    categoryLabel: 'Jasa',
+    tags: ['Custom', 'Otomasi', 'Web App'],
+    priceLabel: 'Sesuai Kebutuhan',
+    status: 'Pre-Order',
+    featured: true,
+    galeri: ['images/jasa.jpg'],
+    icon: 'fa-solid fa-laptop-code',
+    iconBg: 'bg-purple-100 text-purple-600',
+    badgeBg: 'bg-purple-50 text-purple-700 border-purple-200',
+    shortDesc: 'Layanan rancang bangun web internal, spreadsheet otomatis, atau aplikasi dinas sesuai spesifikasi unik Anda.',
+    longDesc: 'Tim Dongetik Digital akan menganalisis alur kerja manual di instansi/sekolah/bisnis Anda dan mengubahnya menjadi aplikasi berbasis web yang cepat & efisien. Pengerjaan 3-7 hari kerja, sertifikat garansi teknis.',
+    features: [
+        'Konsultasi kebutuhan alur sistem via WA/Zoom',
+        'Desain antarmuka bersih & ramah pengguna HP',
+        'Garansi perbaikan bug & pendampingan penggunaan',
+        'Biaya fleksibel menyesuaikan tingkat kerumitan'
+    ]
+}
 
 ];
 
