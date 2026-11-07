@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jasa - Dongetik Digital</title>
+    <meta name="description" content="Jasa pengembangan web app, otomasi, dan sistem custom untuk instansi, sekolah, dan bisnis—dikerjakan bertahap dengan komunikasi jelas." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +26,6 @@
             }
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -66,7 +63,7 @@
         body.dark .bg-purple-100 { background: #334155 !important; }
         body.dark .bg-purple-100\/70 { background: rgba(59, 7, 100, 0.6) !important; color: #c4b5fd !important; border-color: #6b21a8 !important; }
 
-        /* Ikon theme: biru terang di mode gelap */
+        /* Ikon theme */
         #themeToggle { color: #475569; }
         #themeToggle:hover { color: #7c3aed; }
         body.dark #themeToggle { color: #60a5fa !important; }
@@ -336,24 +333,31 @@
                 <p class="text-slate-500 text-sm mt-2">Setiap proyek berangkat dari masalah nyata.</p>
             </div>
             <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- SANGKATAN -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Platform Alumni</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Buku alumni fisik yang berisiko hilang, kini jadi platform digital abadi</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> kenangan angkatan hanya tersimpan di buku cetak yang rentan rusak, dan sulit menjangkau alumni yang tersebar.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> Sangkatan—platform digital berisi direktori alumni, galeri kenangan, kisah inspiratif, etalase usaha, dan peta persebaran. Dikelola sendiri oleh angkatan melalui portal admin.</p>
+                </div>
+
+                <!-- SISTEM PERSURATAN -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
                     <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Sistem Persuratan</div>
                     <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Disposisi surat yang tadinya lewat grup WhatsApp</h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> surat hilang di tumpukan chat, tidak ada jejak siapa yang sudah menindaklanjuti.</p>
                     <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> disposisi tercatat rapi, terlacak per unit, dan rekap bulanan otomatis.</p>
                 </div>
+
+                <!-- SISTEM KEHADIRAN SEKOLAH -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
                     <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Sistem Kehadiran Sekolah</div>
                     <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Rekap kehadiran yang dulu memakan dua hari</h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> wali kelas menghitung manual dari lembar absensi, rawan selisih saat laporan bulanan.</p>
                     <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> rekap otomatis, laporan per kelas bisa dilihat kapan saja.</p>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
-                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Katalog UMKM</div>
-                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pesanan yang tadinya dicatat di buku</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> pesanan tercampur, stok tidak akurat, dan pelanggan harus tanya ketersediaan lewat chat.</p>
-                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> pesanan tercatat rapi, status stok terlihat, pelanggan bisa memesan langsung dari katalog.</p>
-                </div>
+
             </div>
         </div>
     </section>
@@ -397,13 +401,13 @@
         </div>
     </section>
 
-        <!-- CTA AKHIR -->
+    <!-- CTA AKHIR -->
     <section class="py-16 bg-gradient-to-br from-purple-600 to-indigo-700">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-2xl md:text-3xl font-extrabold text-white font-heading mb-3">Punya alur kerja yang ingin didigitalkan?</h2>
             <p class="text-purple-100 text-sm mb-8 max-w-xl mx-auto">
-                Mulai dari percakapan singkat. Tidak ada biaya untuk konsultasi awal. 
-Kami bantu petakan kebutuhan sebelum bicara biaya.
+                Mulai dari percakapan singkat. Tidak ada biaya untuk konsultasi awal.
+                Kami bantu petakan kebutuhan sebelum bicara biaya.
             </p>
             <div class="flex flex-wrap gap-3 justify-center">
                 <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20konsultasi%20jasa%20custom" target="_blank" rel="noopener" class="px-6 py-3 bg-white text-purple-700 font-semibold rounded-full shadow-lg transition text-sm flex items-center gap-2">
