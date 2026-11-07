@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ebook - Dongetik Digital</title>
+    <meta name="description" content="Ebook dan workbook premium untuk belajar, produktivitas, dan pengembangan diri—ringkas, jujur, dan bisa langsung dibaca di ponsel." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +26,6 @@
             }
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -40,30 +37,42 @@
         body.dark ::-webkit-scrollbar-track { background: #1e293b; }
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
-        .product-card {
-            background: white; border: 1px solid #f1f5f9; border-radius: 16px;
-            overflow: hidden; transition: box-shadow 0.2s, transform 0.15s, background 0.3s, border-color 0.3s;
-            display: flex; flex-direction: column; height: 100%;
+        .ebook-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: box-shadow 0.2s, border-color 0.3s, background 0.3s;
         }
-        .product-card:hover {
+        .ebook-item:hover {
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
         }
-        .product-image {
-            width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
-            display: block; background: #f8fafc;
+        @media (min-width: 640px) {
+            .ebook-item { flex-direction: row; }
         }
-        .cat-pill {
-            padding: 0.4rem 1rem; border-radius: 60px;
-            font-size: 0.8rem; font-weight: 600;
-            border: 1px solid #e2e8f0; background: white; color: #64748b;
-            cursor: pointer; transition: all 0.15s; white-space: nowrap;
+
+        .ebook-visual {
+            width: 100%;
+            flex-shrink: 0;
         }
-        .cat-pill:hover { background: #f8fafc; border-color: #cbd5e1; }
-        .cat-pill.active {
-            background: #059669; border-color: #059669; color: white;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+        @media (min-width: 640px) {
+            .ebook-visual { width: 180px; }
         }
+
+        .ebook-visual-inner {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
         .badge-cat {
             display: inline-block; padding: 3px 10px; border-radius: 6px;
             font-size: 10px; font-weight: 700; text-transform: uppercase;
@@ -75,28 +84,16 @@
             background: #f1f5f9; border: 1px solid #e2e8f0;
             transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
-        .galeri-thumb {
-            width: 100%; aspect-ratio: 1/1; object-fit: cover;
-            border-radius: 8px; border: 2px solid transparent;
-            cursor: pointer; transition: border-color 0.15s, opacity 0.15s;
-            opacity: 0.7;
-        }
-        .galeri-thumb:hover { opacity: 1; }
-        .galeri-thumb.active { border-color: #059669; opacity: 1; }
-        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* ============================================================
            DARK MODE
            ============================================================ */
         body.dark { background: #0f172a; color: #e2e8f0; }
 
-        /* Navbar */
         body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
         body.dark .border-slate-100 { border-color: #334155 !important; }
         body.dark .border-slate-200 { border-color: #334155 !important; }
 
-        /* Teks umum */
         body.dark .text-slate-900 { color: #f1f5f9 !important; }
         body.dark .text-slate-800 { color: #e2e8f0 !important; }
         body.dark .text-slate-700 { color: #e2e8f0 !important; }
@@ -104,65 +101,37 @@
         body.dark .text-slate-500 { color: #94a3b8 !important; }
         body.dark .text-slate-400 { color: #94a3b8 !important; }
 
-        /* Latar */
         body.dark .bg-white { background: #1e293b !important; }
         body.dark .bg-slate-50 { background: #0f172a !important; }
         body.dark .bg-slate-100 { background: #334155 !important; }
         body.dark .bg-emerald-50 { background: #1e293b !important; }
-        body.dark .bg-emerald-50\/50 { background: #0f172a !important; }
         body.dark .bg-emerald-100\/70 { background: #1e293b !important; border-color: #334155 !important; }
 
-        /* Ikon theme: biru terang di mode gelap */
         #themeToggle { color: #475569; }
         #themeToggle:hover { color: #059669; }
         body.dark #themeToggle { color: #60a5fa !important; }
         body.dark #themeToggle:hover { color: #93c5fd !important; }
 
-        /* Hero: emerald gelap */
         body.dark .from-emerald-50 { background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%) !important; }
         body.dark .border-emerald-100\/60 { border-color: #334155 !important; }
         body.dark .bg-emerald-100\/70 { background: rgba(6, 78, 59, 0.6) !important; color: #6ee7b7 !important; border-color: #065f46 !important; }
 
-        /* Kartu produk */
-        body.dark .product-card { background: #1e293b; border-color: #334155; }
-        body.dark .product-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-        body.dark .product-image { background: #0f172a; }
+        body.dark .ebook-item { background: #1e293b; border-color: #334155; }
+        body.dark .ebook-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
-        /* Badge & tag */
         body.dark .badge-cat { background: #334155 !important; color: #cbd5e1 !important; border-color: #475569 !important; }
         body.dark .tag-pill { background: #334155; border-color: #475569; color: #cbd5e1; }
 
-        /* Pill filter */
-        body.dark .cat-pill { background: #1e293b; border-color: #334155; color: #cbd5e1; }
-        body.dark .cat-pill:hover { background: #334155; border-color: #475569; }
-        /* Saat aktif, biarkan warna emerald */
-
-        /* Kartu "untuk siapa" / "masalah" / "bukti" / FAQ */
         body.dark .bg-gradient-to-b { background: #1e293b !important; }
         body.dark .bg-gradient-to-br { background: #1e293b !important; }
         body.dark .border-emerald-100\/80 { border-color: #334155 !important; }
         body.dark .border-emerald-100 { border-color: #334155 !important; }
 
-        /* Modal detail */
-        body.dark #productDetailModal .bg-white { background: #1e293b !important; }
-        body.dark #productDetailModal .bg-slate-50 { background: #0f172a !important; }
-        body.dark #productDetailModal .border-slate-100,
-        body.dark #productDetailModal .border-slate-200 { border-color: #334155 !important; }
-        body.dark #productDetailModal button[onclick="closeDetailModal()"] { background: #334155; color: #cbd5e1; }
-        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover { background: #475569; }
-        body.dark #productDetailModal a[href="katalog.html#ebook"] { background: #334155; border-color: #475569; color: #e2e8f0; }
-        body.dark #productDetailModal a[href="katalog.html#ebook"]:hover { background: #475569; }
-
-        /* Footer */
         body.dark footer { background: #0f172a; border-color: #334155; }
         body.dark footer .bg-slate-50 { background: #1e293b !important; }
         body.dark footer .border-slate-100 { border-color: #334155 !important; }
 
-        /* CTA section */
         body.dark section.bg-slate-50 { background: #0f172a !important; }
-
-        /* Tombol reset filter */
-        body.dark button[onclick="resetFilters()"] { background: #059669; }
     </style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
@@ -212,8 +181,8 @@
                     Ebook Dongetik ditulis untuk pembaca yang ingin mengubah satu hal dalam hidupnya—berhenti dari kebiasaan yang merugikan, menyelesaikan sesuatu yang tertunda, atau memahami topik baru dengan cara yang lebih jernih. Ringkas, jujur, dan bisa langsung dibaca di ponsel.
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="#unggulan" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm flex items-center gap-2">
-                        Lihat Ebook Unggulan <i class="fa-solid fa-arrow-down text-xs"></i>
+                    <a href="#daftar-ebook" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm flex items-center gap-2">
+                        Lihat Daftar Ebook <i class="fa-solid fa-arrow-down text-xs"></i>
                     </a>
                     <a href="katalog.html#ebook" class="px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-full border border-slate-200 transition text-sm flex items-center gap-2">
                         Lihat Semua di Katalog <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
@@ -284,20 +253,185 @@
         </div>
     </section>
 
-    <!-- PRODUK UNGGULAN -->
-    <section id="unggulan" class="py-20 bg-white transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-                <div>
-                    <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Unggulan</span>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Ebook pilihan</h2>
-                    <p class="text-slate-500 text-sm mt-1">Beberapa judul yang paling sering dibaca. Untuk daftar lengkap, silakan kunjungi katalog.</p>
-                </div>
+    <!-- DAFTAR EBOOK -->
+    <section id="daftar-ebook" class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Daftar Ebook</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Ebook yang bisa Anda baca sekarang</h2>
+                <p class="text-slate-500 text-sm mt-2">Klik "Pesan via WhatsApp" pada ebook yang Anda butuhkan—kami akan kirim tautan unduhan.</p>
             </div>
-            <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <div class="space-y-6">
+
+                <!-- 100 ALASAN BERHENTI MEROKOK -->
+                <div class="ebook-item">
+                    <div class="ebook-visual">
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
+                            <span class="tag-pill">Literasi</span>
+                            <span class="tag-pill">Kesehatan</span>
+                            <span class="tag-pill">Motivasi</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">100 Alasan Kuat Berhenti Merokok</h3>
+                        <p class="text-xs text-slate-500 mb-3">100 Alasan untuk Memperkuat Keputusan Berhenti Merokok</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Sudah tahu rokok berbahaya, tetapi masih sulit berhenti? Ebook ini mengajak Anda melihat kebiasaan merokok dari berbagai sudut pandang melalui 100 alasan yang logis dan emosional—bukan sekadar mengingatkan bahaya rokok, tetapi membantu menemukan alasan personal yang bisa menguatkan keputusan untuk berhenti. Dilengkapi bonus Web App BebasRokok untuk memantau hari tanpa rokok, menghitung uang yang berhasil dihemat, serta tombol darurat sebagai pengalih perhatian ketika keinginan merokok datang.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> 100 alasan dari kesehatan, keluarga, keuangan</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Mengubah cara pandang terhadap kebiasaan merokok</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Alasan singkat, logis, dan emosional</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> eBook interaktif dengan pemutar suara</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Bonus Web App BebasRokok</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Kalkulator penghematan &amp; tombol darurat</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 35.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 99.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20Ebook%20100%20Alasan%20Berhenti%20Merokok" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKRIPSI BERES TANPA STRES -->
+                <div class="ebook-item">
+                    <div class="ebook-visual">
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
+                            <span class="tag-pill">Akademik</span>
+                            <span class="tag-pill">Manajemen Waktu</span>
+                            <span class="tag-pill">Produktivitas</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">Skripsi Beres Tanpa Stres</h3>
+                        <p class="text-xs text-slate-500 mb-3">Strategi Ampuh Menyelesaikan Skripsi: Dari Pemilihan Topik hingga Sidang</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Skripsi sering dianggap monster yang harus dilawan sendirian. Padahal, dengan cara pandang dan strategi yang tepat, ia hanyalah proyek akhir yang bisa Anda kelola. Ebook ini hadir bukan untuk menambah tekanan, melainkan menemani—memandu mengubah mentalitas dari "takut mulai" menjadi "Project Manager" atas skripsi sendiri. Mulai dari memilih topik yang cepat selesai, mencari referensi tanpa bingung, menyusun latar belakang yang tidak di-revisi dosen, berkomunikasi asertif dengan pembimbing, hingga menghadapi sidang dengan tenang. Dilengkapi panduan menggunakan AI secara bijak, mengelola energi agar tidak burnout, dan lampiran praktis yang bisa langsung dipakai.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Skripsi bukan monster—proyek akhir yang bisa dikelola</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Memilih topik yang cepat selesai</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Teknik mencari referensi efisien</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Logika menyusun latar belakang</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Komunikasi asertif dengan pembimbing</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Panduan AI secara bijak</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Strategi mengelola energi agar tidak burnout</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Persiapan sidang &amp; revisi pasca-sidang</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 29.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 99.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20Ebook%20Skripsi%20Beres%20Tanpa%20Stres" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MANAJEMEN LUPA -->
+                <div class="ebook-item">
+                    <div class="ebook-visual">
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
+                            <span class="tag-pill">Literasi</span>
+                            <span class="tag-pill">Produktivitas</span>
+                            <span class="tag-pill">Psikologi</span>
+                            <span class="tag-pill">Manajemen Waktu</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">Manajemen Lupa</h3>
+                        <p class="text-xs text-slate-500 mb-3">Lupa Itu Wajar — Solusi Cerdas Hadapi Sifat Alami Manusia</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi kontekstualisasi realitas kerja Indonesia (kebiasaan WhatsApp dan budaya "nanti dulu"), 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja yang bisa langsung diisi untuk merancang sistem manajemen lupa versi Anda sendiri.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Anatomi lupa &amp; 7 jenis dosa memori</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Tiga Pilar Sistem Manajemen Lupa</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Kontekstualisasi realitas kerja Indonesia</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> 10 skenario praktis sehari-hari</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Lembar Kerja interaktif</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Pendekatan Self-Compassion</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Tata letak modern, nyaman dibaca</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Gratis aplikasi Manalupa</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 10.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 79.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20Ebook%20Manajemen%20Lupa" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JANGAN JADI PENONTON (GRATIS) -->
+                <div class="ebook-item">
+                    <div class="ebook-visual">
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
+                            <span class="tag-pill">Keselamatan</span>
+                            <span class="tag-pill">Kesehatan</span>
+                            <span class="tag-pill">Psikologi</span>
+                            <span class="tag-pill">Gratis</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">Jangan Jadi Penonton saat Kecelakaan</h3>
+                        <p class="text-xs text-slate-500 mb-3">Panduan Hangat untuk Menjadi Penolong yang Cerdas dan Berempati</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Setiap hari kita berpapasan dengan kecelakaan di jalan raya. Sayangnya, mayoritas dari kita memilih memperlambat kendaraan, merekam, atau sekadar berkerumun—bukan menolong. Ebook ini hadir bukan untuk menghakimi, melainkan membekali. Ditulis bersama perspektif psikolog, tim medis, dan tim penyelamat, ebook ini memandu Anda mengubah mentalitas dari pengamat menjadi penolong responsif. Dimulai dari memahami fenomena bystander effect, protokol "Amankan, Nilai, Bertindak", nomor darurat yang benar (119, 110, 113, 112), batas aman pertolongan pertama (termasuk kapan JANGAN melepas helm), etika digital di lokasi kejadian, hingga Lampiran "Kartu Cepat" yang bisa disimpan di ponsel atau ditempel di dasbor.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Fenomena bystander effect</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Protokol Amankan–Nilai–Bertindak</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Nomor darurat Indonesia &amp; cara menelepon</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Batas aman pertolongan pertama</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Etika digital di lokasi kejadian</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Lampiran Kartu Cepat</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Bahasa hangat, tak menghakimi</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Gratis, nyaman dibaca di HP atau dicetak A5</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-emerald-600">Gratis</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20ingin%20mendapatkan%20Ebook%20Jangan%20Jadi%20Penonton%20saat%20Kecelakaan" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Minta via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="text-center mt-12">
                 <a href="katalog.html#ebook" class="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg shadow-emerald-600/20 transition text-sm">
-                    Lihat Semua Ebook di Katalog <i class="fa-solid fa-arrow-right text-xs"></i>
+                    Lihat Semua di Katalog <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
         </div>
@@ -330,7 +464,7 @@
                 <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">FAQ Ebook</span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Pertanyaan seputar ebook</h2>
             </div>
-            <div class="space-y-3" id="faqContainer">
+            <div class="space-y-3">
                 <div class="border border-slate-200 rounded-xl overflow-hidden transition-colors duration-300">
                     <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 bg-white text-left font-bold text-slate-800 text-sm">
                         <span>Apakah ebook ini cocok untuk pembaca yang baru mulai?</span>
@@ -439,88 +573,9 @@
         </div>
     </footer>
 
-    <!-- MODAL DETAIL -->
-    <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
-            <div class="sticky top-0 bg-white border-b border-slate-100 p-4 flex items-center justify-between z-10">
-                <div id="modalCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-md"></div>
-                <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-5 sm:p-6 space-y-5">
-                <div id="modalImageWrapper" class="hidden">
-                    <img id="modalImage" class="product-image rounded-xl border border-slate-200" alt="" />
-                    <div id="modalThumbs" class="grid grid-cols-5 gap-2 mt-2"></div>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div id="modalIcon" class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl"></div>
-                    <div>
-                        <h3 id="modalTitle" class="text-xl font-extrabold text-slate-900 leading-tight font-heading"></h3>
-                        <p id="modalTagline" class="text-xs text-emerald-600 font-semibold mt-1"></p>
-                        <div id="modalTags" class="flex flex-wrap gap-1.5 mt-2"></div>
-                    </div>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                        <div class="text-xs text-slate-500 font-medium">Harga</div>
-                        <div class="flex items-baseline gap-2 mt-0.5">
-                            <span id="modalPrice" class="text-2xl font-extrabold text-slate-900"></span>
-                            <span id="modalNormalPrice" class="text-xs text-slate-400 line-through"></span>
-                        </div>
-                    </div>
-                    <span id="modalStatusBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full border"></span>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Deskripsi</h4>
-                    <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed bg-emerald-50/50 p-3.5 rounded-xl border border-emerald-100/60"></p>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</h4>
-                    <ul id="modalFeatures" class="space-y-2 text-sm text-slate-700"></ul>
-                </div>
-            </div>
-            <div class="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
-                <a href="katalog.html#ebook" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-200 transition text-sm flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-list"></i> Lihat di Katalog
-                </a>
-                <button id="modalWaBtn" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-md">
-                    <i class="fa-brands fa-whatsapp text-base"></i> Pesan via WhatsApp
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DATA PRODUK -->
-    <script src="products.js"></script>
-
     <script>
-        /* ====== KONFIGURASI ====== */
-        const WA_NUMBER = '6287892585973';
         const THEME_KEY = 'dongetik_theme';
-        const KATEGORI = 'Ebook';
-        const IKON_MODAL = 'fa-solid fa-book-open';
 
-        /* ====== DATA ====== */
-        const allProducts = window.PRODUCTS || [];
-        const products = allProducts.filter(
-            p => (p.category || '').trim().toLowerCase() === KATEGORI.toLowerCase()
-        );
-
-        function pilihUnggulan(list, max = 6) {
-            const featured = list.filter(p => p.featured === true);
-            const rest = list.filter(p => p.featured !== true);
-            return [...featured, ...rest].slice(0, max);
-        }
-        const featured = pilihUnggulan(products);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!products.length) console.warn('Tidak ada produk untuk kategori ' + KATEGORI);
-            renderFeatured(featured);
-            setupThemeToggle();
-        });
-
-        /* ====== THEME ====== */
         function setupThemeToggle() {
             const btn = document.getElementById('themeToggle');
             if (!btn) return;
@@ -539,172 +594,6 @@
             });
         }
 
-        /* ====== UTIL ====== */
-        function formatRupiah(n) {
-            if (typeof n !== 'number') return '-';
-            return 'Rp ' + n.toLocaleString('id-ID');
-        }
-
-        function categoryColor(cat) {
-            if (cat === 'Aplikasi') return { bg: '#EFF6FF', text: '#2563EB', border: '#BFDBFE' };
-            if (cat === 'Ebook')    return { bg: '#ECFDF5', text: '#059669', border: '#A7F3D0' };
-            if (cat === 'Jasa')     return { bg: '#F5F3FF', text: '#7C3AED', border: '#DDD6FE' };
-            return { bg: '#F1F5F9', text: '#475569', border: '#E2E8F0' };
-        }
-
-        /* ====== RENDER ====== */
-        function renderFeatured(list) {
-            const grid = document.getElementById('featuredGrid');
-            if (!grid) return;
-
-            if (!list.length) {
-                grid.innerHTML = `<p class="text-center text-slate-400 text-sm col-span-full py-12">Belum ada produk unggulan di kategori ini.</p>`;
-                return;
-            }
-
-            grid.innerHTML = list.map(p => {
-                const price = formatRupiah(p.price);
-                const normal = p.normalPrice ? formatRupiah(p.normalPrice) : '';
-                const galeri = Array.isArray(p.galeri) ? p.galeri : [];
-                const thumb = galeri[0] || '';
-                const hasImage = thumb && thumb.trim() !== '';
-                const tags = Array.isArray(p.tags) ? p.tags : [];
-                const tagHtml = tags.slice(0, 2).map(t => `<span class="tag-pill">${t}</span>`).join('');
-
-                const visual = hasImage
-                    ? `<img src="${thumb}" alt="${p.title}" class="product-image" loading="lazy"
-                           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%2394a3b8%22 font-size=%2240%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E%E2%9C%A6%3C/text%3E%3C/svg%3E';" />`
-                    : `<div class="w-full aspect-square flex items-center justify-center bg-slate-100 text-slate-400 text-3xl"><i class="fa-regular fa-image"></i></div>`;
-
-                const priceHtml = normal
-                    ? `<div class="flex items-baseline gap-2">
-                           <span class="text-lg font-extrabold text-slate-900">${price}</span>
-                           <span class="text-xs text-slate-400 line-through">${normal}</span>
-                       </div>`
-                    : `<span class="text-lg font-extrabold text-slate-900">${price}</span>`;
-
-                const cat = categoryColor(p.category);
-                const safeP = JSON.stringify(p).replace(/'/g, "&apos;");
-
-                return `
-                    <article class="product-card">
-                        <div class="relative">${visual}</div>
-                        <div class="p-5 flex flex-col flex-1 gap-3">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <span class="badge-cat" style="background:${cat.bg};color:${cat.text};border-color:${cat.border};">${p.category}</span>
-                                ${tagHtml}
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-900 text-base leading-snug font-heading line-clamp-1">${p.title}</h3>
-                                <p class="text-xs text-slate-500 mt-1 line-clamp-2">${p.subtitle || ''}</p>
-                            </div>
-                            <div class="mt-auto pt-2">${priceHtml}</div>
-                            <div class="flex gap-2 pt-1">
-                                <button onclick='openDetailModal(${safeP})'
-                                        class="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
-                                    Detail
-                                </button>
-                                <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo Admin Dongetik, saya tertarik dengan ' + p.title)}"
-                                   target="_blank" rel="noopener"
-                                   class="flex-1 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition">
-                                    <i class="fa-brands fa-whatsapp"></i> Pesan
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                `;
-            }).join('');
-        }
-
-        /* ====== MODAL DETAIL ====== */
-        function openDetailModal(p) {
-            const modal = document.getElementById('productDetailModal');
-            if (!modal) return;
-
-            const cat = categoryColor(p.category);
-
-            const badge = document.getElementById('modalCategoryBadge');
-            badge.textContent = p.category;
-            badge.style.background = cat.bg;
-            badge.style.color = cat.text;
-            badge.style.border = '1px solid ' + cat.border;
-
-            document.getElementById('modalTitle').textContent = p.title || '';
-            document.getElementById('modalTagline').textContent = p.subtitle || '';
-            document.getElementById('modalPrice').textContent = formatRupiah(p.price);
-            document.getElementById('modalNormalPrice').textContent = p.normalPrice ? formatRupiah(p.normalPrice) : '';
-
-            const statusEl = document.getElementById('modalStatusBadge');
-            statusEl.textContent = p.status || 'Tersedia';
-            statusEl.className = 'text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700';
-
-            document.getElementById('modalDescription').textContent = p.longDesc || p.shortDesc || '-';
-
-            const tagsWrap = document.getElementById('modalTags');
-            tagsWrap.innerHTML = (Array.isArray(p.tags) ? p.tags : [])
-                .map(t => `<span class="tag-pill">${t}</span>`).join('');
-
-            const featWrap = document.getElementById('modalFeatures');
-            const feats = Array.isArray(p.features) ? p.features : [];
-            featWrap.innerHTML = feats.length
-                ? feats.map(f => `<li class="flex items-start gap-2">
-                        <i class="fa-solid fa-check text-emerald-500 text-xs mt-1"></i>
-                        <span>${f}</span>
-                    </li>`).join('')
-                : '<li class="text-slate-400 text-xs">Belum ada rincian fitur.</li>';
-
-            const iconEl = document.getElementById('modalIcon');
-            iconEl.style.background = cat.bg;
-            iconEl.style.color = cat.text;
-            iconEl.innerHTML = `<i class="${IKON_MODAL}"></i>`;
-
-            const galeri = Array.isArray(p.galeri) ? p.galeri.filter(x => x && x.trim() !== '') : [];
-            const imgWrap = document.getElementById('modalImageWrapper');
-            const imgEl = document.getElementById('modalImage');
-            const thumbsEl = document.getElementById('modalThumbs');
-
-            if (galeri.length) {
-                imgWrap.classList.remove('hidden');
-                imgEl.src = galeri[0];
-                thumbsEl.innerHTML = galeri.map((src, i) =>
-                    `<img src="${src}" class="galeri-thumb ${i === 0 ? 'active' : ''}"
-                          onclick="pilihGaleri(this, '${src}')" alt="thumb" />`
-                ).join('');
-            } else {
-                imgWrap.classList.add('hidden');
-            }
-
-            const waBtn = document.getElementById('modalWaBtn');
-            waBtn.onclick = () => {
-                const text = encodeURIComponent(`Halo Admin Dongetik, saya tertarik dengan ${p.title} (${p.category}).`);
-                window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank', 'noopener');
-            };
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDetailModal() {
-            const modal = document.getElementById('productDetailModal');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        function pilihGaleri(el, src) {
-            document.getElementById('modalImage').src = src;
-            document.querySelectorAll('#modalThumbs .galeri-thumb').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        document.addEventListener('click', (e) => {
-            const modal = document.getElementById('productDetailModal');
-            if (modal && e.target === modal) closeDetailModal();
-        });
-
-        /* ====== FAQ ====== */
         function toggleFaq(n) {
             const ans = document.getElementById('faq-ans-' + n);
             const icon = document.getElementById('faq-icon-' + n);
@@ -713,6 +602,10 @@
             ans.classList.toggle('hidden');
             icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+        });
     </script>
 </body>
 </html>
