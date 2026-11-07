@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi - Dongetik Digital</title>
+    <meta name="description" content="Aplikasi digital siap pakai untuk administrasi, produktivitas, dan kebutuhan kerja harian—dirancang agar langsung bisa digunakan tanpa setup rumit." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +26,6 @@
             }
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -40,30 +37,42 @@
         body.dark ::-webkit-scrollbar-track { background: #1e293b; }
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
-        .product-card {
-            background: white; border: 1px solid #f1f5f9; border-radius: 16px;
-            overflow: hidden; transition: box-shadow 0.2s, transform 0.15s, background 0.3s, border-color 0.3s;
-            display: flex; flex-direction: column; height: 100%;
+        .app-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: box-shadow 0.2s, border-color 0.3s, background 0.3s;
         }
-        .product-card:hover {
+        .app-item:hover {
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
         }
-        .product-image {
-            width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
-            display: block; background: #f8fafc;
+        @media (min-width: 640px) {
+            .app-item { flex-direction: row; }
         }
-        .cat-pill {
-            padding: 0.4rem 1rem; border-radius: 60px;
-            font-size: 0.8rem; font-weight: 600;
-            border: 1px solid #e2e8f0; background: white; color: #64748b;
-            cursor: pointer; transition: all 0.15s; white-space: nowrap;
+
+        .app-visual {
+            width: 100%;
+            flex-shrink: 0;
         }
-        .cat-pill:hover { background: #f8fafc; border-color: #cbd5e1; }
-        .cat-pill.active {
-            background: #2563eb; border-color: #2563eb; color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        @media (min-width: 640px) {
+            .app-visual { width: 180px; }
         }
+
+        .app-visual-inner {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
         .badge-cat {
             display: inline-block; padding: 3px 10px; border-radius: 6px;
             font-size: 10px; font-weight: 700; text-transform: uppercase;
@@ -75,33 +84,16 @@
             background: #f1f5f9; border: 1px solid #e2e8f0;
             transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
-        .toast-animate { animation: slideInRight 0.3s ease-out forwards; }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .galeri-thumb {
-            width: 100%; aspect-ratio: 1/1; object-fit: cover;
-            border-radius: 8px; border: 2px solid transparent;
-            cursor: pointer; transition: border-color 0.15s, opacity 0.15s;
-            opacity: 0.7;
-        }
-        .galeri-thumb:hover { opacity: 1; }
-        .galeri-thumb.active { border-color: #2563eb; opacity: 1; }
 
         /* ============================================================
            DARK MODE
            ============================================================ */
         body.dark { background: #0f172a; color: #e2e8f0; }
 
-        /* Navbar */
         body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
         body.dark .border-slate-100 { border-color: #334155 !important; }
         body.dark .border-slate-200 { border-color: #334155 !important; }
 
-        /* Teks umum */
         body.dark .text-slate-900 { color: #f1f5f9 !important; }
         body.dark .text-slate-800 { color: #e2e8f0 !important; }
         body.dark .text-slate-700 { color: #e2e8f0 !important; }
@@ -109,7 +101,6 @@
         body.dark .text-slate-500 { color: #94a3b8 !important; }
         body.dark .text-slate-400 { color: #94a3b8 !important; }
 
-        /* Latar */
         body.dark .bg-white { background: #1e293b !important; }
         body.dark .bg-slate-50 { background: #0f172a !important; }
         body.dark .bg-slate-100 { background: #334155 !important; }
@@ -117,50 +108,29 @@
         body.dark .bg-blue-50\/50 { background: #0f172a !important; }
         body.dark .bg-slate-50\/60 { background: #0f172a !important; }
 
-        /* Ikon theme */
         #themeToggle { color: #475569; }
         #themeToggle:hover { color: #2563eb; }
         body.dark #themeToggle { color: #60a5fa !important; }
         body.dark #themeToggle:hover { color: #93c5fd !important; }
 
-        /* Hero: biru gelap */
         body.dark .from-blue-50 { background: linear-gradient(135deg, #172554 0%, #1e293b 100%) !important; }
         body.dark .border-blue-100\/60 { border-color: #334155 !important; }
 
-        /* Kartu produk */
-        body.dark .product-card { background: #1e293b; border-color: #334155; }
-        body.dark .product-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-        body.dark .product-image { background: #0f172a; }
+        body.dark .app-item { background: #1e293b; border-color: #334155; }
+        body.dark .app-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
 
-        /* Badge & tag */
         body.dark .badge-cat { background: #334155 !important; color: #cbd5e1 !important; border-color: #475569 !important; }
         body.dark .tag-pill { background: #334155; border-color: #475569; color: #cbd5e1; }
 
-        /* Pill filter */
-        body.dark .cat-pill { background: #1e293b; border-color: #334155; color: #cbd5e1; }
-        body.dark .cat-pill:hover { background: #334155; border-color: #475569; }
-        /* Saat aktif, biarkan warna kategori */
-
-        /* Kartu "untuk siapa" / "masalah" / "bukti" / FAQ */
         body.dark .bg-gradient-to-b { background: #1e293b !important; }
         body.dark .bg-gradient-to-br { background: #1e293b !important; }
         body.dark .border-blue-100\/80 { border-color: #334155 !important; }
         body.dark .border-blue-100 { border-color: #334155 !important; }
 
-        /* Modal detail */
-        body.dark #productDetailModal .bg-white { background: #1e293b !important; }
-        body.dark #productDetailModal .bg-slate-50 { background: #0f172a !important; }
-        body.dark #productDetailModal .border-slate-100,
-        body.dark #productDetailModal .border-slate-200 { border-color: #334155 !important; }
-        body.dark #productDetailModal button[onclick="closeDetailModal()"] { background: #334155; color: #cbd5e1; }
-        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover { background: #475569; }
-
-        /* Footer */
         body.dark footer { background: #0f172a; border-color: #334155; }
         body.dark footer .bg-slate-50 { background: #1e293b !important; }
         body.dark footer .border-slate-100 { border-color: #334155 !important; }
 
-        /* CTA section */
         body.dark section.bg-slate-50 { background: #0f172a !important; }
     </style>
 </head>
@@ -211,8 +181,8 @@
                     Setiap aplikasi Dongetik dirancang untuk menyelesaikan satu masalah nyata dengan alur sederhana.
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="#unggulan" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg shadow-blue-600/20 transition text-sm flex items-center gap-2">
-                        Lihat Aplikasi Unggulan <i class="fa-solid fa-arrow-down text-xs"></i>
+                    <a href="#daftar-aplikasi" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg shadow-blue-600/20 transition text-sm flex items-center gap-2">
+                        Lihat Daftar Aplikasi <i class="fa-solid fa-arrow-down text-xs"></i>
                     </a>
                     <a href="katalog.html#apps" class="px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-full border border-slate-200 transition text-sm flex items-center gap-2">
                         Lihat Semua di Katalog <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
@@ -250,7 +220,7 @@
         </div>
     </section>
 
-    <!-- MASALAH YANG DISELESAIKAN -->
+    <!-- MASALAH -->
     <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-14">
@@ -283,20 +253,293 @@
         </div>
     </section>
 
-    <!-- PRODUK UNGGULAN -->
-    <section id="unggulan" class="py-20 bg-white transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-                <div>
-                    <span class="text-xs font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Unggulan</span>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Aplikasi pilihan</h2>
-                    <p class="text-slate-500 text-sm mt-1">Sebagian kecil dari koleksi. Lihat daftar lengkap di katalog.</p>
-                </div>
+    <!-- DAFTAR APLIKASI -->
+    <section id="daftar-aplikasi" class="py-20 bg-white transition-colors duration-300">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Daftar Aplikasi</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Aplikasi yang bisa Anda pakai sekarang</h2>
+                <p class="text-slate-500 text-sm mt-2">Klik "Pesan via WhatsApp" pada aplikasi yang Anda butuhkan—kami akan bantu proses aktivasi.</p>
             </div>
-            <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <div class="space-y-6">
+
+                <!-- GASEKIN -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-id-card-clip"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Govtech</span>
+                            <span class="tag-pill">ASN</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">GASEKIN</h3>
+                        <p class="text-xs text-slate-500 mb-3">Bantu Siapkan Bahan Pengisian e-Kinerja ASN</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Aplikasi sederhana yang membantu ASN menyiapkan bahan pengisian e-Kinerja dari kegiatan yang sudah dilakukan. Masukkan KLU kegiatan, pilih target, upload bukti dukung, dan simpan—GASEKIN membantu menyiapkan Rencana Aksi dengan bantuan AI, Target, Nama Bukti Dukung, Link Bukti Dukung, Realisasi, dan Sumber Data. Semua kegiatan tersimpan dalam Riwayat GASEKIN, siap dibuka kembali dan disalin saat waktunya mengisi e-Kinerja. Tanpa perlu membuka Google Drive hanya untuk upload bukti atau mencari link secara manual.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Menyiapkan Rencana Aksi dengan bantuan AI</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Menyimpan nama &amp; link bukti dukung</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Upload bukti tanpa buka Google Drive</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Riwayat kegiatan 6 bagian e-Kinerja</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Salin-tempel ke aplikasi e-Kinerja</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Akses via HP maupun laptop</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 99.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 199.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20GASEKIN" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SASUKE -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Govtech</span>
+                            <span class="tag-pill">Persuratan</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">SASUKE</h3>
+                        <p class="text-xs text-slate-500 mb-3">Sistem Agenda Surat Masuk &amp; Keluar</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Aplikasi administrasi persuratan untuk instansi pemerintah. Mencatat surat masuk, mengelola agenda surat keluar, mengambil nomor urut otomatis, memantau aktivitas persuratan lewat dashboard, dan mencetak laporan PDF. Dilengkapi pengelolaan klasifikasi surat dan fitur perubahan data—semua dari browser, tanpa instalasi aplikasi tambahan maupun langganan server tahunan.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Pencatatan agenda surat masuk digital</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Agenda surat keluar &amp; nomor urut otomatis</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Master klasifikasi surat</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Dashboard monitoring persuratan</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Pencarian &amp; perubahan data agenda</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Cetak laporan agenda ke PDF</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 149.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 299.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20SASUKE" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- eSKA -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Govtech</span>
+                            <span class="tag-pill">Desa</span>
+                            <span class="tag-pill">Kelurahan</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">eSKA</h3>
+                        <p class="text-xs text-slate-500 mb-3">Otomasi Surat Keterangan &amp; Administrasi Desa/Kelurahan</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Sistem pencetakan cepat puluhan jenis Surat Keterangan Warga (SKTM, Domisili, Usaha) dalam sekali klik. Memangkas waktu pelayanan administrasi di tingkat Kelurahan/Desa dari hitungan puluhan menit menjadi hitungan detik. Data pemohon otomatis tersimpan di database. Berbasis Google Docs &amp; Sheets, siap pakai tanpa konfigurasi rumit.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Multi-template surat (SKTM, Domisili, Usaha)</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Otomasi PDF siap cetak atau QR validasi</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Database kependudukan &amp; pencarian NIK</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Laporan statistik pelayanan bulanan</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 199.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 350.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20eSKA" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADIS -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-indigo-100 text-indigo-600">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-indigo-50 text-indigo-700 border-indigo-200">Aplikasi</span>
+                            <span class="tag-pill">EdTech</span>
+                            <span class="tag-pill">Sekolah</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">ADIS</h3>
+                        <p class="text-xs text-slate-500 mb-3">Absensi Digital Siswa Multi-Kanal untuk Sekolah</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Platform absensi digital siswa untuk sekolah modern dengan tiga kanal akses terpisah—Admin mengelola data master, kelas, dan jadwal; Guru menginput absensi satu klik; Wali Murid memantau kehadiran anak real-time tanpa melihat data siswa lain. Berjalan tanpa biaya server bulanan, mendukung multi-sekolah dengan isolasi data, dan notifikasi WhatsApp gratis untuk siswa alpa atau sakit.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-indigo-500 mt-1"></i> Tiga kanal: Admin, Guru, Wali Murid</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-indigo-500 mt-1"></i> Penjadwalan per jam pelajaran</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-indigo-500 mt-1"></i> Notifikasi WA gratis untuk orang tua</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-indigo-500 mt-1"></i> Rekap kehadiran siap ekspor Excel/PDF</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-indigo-500 mt-1"></i> Multi-sekolah dengan data terisolasi</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 149.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 299.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20ADIS" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIDIKA -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Edukasi</span>
+                            <span class="tag-pill">Bimbingan Konseling</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">SIDIKA</h3>
+                        <p class="text-xs text-slate-500 mb-3">Sistem Tes Diagnostik &amp; Akademik Siswa</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Platform asesmen digital yang membantu Guru BK dan Wali Kelas memahami profil siswa secara menyeluruh. Siswa mengerjakan empat sesi tes diagnostik non-kognitif (Gaya Belajar, MBTI, Kecerdasan Majemuk, Bakat Minat Karier) dilanjutkan tes akademik terpadu untuk mengukur kecenderungan Paket A (MIPA) vs Paket B (IPS). Hasil tersimpan otomatis di spreadsheet, dihitung real-time, dan bisa dicetak sebagai laporan satu halaman.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Empat sesi tes diagnostik non-kognitif</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Tes akademik 80 soal (MIPA vs IPS)</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Panel admin: dashboard, manajemen siswa</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Verifikasi kode unik siswa</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Skor otomatis real-time</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Cetak laporan hasil satu halaman</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 249.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 400.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20SIDIKA" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPLODRIVE -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Lintas Sektor</span>
+                            <span class="tag-pill">Google Drive</span>
+                            <span class="tag-pill">Produktivitas</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">Uplodrive</h3>
+                        <p class="text-xs text-slate-500 mb-3">Unggah Cepat Dokumen ke Google Drive</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Web app ringan untuk mengunggah dokumen ke Google Drive dengan alur lebih cepat dan terorganisir. Cocok untuk pekerjaan harian yang menuntut efisiensi—ASN, guru, penulis, maupun tim bisnis. Struktur folder otomatis, mendukung unggahan banyak file sekaligus, dan antarmuka ringan di HP maupun PC.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Antarmuka ringan di HP maupun PC</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Struktur folder otomatis</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Unggah banyak file sekaligus</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Cocok untuk lintas sektor</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 29.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 99.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20Uplodrive" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MANALUPA -->
+                <div class="app-item">
+                    <div class="app-visual">
+                        <div class="app-visual-inner bg-blue-100 text-blue-600">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
+                            <span class="tag-pill">Produktivitas</span>
+                            <span class="tag-pill">Manajemen Waktu</span>
+                            <span class="tag-pill">Privasi</span>
+                            <span class="tag-pill">Siap Pakai</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">MANALUPA</h3>
+                        <p class="text-xs text-slate-500 mb-3">Kelola Lupa, Ingat Tanpa Batas</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Asisten anti-lupa pribadi yang berjalan sepenuhnya offline di browser Anda. Membantu memindahkan beban ingatan dari kepala ke sistem yang aman, dilengkapi indikator beban pikiran, fitur "Rumah Barang" untuk mencatat lokasi pasti barang, dan aturan "Kalau-Maka" untuk mengikat pengingat pada rutinitas harian. Semua data tersimpan lokal di perangkat—tidak ada server, tidak ada pelacakan.
+                        </p>
+                        <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Bekerja 100% offline</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Catat dalam waktu kurang dari 10 detik</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Indikator beban pikiran</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Fitur Rumah Barang</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Aturan Kalau-Maka</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Bonus ebook eksklusif Manajemen Lupa</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                            <div>
+                                <span class="text-lg font-extrabold text-slate-900">Rp 10.000</span>
+                                <span class="text-xs text-slate-400 line-through ml-2">Rp 79.000</span>
+                            </div>
+                            <a href="https://wa.me/6287892585973?text=Halo%20Admin%20Dongetik%2C%20saya%20tertarik%20dengan%20MANALUPA" target="_blank" rel="noopener" class="ml-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Pesan via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="text-center mt-12">
                 <a href="katalog.html#apps" class="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg shadow-blue-600/20 transition text-sm">
-                    Lihat Semua Aplikasi di Katalog <i class="fa-solid fa-arrow-right text-xs"></i>
+                    Lihat Semua di Katalog <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
         </div>
@@ -418,7 +661,7 @@
                     <li><a href="#" class="hover:text-blue-600 transition">Refund Policy</a></li>
                 </ul>
             </div>
-            <div class="col-span-2 md:col-span-2 space-y-3">
+            <div id="ikuti-kami" class="col-span-2 md:col-span-2 space-y-3">
                 <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-heading">Ikuti Kami</h5>
                 <div class="flex items-center gap-3">
                     <a href="https://www.facebook.com/profile.php?id=61590898554017" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition">
@@ -438,81 +681,8 @@
         </div>
     </footer>
 
-    <!-- MODAL DETAIL -->
-    <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
-            <div class="sticky top-0 bg-white border-b border-slate-100 p-4 flex items-center justify-between z-10">
-                <div id="modalCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-md"></div>
-                <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-5 sm:p-6 space-y-5">
-                <div id="modalImageWrapper" class="hidden">
-                    <img id="modalImage" class="product-image rounded-xl border border-slate-200" alt="" />
-                </div>
-                <div class="flex items-start gap-4">
-                    <div id="modalIcon" class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl"></div>
-                    <div>
-                        <h3 id="modalTitle" class="text-xl font-extrabold text-slate-900 leading-tight font-heading"></h3>
-                        <p id="modalTagline" class="text-xs text-blue-600 font-semibold mt-1"></p>
-                        <div id="modalTags" class="flex flex-wrap gap-1.5 mt-2"></div>
-                    </div>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                        <div class="text-xs text-slate-500 font-medium">Harga</div>
-                        <div class="flex items-baseline gap-2 mt-0.5">
-                            <span id="modalPrice" class="text-2xl font-extrabold text-slate-900"></span>
-                            <span id="modalNormalPrice" class="text-xs text-slate-400 line-through"></span>
-                        </div>
-                    </div>
-                    <span id="modalStatusBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full border"></span>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Deskripsi</h4>
-                    <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed bg-blue-50/50 p-3.5 rounded-xl border border-blue-100/60"></p>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</h4>
-                    <ul id="modalFeatures" class="space-y-2 text-sm text-slate-700"></ul>
-                </div>
-            </div>
-            <div class="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
-                <a href="katalog.html#apps" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-200 transition text-sm flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-list"></i> Lihat di Katalog
-                </a>
-                <button id="modalWaBtn" class="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-md">
-                    <i class="fa-brands fa-whatsapp text-base"></i> Pesan via WhatsApp
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DATA PRODUK -->
-    <script src="products.js"></script>
-
     <script>
-        const WA_NUMBER = '6287892585973';
         const THEME_KEY = 'dongetik_theme';
-        const KATEGORI = 'Aplikasi';
-
-        const allProducts = window.PRODUCTS || [];
-        const products = allProducts.filter(p => p.category === KATEGORI);
-
-        function pilihUnggulan(list, max = 6) {
-            const featured = list.filter(p => p.featured === true);
-            const rest = list.filter(p => p.featured !== true);
-            return [...featured, ...rest].slice(0, max);
-        }
-
-        const featured = pilihUnggulan(products);
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (!products.length) console.warn('Tidak ada produk untuk kategori ' + KATEGORI);
-            renderFeatured(featured);
-            setupThemeToggle();
-        });
 
         function setupThemeToggle() {
             const btn = document.getElementById('themeToggle');
@@ -520,8 +690,10 @@
             const icon = btn.querySelector('i');
             const saved = localStorage.getItem(THEME_KEY);
             const isDark = saved === 'dark';
+
             document.body.classList.toggle('dark', isDark);
             icon.className = isDark ? 'fa-regular fa-moon' : 'fa-regular fa-sun';
+
             btn.addEventListener('click', () => {
                 const nowDark = !document.body.classList.contains('dark');
                 document.body.classList.toggle('dark', nowDark);
@@ -530,127 +702,18 @@
             });
         }
 
-        function renderFeatured(list) {
-            const grid = document.getElementById('featuredGrid');
-            if (!list.length) {
-                grid.innerHTML = '<p class="text-center text-slate-400 text-sm col-span-full py-12">Belum ada produk unggulan di kategori ini.</p>';
-                return;
-            }
-            grid.innerHTML = list.map(p => {
-                const price = formatRupiah(p.price);
-                const normal = p.normalPrice ? formatRupiah(p.normalPrice) : null;
-                const galeri = Array.isArray(p.galeri) ? p.galeri : [];
-                const thumb = galeri[0] || '';
-                const hasImage = thumb && thumb.trim() !== '';
-                const tags = Array.isArray(p.tags) ? p.tags : [];
-                const tagHtml = tags.slice(0, 2).map(t => `<span class="tag-pill">${t}</span>`).join('');
-                const visual = hasImage
-                    ? `<img src="${thumb}" alt="${p.title}" class="product-image" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                       <div class="w-full aspect-square ${p.iconBg} hidden items-center justify-center text-5xl"><i class="${p.icon}"></i></div>`
-                    : `<div class="w-full aspect-square ${p.iconBg} flex items-center justify-center text-5xl"><i class="${p.icon}"></i></div>`;
-                return `
-                    <div class="product-card">
-                        <div class="relative overflow-hidden">
-                            ${visual}
-                            <span class="absolute top-2 left-2 badge-cat ${p.badgeBg}">${p.categoryLabel}</span>
-                        </div>
-                        <div class="p-3 sm:p-4 flex-1 flex flex-col">
-                            <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2">${p.title}</h3>
-                            <p class="hidden sm:block text-xs text-slate-500 font-medium line-clamp-1 mt-0.5">${p.subtitle || ''}</p>
-                            <p class="hidden sm:block text-xs text-slate-600 line-clamp-2 leading-relaxed mt-2">${p.shortDesc || ''}</p>
-                            ${tagHtml ? `<div class="hidden sm:flex flex-wrap gap-1 mt-2">${tagHtml}</div>` : ''}
-                            <div class="pt-2 mt-auto border-t border-slate-100">
-                                <div class="text-[10px] text-slate-400 font-medium">Harga</div>
-                                <div class="flex flex-wrap items-baseline gap-1.5">
-                                    <span class="text-sm sm:text-base font-extrabold text-slate-900">${price}</span>
-                                    ${normal ? `<span class="text-[10px] sm:text-xs text-slate-400 line-through">${normal}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-3 sm:px-4 pb-3 sm:pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <button onclick="openDetailModal('${p.id}')" class="w-full text-[11px] sm:text-xs font-semibold py-2 px-2 rounded-lg sm:rounded-xl border border-slate-300 text-slate-700 bg-white hover:bg-slate-100 transition flex items-center justify-center gap-1.5">
-                                <i class="fa-solid fa-circle-info text-slate-400"></i> Detail
-                            </button>
-                            <button onclick="orderWa('${p.id}')" class="w-full text-[11px] sm:text-xs font-bold py-2 px-2 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-1.5">
-                                <i class="fa-brands fa-whatsapp"></i> Pesan WA
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        function toggleFaq(n) {
+            const ans = document.getElementById('faq-ans-' + n);
+            const icon = document.getElementById('faq-icon-' + n);
+            if (!ans || !icon) return;
+            const isHidden = ans.classList.contains('hidden');
+            ans.classList.toggle('hidden');
+            icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        function openDetailModal(id) {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
-            document.getElementById('modalCategoryBadge').className = `text-xs font-bold px-2.5 py-1 rounded-md border ${p.badgeBg}`;
-            document.getElementById('modalCategoryBadge').textContent = p.categoryLabel;
-            document.getElementById('modalIcon').className = `w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl ${p.iconBg}`;
-            document.getElementById('modalIcon').innerHTML = `<i class="${p.icon}"></i>`;
-            document.getElementById('modalTitle').textContent = p.title;
-            document.getElementById('modalTagline').textContent = p.subtitle || '';
-            document.getElementById('modalPrice').textContent = formatRupiah(p.price);
-            document.getElementById('modalNormalPrice').textContent = p.normalPrice ? formatRupiah(p.normalPrice) : '';
-            document.getElementById('modalStatusBadge').textContent = p.status || '';
-            document.getElementById('modalStatusBadge').className = `text-xs font-semibold px-2.5 py-1 rounded-full border ${p.badgeBg}`;
-            document.getElementById('modalDescription').textContent = p.longDesc || p.shortDesc || '';
-            const tags = Array.isArray(p.tags) ? p.tags : [];
-            document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="tag-pill">${t}</span>`).join('');
-            const features = Array.isArray(p.features) ? p.features : [];
-            document.getElementById('modalFeatures').innerHTML = features.map(f => `
-                <li class="flex items-start gap-2">
-                    <i class="fa-solid fa-circle-check text-emerald-500 text-sm mt-0.5"></i>
-                    <span>${f}</span>
-                </li>
-            `).join('');
-            const imgWrapper = document.getElementById('modalImageWrapper');
-            const imgEl = document.getElementById('modalImage');
-            const galeri = (Array.isArray(p.galeri) ? p.galeri : []).filter(g => g && g.trim() !== '');
-            if (galeri.length) {
-                imgWrapper.classList.remove('hidden');
-                imgEl.src = galeri[0];
-                imgEl.alt = p.title;
-            } else {
-                imgWrapper.classList.add('hidden');
-                imgEl.src = '';
-            }
-            document.getElementById('modalWaBtn').onclick = () => orderWa(p.id);
-            const modal = document.getElementById('productDetailModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDetailModal() {
-            const modal = document.getElementById('productDetailModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        function orderWa(id) {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
-            const tags = Array.isArray(p.tags) ? p.tags.join(', ') : '';
-            const text = `Halo Admin *Dongetik Digital*,\n\nSaya berminat memesan produk:\n\n📌 *Produk:* ${p.title}\n🏷️ *Kategori:* ${p.categoryLabel}${tags ? `\n🔖 *Tag:* ${tags}` : ''}\n💰 *Harga:* ${formatRupiah(p.price)}\n\nMohon info prosedur pemesanan & pembayarannya. Terima kasih!`;
-            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
-        }
-
-        function toggleFaq(num) {
-            const ans = document.getElementById(`faq-ans-${num}`);
-            const icon = document.getElementById(`faq-icon-${num}`);
-            if (ans.classList.contains('hidden')) {
-                ans.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                ans.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        }
-
-        function formatRupiah(n) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+        });
     </script>
 </body>
 </html>
