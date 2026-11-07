@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Produk - Dongetik Digital</title>
+    <meta name="description" content="Katalog produk digital Dongetik: aplikasi siap pakai, ebook premium, dan jasa pengembangan web untuk instansi, sekolah, dan bisnis." />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +26,6 @@
             }
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; transition: background 0.3s, color 0.3s; }
         h1, h2, h3, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -39,16 +36,17 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         body.dark ::-webkit-scrollbar-track { background: #1e293b; }
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
         .product-card {
             background: white; border: 1px solid #f1f5f9; border-radius: 16px;
             overflow: hidden; transition: box-shadow 0.2s, transform 0.15s, background 0.3s, border-color 0.3s;
             display: flex; flex-direction: column; height: 100%;
+            cursor: pointer;
         }
         .product-card:hover {
             box-shadow: 0 8px 25px rgba(0,0,0,0.06);
             transform: translateY(-2px);
         }
-
         .product-image {
             width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
             display: block; background: #f8fafc;
@@ -101,12 +99,17 @@
             background: #f1f5f9; border: 1px solid #e2e8f0;
             transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
-
         .badge-cat {
             display: inline-block; padding: 3px 10px; border-radius: 6px;
             font-size: 10px; font-weight: 700; text-transform: uppercase;
             letter-spacing: 0.04em; border: 1px solid;
         }
+        .price-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7c3aed;
+        }
+        body.dark .price-label { color: #c4b5fd !important; }
 
         .faq-item { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; transition: border-color 0.3s; }
         .faq-item button { transition: background 0.15s; }
@@ -126,33 +129,25 @@
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* ===== GALERI MODAL (geser) ===== */
         #modalImage { transition: opacity 0.15s ease; }
         .galeri-dot {
             display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
+            width: 8px; height: 8px; border-radius: 999px;
             background: rgba(255, 255, 255, 0.6);
             box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
             transition: background 0.2s, width 0.2s;
         }
-        .galeri-dot.active {
-            background: #2563eb;
-            width: 20px;
-        }
+        .galeri-dot.active { background: #2563eb; width: 20px; }
 
         /* ============================================================
            DARK MODE — KATALOG
            ============================================================ */
         body.dark { background: #0f172a; color: #e2e8f0; }
 
-        /* Kartu produk */
         body.dark .product-card { background: #1e293b; border-color: #334155; }
         body.dark .product-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
         body.dark .product-image { background: #0f172a; }
 
-        /* Input pencarian & filter */
         body.dark .search-wrapper input,
         body.dark .filter-select {
             background: #1e293b; border-color: #334155; color: #e2e8f0;
@@ -164,29 +159,22 @@
             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
         }
         body.dark .search-wrapper i { color: #64748b; }
-#themeToggle { color: #475569; }
-#themeToggle:hover { color: #2563eb; }
-body.dark #themeToggle { color: #60a5fa !important; }
-body.dark #themeToggle:hover { color: #93c5fd !important; }
-        /* Pill kategori */
-        body.dark .cat-pill {
-            background: #1e293b; border-color: #334155; color: #cbd5e1;
-        }
+
+        #themeToggle { color: #475569; }
+        #themeToggle:hover { color: #2563eb; }
+        body.dark #themeToggle { color: #60a5fa !important; }
+        body.dark #themeToggle:hover { color: #93c5fd !important; }
+
+        body.dark .cat-pill { background: #1e293b; border-color: #334155; color: #cbd5e1; }
         body.dark .cat-pill:hover { background: #334155; border-color: #475569; }
-        /* Saat aktif, biarkan warna kategori (biru/emerald/ungu) — tidak diubah */
 
-        /* Tag & badge */
-        body.dark .tag-pill {
-            background: #334155; border-color: #475569; color: #cbd5e1;
-        }
+        body.dark .tag-pill { background: #334155; border-color: #475569; color: #cbd5e1; }
 
-        /* FAQ */
         body.dark .faq-item { border-color: #334155; }
         body.dark .faq-item button { background: #1e293b; color: #e2e8f0; }
         body.dark .faq-item button:hover { background: #334155; }
         body.dark .faq-item > div { background: #1e293b; border-color: #334155; color: #cbd5e1; }
 
-        /* Modal & drawer */
         body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
         body.dark .bg-slate-50 { background: #0f172a !important; }
         body.dark .bg-slate-100 { background: #334155 !important; }
@@ -199,41 +187,28 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         body.dark .text-slate-500 { color: #94a3b8 !important; }
         body.dark .text-slate-400 { color: #94a3b8 !important; }
 
-        /* Tombol "Detail" di kartu */
         body.dark .product-card button[onclick^="openDetailModal"] {
             background: #334155; border-color: #475569; color: #e2e8f0;
         }
-        body.dark .product-card button[onclick^="openDetailModal"]:hover {
-            background: #475569;
-        }
+        body.dark .product-card button[onclick^="openDetailModal"]:hover { background: #475569; }
 
-        /* Tombol "Tambah ke Pesanan" di modal */
         body.dark #modalCartBtn {
             background: #334155; border-color: #475569; color: #e2e8f0;
         }
         body.dark #modalCartBtn:hover { background: #475569; }
 
-        /* Tombol tutup modal (ikon x) */
         body.dark #productDetailModal button[onclick="closeDetailModal()"] {
             background: #334155; color: #cbd5e1;
         }
-        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover {
-            background: #475569;
-        }
+        body.dark #productDetailModal button[onclick="closeDetailModal()"]:hover { background: #475569; }
 
-        /* Drawer header tetap gelap, footer drawer ikut gelap */
         body.dark #cartDrawer .bg-slate-50 { background: #0f172a !important; }
-
-        /* Teks "Pilih produk..." di keranjang kosong */
         body.dark #cartItemsContainer .text-slate-400 { color: #64748b !important; }
 
-        /* Toast */
         body.dark .toast-animate { background: #334155; border-color: #475569; }
 
-        /* Judul & subjudul katalog */
         body.dark h1, body.dark h2, body.dark h3 { color: #f1f5f9; }
 
-        /* Header jumlah produk */
         body.dark .bg-slate-100.rounded-lg { background: #334155 !important; }
     </style>
 </head>
@@ -468,8 +443,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                 </div>
                 <div>
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Fitur Utama</h4>
-                    <ul id="modalFeatures" class="space-y-2
- text-sm text-slate-700"></ul>
+                    <ul id="modalFeatures" class="space-y-2 text-sm text-slate-700"></ul>
                 </div>
             </div>
             <div class="sticky bottom-0 bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
@@ -557,7 +531,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         });
 
         // ============================================================
-        // TEMA GELAP/TERANG (preferensi tersimpan di localStorage)
+        // TEMA
         // ============================================================
         function setupThemeToggle() {
             const btn = document.getElementById('themeToggle');
@@ -578,7 +552,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         }
 
         // ============================================================
-        // FILTER OTOMATIS DARI HASH URL
+        // HASH FILTER
         // ============================================================
         function applyHashFilter() {
             const hash = window.location.hash.replace('#', '').toLowerCase().trim();
@@ -610,7 +584,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         }
 
         // ============================================================
-        // LOCALSTORAGE KERANJANG
+        // KERANJANG (localStorage)
         // ============================================================
         function saveCartToStorage() {
             try {
@@ -626,7 +600,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                 if (!Array.isArray(saved)) return;
                 cart = saved.map(item => {
                     const product = products.find(p => p.id === item.id);
-                    if (!product) return null;
+                    if (!product || typeof product.price !== 'number') return null;
                     return { ...product, qty: Math.max(1, parseInt(item.qty) || 1) };
                 }).filter(Boolean);
             } catch (e) { console.warn('Gagal memuat keranjang:', e); cart = []; }
@@ -667,9 +641,11 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                                    (p.subtitle || '').toLowerCase().includes(query) ||
                                    (p.shortDesc || '').toLowerCase().includes(query);
                 let matchPrice = true;
-                if (priceVal === 'under100') matchPrice = p.price < 100000;
-                else if (priceVal === '100to300') matchPrice = p.price >= 100000 && p.price <= 300000;
-                else if (priceVal === 'above300') matchPrice = p.price > 300000;
+                if (typeof p.price === 'number') {
+                    if (priceVal === 'under100') matchPrice = p.price < 100000;
+                    else if (priceVal === '100to300') matchPrice = p.price >= 100000 && p.price <= 300000;
+                    else if (priceVal === 'above300') matchPrice = p.price > 300000;
+                }
                 return matchCategory && matchQuery && matchPrice;
             });
             renderProducts(filtered);
@@ -679,6 +655,14 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             document.getElementById('searchInput').value = '';
             document.getElementById('priceFilter').value = 'all';
             filterCategory('all');
+        }
+
+        // ============================================================
+        // KLIK KARTU → BUKA MODAL (kecuali klik pada tombol/tautan)
+        // ============================================================
+        function handleCardClick(event, productId) {
+            if (event.target.closest('button') || event.target.closest('a')) return;
+            openDetailModal(productId);
         }
 
         // ============================================================
@@ -697,8 +681,9 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             emptyState.classList.add('hidden');
 
             grid.innerHTML = productList.map(p => {
-                const formattedPrice = formatRupiah(p.price);
-                const formattedNormal = p.normalPrice ? formatRupiah(p.normalPrice) : null;
+                const hasPrice = typeof p.price === 'number';
+                const formattedPrice = hasPrice ? formatRupiah(p.price) : '';
+                const formattedNormal = (hasPrice && p.normalPrice) ? formatRupiah(p.normalPrice) : null;
                 const galeri = Array.isArray(p.galeri) ? p.galeri : [];
                 const thumb = galeri[0] || '';
                 const hasImage = thumb && thumb.trim() !== '';
@@ -711,8 +696,31 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
 
                 const tagHtml = tags.slice(0, 2).map(t => `<span class="tag-pill">${t}</span>`).join('');
 
+                const priceBlock = hasPrice
+                    ? `<div class="text-[10px] text-slate-400 font-medium">Harga</div>
+                       <div class="flex flex-wrap items-baseline gap-1.5">
+                           <span class="text-sm sm:text-base font-extrabold text-slate-900">${formattedPrice}</span>
+                           ${formattedNormal ? `<span class="text-[10px] sm:text-xs text-slate-400 line-through">${formattedNormal}</span>` : ''}
+                       </div>`
+                    : `<div class="text-[10px] text-slate-400 font-medium">Harga</div>
+                       <div class="price-label">${p.priceLabel || 'Hubungi Kami'}</div>`;
+
+                const bottomButtons = hasPrice
+                    ? `<button onclick="event.stopPropagation(); openDetailModal('${p.id}')" class="w-full text-[11px] sm:text-xs font-semibold py-2 px-2 rounded-lg sm:rounded-xl border border-slate-300 text-slate-700 bg-white hover:bg-slate-100 transition flex items-center justify-center gap-1.5">
+                           <i class="fa-solid fa-circle-info text-slate-400"></i> Detail
+                       </button>
+                       <button onclick="event.stopPropagation(); orderSingleWa('${p.id}')" class="w-full text-[11px] sm:text-xs font-bold py-2 px-2 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-1.5">
+                           <i class="fa-brands fa-whatsapp"></i> Pesan WA
+                       </button>`
+                    : `<button onclick="event.stopPropagation(); openDetailModal('${p.id}')" class="w-full text-[11px] sm:text-xs font-semibold py-2 px-2 rounded-lg sm:rounded-xl border border-slate-300 text-slate-700 bg-white hover:bg-slate-100 transition flex items-center justify-center gap-1.5">
+                           <i class="fa-solid fa-circle-info text-slate-400"></i> Detail
+                       </button>
+                       <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo Admin Dongetik, saya ingin konsultasi tentang ' + p.title)}" target="_blank" rel="noopener" class="w-full text-[11px] sm:text-xs font-bold py-2 px-2 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-1.5">
+                           <i class="fa-brands fa-whatsapp"></i> Konsultasi
+                       </a>`;
+
                 return `
-                    <div class="product-card">
+                    <div class="product-card" onclick="handleCardClick(event, '${p.id}')">
                         <div class="relative overflow-hidden">
                             ${visual}
                             <span class="absolute top-2 left-2 badge-cat ${p.badgeBg}">${p.categoryLabel}</span>
@@ -723,20 +731,11 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                             <p class="hidden sm:block text-xs text-slate-600 line-clamp-2 leading-relaxed mt-2">${p.shortDesc || ''}</p>
                             ${tagHtml ? `<div class="hidden sm:flex flex-wrap gap-1 mt-2">${tagHtml}</div>` : ''}
                             <div class="pt-2 mt-auto border-t border-slate-100">
-                                <div class="text-[10px] text-slate-400 font-medium">Harga</div>
-                                <div class="flex flex-wrap items-baseline gap-1.5">
-                                    <span class="text-sm sm:text-base font-extrabold text-slate-900">${formattedPrice}</span>
-                                    ${formattedNormal ? `<span class="text-[10px] sm:text-xs text-slate-400 line-through">${formattedNormal}</span>` : ''}
-                                </div>
+                                ${priceBlock}
                             </div>
                         </div>
                         <div class="px-3 sm:px-4 pb-3 sm:pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <button onclick="openDetailModal('${p.id}')" class="w-full text-[11px] sm:text-xs font-semibold py-2 px-2 rounded-lg sm:rounded-xl border border-slate-300 text-slate-700 bg-white hover:bg-slate-100 transition flex items-center justify-center gap-1.5">
-                                <i class="fa-solid fa-circle-info text-slate-400"></i> Detail
-                            </button>
-                            <button onclick="orderSingleWa('${p.id}')" class="w-full text-[11px] sm:text-xs font-bold py-2 px-2 rounded-lg sm:rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-1.5">
-                                <i class="fa-brands fa-whatsapp"></i> Pesan WA
-                            </button>
+                            ${bottomButtons}
                         </div>
                     </div>
                 `;
@@ -753,6 +752,8 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
+            const hasPrice = typeof product.price === 'number';
+
             document.getElementById('modalCategoryBadge').className = `text-xs font-bold px-2.5 py-1 rounded-md border ${product.badgeBg}`;
             document.getElementById('modalCategoryBadge').textContent = product.categoryLabel;
 
@@ -761,8 +762,19 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
 
             document.getElementById('modalTitle').textContent = product.title;
             document.getElementById('modalTagline').textContent = product.subtitle || '';
-            document.getElementById('modalPrice').textContent = formatRupiah(product.price);
-            document.getElementById('modalNormalPrice').textContent = product.normalPrice ? formatRupiah(product.normalPrice) : '';
+
+            const priceEl = document.getElementById('modalPrice');
+            const normalEl = document.getElementById('modalNormalPrice');
+            if (hasPrice) {
+                priceEl.textContent = formatRupiah(product.price);
+                priceEl.classList.remove('price-label');
+                normalEl.textContent = product.normalPrice ? formatRupiah(product.normalPrice) : '';
+            } else {
+                priceEl.textContent = product.priceLabel || 'Hubungi Kami';
+                priceEl.classList.add('price-label');
+                normalEl.textContent = '';
+            }
+
             document.getElementById('modalStatusBadge').textContent = product.status || '';
             document.getElementById('modalStatusBadge').className = `text-xs font-semibold px-2.5 py-1 rounded-full border ${product.badgeBg}`;
             document.getElementById('modalDescription').textContent = product.longDesc || product.shortDesc || '';
@@ -811,11 +823,15 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                 dotsEl.innerHTML = '';
             }
 
-            document.getElementById('modalCartBtn').onclick = () => {
-                addToCart(product.id);
-                closeDetailModal();
-            };
-            document.getElementById('modalWaBtn').onclick = () => orderSingleWa(product.id);
+            const cartBtn = document.getElementById('modalCartBtn');
+            const waBtn = document.getElementById('modalWaBtn');
+            if (hasPrice) {
+                cartBtn.classList.remove('hidden');
+                cartBtn.onclick = () => { addToCart(product.id); closeDetailModal(); };
+            } else {
+                cartBtn.classList.add('hidden');
+            }
+            waBtn.onclick = () => orderSingleWa(product.id);
 
             const modal = document.getElementById('productDetailModal');
             modal.classList.remove('hidden');
@@ -837,9 +853,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             });
         }
 
-        function geserGaleri(delta) {
-            switchGaleri(currentGaleriIndex + delta);
-        }
+        function geserGaleri(delta) { switchGaleri(currentGaleriIndex + delta); }
 
         function closeDetailModal() {
             const modal = document.getElementById('productDetailModal');
@@ -848,9 +862,6 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             document.body.style.overflow = '';
         }
 
-        // ============================================================
-        // SWIPE GALERI
-        // ============================================================
         function setupSwipeGaleri() {
             const slider = document.getElementById('galeriSlider');
             if (!slider) return;
@@ -868,9 +879,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                 tracking = false;
                 const dx = e.changedTouches[0].clientX - startX;
                 const dy = e.changedTouches[0].clientY - startY;
-                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-                    geserGaleri(dx < 0 ? 1 : -1);
-                }
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) geserGaleri(dx < 0 ? 1 : -1);
             }, { passive: true });
 
             let mouseDown = false;
@@ -889,7 +898,10 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         // ============================================================
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            if (!product) return;
+            if (!product || typeof product.price !== 'number') {
+                if (product) showToast(`"${product.title}" tidak bisa dimasukkan ke keranjang. Konsultasikan via WhatsApp.`);
+                return;
+            }
             const existing = cart.find(item => item.id === productId);
             if (existing) existing.qty += 1;
             else cart.push({ ...product, qty: 1 });
@@ -904,12 +916,8 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         }
         function toggleCartDrawer() {
             const drawer = document.getElementById('cartDrawer');
-            if (drawer.classList.contains('hidden')) {
-                renderCartItems();
-                drawer.classList.remove('hidden');
-            } else {
-                drawer.classList.add('hidden');
-            }
+            if (drawer.classList.contains('hidden')) { renderCartItems(); drawer.classList.remove('hidden'); }
+            else drawer.classList.add('hidden');
         }
         function renderCartItems() {
             const container = document.getElementById('cartItemsContainer');
@@ -954,11 +962,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             if (!item) return;
             item.qty += delta;
             if (item.qty <= 0) removeFromCart(id);
-            else {
-                saveCartToStorage();
-                updateCartBadge();
-                renderCartItems();
-            }
+            else { saveCartToStorage(); updateCartBadge(); renderCartItems(); }
         }
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
@@ -980,7 +984,10 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
             const p = products.find(item => item.id === productId);
             if (!p) return;
             const tags = Array.isArray(p.tags) ? p.tags.join(', ') : '';
-            const text = `Halo Admin *Dongetik Digital*,\n\nSaya berminat memesan produk:\n\n📌 *Produk:* ${p.title}\n🏷️ *Kategori:* ${p.categoryLabel}${tags ? `\n🔖 *Tag:* ${tags}` : ''}\n💰 *Harga:* ${formatRupiah(p.price)}\n\nMohon info prosedur pemesanan & pembayarannya. Terima kasih!`;
+            const hargaText = typeof p.price === 'number'
+                ? formatRupiah(p.price)
+                : (p.priceLabel || 'Sesuai Kebutuhan');
+            const text = `Halo Admin *Dongetik Digital*,\n\nSaya berminat memesan produk:\n\n📌 *Produk:* ${p.title}\n🏷️ *Kategori:* ${p.categoryLabel}${tags ? `\n🔖 *Tag:* ${tags}` : ''}\n💰 *Harga:* ${hargaText}\n\nMohon info prosedur pemesanan & pembayarannya. Terima kasih!`;
             window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
         }
         function checkoutCartWA() {
@@ -1002,13 +1009,8 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
         function toggleFaq(num) {
             const ans = document.getElementById(`faq-ans-${num}`);
             const icon = document.getElementById(`faq-icon-${num}`);
-            if (ans.classList.contains('hidden')) {
-                ans.classList.remove('hidden');
-                icon.classList.add('open');
-            } else {
-                ans.classList.add('hidden');
-                icon.classList.remove('open');
-            }
+            if (ans.classList.contains('hidden')) { ans.classList.remove('hidden'); icon.classList.add('open'); }
+            else { ans.classList.add('hidden'); icon.classList.remove('open'); }
         }
 
         // ============================================================
@@ -1097,10 +1099,7 @@ body.dark #themeToggle:hover { color: #93c5fd !important; }
                 else if (text.includes('syarat') || text.includes('ketentuan')) type = 'terms';
                 else if (text.includes('refund')) type = 'refund';
                 if (type) {
-                    link.addEventListener('click', e => {
-                        e.preventDefault();
-                        openPolicyModal(type);
-                    });
+                    link.addEventListener('click', e => { e.preventDefault(); openPolicyModal(type); });
                 }
             });
 
