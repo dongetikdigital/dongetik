@@ -274,6 +274,41 @@ window.PRODUCTS = [
     ]
 },
 
+{
+    id: 'ebook-skripsi-beres-tanpa-stres',
+    title: 'Ebook: Skripsi Beres Tanpa Stres',
+    subtitle: 'Strategi Ampuh Menyelesaikan Skripsi: Dari Pemilihan Topik hingga Sidang',
+    category: 'Ebook',
+    categoryLabel: 'Ebook',
+    tags: ['Akademik', 'Manajemen Waktu', 'Produktivitas', 'Kesehatan Mental'],
+    price: 29000,
+    normalPrice: 99000,
+    status: 'Ebook Digital Gratis',
+    featured: true,
+    galeri: ['images/katalogskripsiberes.png'],
+    icon: 'fa-solid fa-book-open-reader',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+    shortDesc: 'Skripsi bukan monster. Panduan hangat dan tak menghakimi ini akan menemanimu mengubah skripsi dari momok menakutkan menjadi proyek akhir yang bisa kamu selesaikan—tanpa harus kehilangan kewarasan.',
+
+    longDesc: 'Kita tahu banget rasanya: buka laptop, buka Google Scholar, lalu... bengong. Skripsi sering dianggap monster yang harus dilawan sendirian. Padahal, dengan cara pandang dan strategi yang tepat, ia hanyalah proyek akhir yang bisa kamu kelola. Ebook ini hadir bukan untuk menambah tekanan, melainkan menemani. Ditulis dari sudut pandang akademisi, dosen pembimbing, dan mahasiswa yang pernah berjuang, ebook ini memandumu mengubah mentalitas dari "takut mulai" menjadi "Project Manager" atas skripsimu sendiri. Mulai dari memilih topik yang cepat selesai, mencari referensi tanpa bingung, menyusun latar belakang yang tidak di-revisi dosen, berkomunikasi asertif dengan pembimbing, hingga menghadapi sidang dengan tenang. Dilengkapi panduan menggunakan AI secara bijak, mengelola energi agar tidak burnout, dan lampiran praktis yang bisa langsung kamu pakai. Bahasa hangat, tanpa jargon, cocok untuk mahasiswa semua jurusan—kapan saja.',
+
+    features: [
+        'Cara pandang baru: skripsi bukan monster, tapi proyek akhir yang bisa kamu kelola',
+        'Panduan memilih topik yang cepat selesai, bukan sekadar topik yang "keren"',
+        'Teknik mencari referensi yang efisien, tanpa harus baca puluhan jurnal',
+        'Logika menyusun latar belakang agar tidak bolak-balik di-revisi dosen',
+        'Tips berkomunikasi asertif dan bargaining revisi dengan dosen pembimbing',
+        'Panduan menggunakan AI secara bijak: antara asisten dan jebakan',
+        'Strategi mengelola energi agar tetap produktif tanpa burnout',
+        'Persiapan sidang: dari checklist, latihan tanya-jawab, hingga mental survival',
+        'Panduan revisi pasca-sidang dan publikasi jurnal untuk nilai tambah karier',
+        'Lampiran praktis: timeline fleksibel, template WA, daftar tools, dan checklist skripsi',
+        'Bahasa hangat, tak menghakimi, dan mudah dipahami—cocok untuk mahasiswa semua jurusan',
+      ]
+},
+   
    {
     id: 'ebook-manajemen-lupa',
     title: 'Ebook: Manajemen Lupa',
