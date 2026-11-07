@@ -38,16 +38,51 @@
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
         /* ============================================================
+           HERO DENGAN GAMBAR HEADER
+           ============================================================ */
+        .hero-header { position: relative; overflow: hidden; }
+        .hero-bg-layer {
+            position: absolute; inset: 0; z-index: 0;
+            background-image: url('jasa.header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.88) 30%,
+                rgba(255, 255, 255, 0.50) 60%,
+                transparent 80%
+            );
+            pointer-events: none;
+        }
+        body.dark .hero-overlay {
+            background: linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.88) 30%,
+                rgba(15, 23, 42, 0.50) 60%,
+                transparent 80%
+            );
+        }
+        .hero-content-layer { position: relative; z-index: 2; }
+
+        @media (max-width: 1024px) {
+            .hero-bg-layer { background-position: center; }
+            .hero-overlay { background: rgba(255, 255, 255, 0.75); }
+            body.dark .hero-overlay { background: rgba(15, 23, 42, 0.80); }
+        }
+
+        /* ============================================================
            DARK MODE
            ============================================================ */
         body.dark { background: #0f172a; color: #e2e8f0; }
 
-        /* Navbar */
         body.dark .bg-white\/80 { background: rgba(30, 41, 59, 0.85) !important; }
         body.dark .border-slate-100 { border-color: #334155 !important; }
         body.dark .border-slate-200 { border-color: #334155 !important; }
 
-        /* Teks umum */
         body.dark .text-slate-900 { color: #f1f5f9 !important; }
         body.dark .text-slate-800 { color: #e2e8f0 !important; }
         body.dark .text-slate-700 { color: #e2e8f0 !important; }
@@ -55,7 +90,6 @@
         body.dark .text-slate-500 { color: #94a3b8 !important; }
         body.dark .text-slate-400 { color: #94a3b8 !important; }
 
-        /* Latar */
         body.dark .bg-white { background: #1e293b !important; }
         body.dark .bg-slate-50 { background: #0f172a !important; }
         body.dark .bg-slate-100 { background: #334155 !important; }
@@ -63,28 +97,20 @@
         body.dark .bg-purple-100 { background: #334155 !important; }
         body.dark .bg-purple-100\/70 { background: rgba(59, 7, 100, 0.6) !important; color: #c4b5fd !important; border-color: #6b21a8 !important; }
 
-        /* Ikon theme */
         #themeToggle { color: #475569; }
         #themeToggle:hover { color: #7c3aed; }
         body.dark #themeToggle { color: #60a5fa !important; }
         body.dark #themeToggle:hover { color: #93c5fd !important; }
 
-        /* Hero: ungu gelap */
-        body.dark .from-purple-50 { background: linear-gradient(135deg, #3b0764 0%, #1e293b 100%) !important; }
-        body.dark .border-purple-100\/60 { border-color: #334155 !important; }
-
-        /* Kartu "untuk siapa" / "masalah" / "cara kerja" / "contoh proyek" / "faq" */
         body.dark .bg-gradient-to-b { background: #1e293b !important; }
         body.dark .bg-gradient-to-br { background: #1e293b !important; }
         body.dark .border-purple-100\/80 { border-color: #334155 !important; }
         body.dark .border-purple-100 { border-color: #334155 !important; }
 
-        /* Footer */
         body.dark footer { background: #0f172a; border-color: #334155; }
         body.dark footer .bg-slate-50 { background: #1e293b !important; }
         body.dark footer .border-slate-100 { border-color: #334155 !important; }
 
-        /* CTA section */
         body.dark section.bg-slate-50 { background: #0f172a !important; }
     </style>
 </head>
@@ -120,10 +146,10 @@
     </nav>
 
     <!-- HERO -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-slate-50 border-b border-purple-100/60 transition-colors duration-300">
-        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-400/10 blur-[120px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-400/10 blur-[120px]"></div>
-        <div class="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
+    <section class="hero-header relative overflow-hidden border-b border-purple-100/60 transition-colors duration-300">
+        <div class="hero-bg-layer"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content-layer max-w-7xl mx-auto px-6 py-16 lg:py-24">
             <div class="max-w-3xl">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100/70 text-purple-700 border border-purple-200 text-xs font-semibold tracking-wide mb-5">
                     <i class="fa-solid fa-screwdriver-wrench"></i> Kategori Jasa
@@ -212,7 +238,6 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-start">
 
-                <!-- Kiri: daftar lingkup -->
                 <div>
                     <span class="text-xs font-bold text-purple-600 tracking-wider uppercase bg-purple-50 px-3 py-1 rounded-full">Lingkup</span>
                     <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading mb-4">Apa yang kami kerjakan</h2>
@@ -252,7 +277,6 @@
                     </div>
                 </div>
 
-                <!-- Kanan: yang perlu disiapkan + CTA -->
                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 transition-colors duration-300">
                     <h3 class="font-bold text-slate-900 text-base font-heading mb-3">Yang perlu Anda siapkan</h3>
                     <p class="text-slate-500 text-sm leading-relaxed mb-5">Tidak perlu dokumen teknis. Cukup tiga hal ini:</p>
@@ -342,6 +366,22 @@
                     <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> Sangkatan—platform digital berisi direktori alumni, galeri kenangan, kisah inspiratif, etalase usaha, dan peta persebaran. Dikelola sendiri oleh angkatan melalui portal admin.</p>
                 </div>
 
+                <!-- SIDIKA -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Asesmen Siswa</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pemetaan bakat &amp; minat siswa yang tadinya manual, kini satu sistem terpadu</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> Guru BK mengumpulkan data gaya belajar, kepribadian, dan minat siswa dari kuesioner kertas yang berbeda-beda—sulit direkap, rawan hilang, dan tidak bisa dibandingkan antar kelas.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> SIDIKA—sistem asesmen digital yang menyatukan empat tes diagnostik non-kognitif dan tes akademik dalam satu platform. Hasil tersimpan otomatis, dihitung real-time, dan bisa dicetak sebagai laporan satu halaman per siswa.</p>
+                </div>
+
+                <!-- PORTAL PPDB -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
+                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Penerimaan Siswa Baru</div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pendaftaran yang tadinya lewat Google Form, kini portal PPDB dengan panel admin</h3>
+                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> Pendaftaran via Google Form menyulitkan verifikasi berkas, tidak ada status pendaftaran yang jelas bagi orang tua, dan panitia harus mencocokkan data manual dari ratusan respons.</p>
+                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> Portal PPDB dengan formulir pendaftaran terstruktur, unggah berkas, verifikasi bertahap oleh panitia, pengumuman kelulusan otomatis, dan panel admin untuk memantau pendaftar per gelombang—tanpa perlu mencocokkan spreadsheet secara manual.</p>
+                </div>
+
                 <!-- SISTEM PERSURATAN -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
                     <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Sistem Persuratan</div>
@@ -358,22 +398,6 @@
                     <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> rekap otomatis, laporan per kelas bisa dilihat kapan saja.</p>
                 </div>
 
-                                <!-- SIDIKA -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
-                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Asesmen Siswa</div>
-                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pemetaan bakat &amp; minat siswa yang tadinya manual, kini satu sistem terpadu</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> Guru BK mengumpulkan data gaya belajar, kepribadian, dan minat siswa dari kuesioner kertas yang berbeda-beda—sulit direkap, rawan hilang, dan tidak bisa dibandingkan antar kelas.</p>
-                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> SIDIKA—sistem asesmen digital yang menyatukan empat tes diagnostik non-kognitif dan tes akademik dalam satu platform. Hasil tersimpan otomatis, dihitung real-time, dan bisa dicetak sebagai laporan satu halaman per siswa.</p>
-                </div>
-
-                <!-- PORTAL PPDB -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
-                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Penerimaan Siswa Baru</div>
-                    <h3 class="font-bold text-slate-900 text-base mb-3 font-heading">Pendaftaran yang tadinya lewat Google Form, kini portal PPDB dengan panel admin</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> Pendaftaran via Google Form menyulitkan verifikasi berkas, tidak ada status pendaftaran yang jelas bagi orang tua, dan panitia harus mencocokkan data manual dari ratusan respons.</p>
-                    <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> Portal PPDB dengan formulir pendaftaran terstruktur, unggah berkas, verifikasi bertahap oleh panitia, pengumuman kelulusan otomatis, dan panel admin untuk memantau pendaftar per gelombang—tanpa perlu mencocokkan spreadsheet secara manual.</p>
-                </div>
-
                 <!-- KATALOG UMKM -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-6 transition-colors duration-300">
                     <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Katalog UMKM</div>
@@ -381,7 +405,7 @@
                     <p class="text-slate-500 text-xs leading-relaxed mb-4"><strong class="text-slate-700">Masalah:</strong> Pesanan tercampur, stok tidak akurat, dan pelanggan harus bertanya ketersediaan lewat chat satu per satu.</p>
                     <p class="text-slate-500 text-xs leading-relaxed"><strong class="text-slate-700">Hasil:</strong> Katalog digital dengan status stok terlihat, pesanan tercatat otomatis, dan pelanggan bisa memesan langsung tanpa perlu tanya ketersediaan.</p>
                 </div>
-                
+
             </div>
         </div>
     </section>
