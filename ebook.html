@@ -37,40 +37,58 @@
         body.dark ::-webkit-scrollbar-track { background: #1e293b; }
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
+        /* ============================================================
+           HERO DENGAN GAMBAR HEADER
+           ============================================================ */
+        .hero-header { position: relative; overflow: hidden; }
+        .hero-bg-layer {
+            position: absolute; inset: 0; z-index: 0;
+            background-image: url('ebook.header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.88) 30%,
+                rgba(255, 255, 255, 0.50) 60%,
+                transparent 80%
+            );
+            pointer-events: none;
+        }
+        body.dark .hero-overlay {
+            background: linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.88) 30%,
+                rgba(15, 23, 42, 0.50) 60%,
+                transparent 80%
+            );
+        }
+        .hero-content-layer { position: relative; z-index: 2; }
+
+        @media (max-width: 1024px) {
+            .hero-bg-layer { background-position: center; }
+            .hero-overlay { background: rgba(255, 255, 255, 0.75); }
+            body.dark .hero-overlay { background: rgba(15, 23, 42, 0.80); }
+        }
+
         .ebook-item {
-            background: white;
-            border: 1px solid #f1f5f9;
-            border-radius: 20px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: white; border: 1px solid #f1f5f9; border-radius: 20px;
+            padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
             transition: box-shadow 0.2s, border-color 0.3s, background 0.3s;
         }
-        .ebook-item:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-        @media (min-width: 640px) {
-            .ebook-item { flex-direction: row; }
-        }
+        .ebook-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        @media (min-width: 640px) { .ebook-item { flex-direction: row; } }
 
-        .ebook-visual {
-            width: 100%;
-            flex-shrink: 0;
-        }
-        @media (min-width: 640px) {
-            .ebook-visual { width: 180px; }
-        }
+        .ebook-visual { width: 100%; flex-shrink: 0; }
+        @media (min-width: 640px) { .ebook-visual { width: 180px; } }
 
         .ebook-visual-inner {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            width: 100%; aspect-ratio: 1 / 1; border-radius: 16px;
+            overflow: hidden; display: flex; align-items: center;
+            justify-content: center; font-size: 3rem;
         }
 
         .badge-cat {
@@ -111,10 +129,6 @@
         #themeToggle:hover { color: #059669; }
         body.dark #themeToggle { color: #60a5fa !important; }
         body.dark #themeToggle:hover { color: #93c5fd !important; }
-
-        body.dark .from-emerald-50 { background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%) !important; }
-        body.dark .border-emerald-100\/60 { border-color: #334155 !important; }
-        body.dark .bg-emerald-100\/70 { background: rgba(6, 78, 59, 0.6) !important; color: #6ee7b7 !important; border-color: #065f46 !important; }
 
         body.dark .ebook-item { background: #1e293b; border-color: #334155; }
         body.dark .ebook-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
@@ -166,10 +180,10 @@
     </nav>
 
     <!-- HERO -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-slate-50 border-b border-emerald-100/60 transition-colors duration-300">
-        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-400/10 blur-[120px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-teal-400/10 blur-[120px]"></div>
-        <div class="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
+    <section class="hero-header relative overflow-hidden border-b border-emerald-100/60 transition-colors duration-300">
+        <div class="hero-bg-layer"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content-layer max-w-7xl mx-auto px-6 py-16 lg:py-24">
             <div class="max-w-3xl">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/70 text-emerald-700 border border-emerald-200 text-xs font-semibold tracking-wide mb-5">
                     <i class="fa-solid fa-book-open"></i> Kategori Ebook
@@ -267,11 +281,11 @@
                 <!-- 100 ALASAN BERHENTI MEROKOK -->
                 <div class="ebook-item">
                     <div class="ebook-visual">
-    <img src="images/100alasan-1.jpg" alt="100 Alasan Berhenti Merokok" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
-        <i class="fa-solid fa-book-open-reader"></i>
-    </div>
-</div>
+                        <img src="images/100alasan-1.jpg" alt="100 Alasan Berhenti Merokok" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
@@ -306,12 +320,12 @@
 
                 <!-- SKRIPSI BERES TANPA STRES -->
                 <div class="ebook-item">
-<div class="ebook-visual">
-    <img src="images/katalogskripsiberes.png" alt="SKRIPSI BERES TANPA STRES" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
-        <i class="fa-solid fa-book-open-reader"></i>
-    </div>
-</div>
+                    <div class="ebook-visual">
+                        <img src="images/katalogskripsiberes.png" alt="Skripsi Beres Tanpa Stres" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
@@ -349,11 +363,11 @@
                 <!-- MANAJEMEN LUPA -->
                 <div class="ebook-item">
                     <div class="ebook-visual">
-    <img src="images/Manajemen Lupa_ Solusi Cerdas.png" alt="MANAJEMEN LUPA" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
-        <i class="fa-solid fa-book-open-reader"></i>
-    </div>
-</div>
+                        <img src="images/Manajemen%20Lupa_%20Solusi%20Cerdas.png" alt="Manajemen Lupa" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
@@ -365,7 +379,7 @@
                         <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">Manajemen Lupa</h3>
                         <p class="text-xs text-slate-500 mb-3">Lupa Itu Wajar — Solusi Cerdas Hadapi Sifat Alami Manusia</p>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi kontekstualisasi realitas kerja Indonesia (kebiasaan WhatsApp dan budaya "nanti dulu"), 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja yang bisa langsung diisi untuk merancang sistem manajemen lupa versi Anda sendiri.
+                            Sering lupa jadwal, menaruh kunci, atau melewatkan tenggat kerja? Buku ini hadir bukan untuk memaksa otak Anda memiliki ingatan fotografi, melainkan untuk membangun sistem eksternal yang kokoh. Berangkat dari Kurva Lupa Ebbinghaus hingga teori Extended Mind, ebook ini memandu Anda membangun "Otak Kedua". Dilengkapi kontekstualisasi realitas kerja Indonesia, 3 pilar sistem mitigasi, serta 10 skenario praktis sehari-hari. Ditutup dengan Lembar Kerja yang bisa langsung diisi untuk merancang sistem manajemen lupa versi Anda sendiri.
                         </p>
                         <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
                             <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> Anatomi lupa &amp; 7 jenis dosa memori</li>
@@ -392,11 +406,11 @@
                 <!-- JANGAN JADI PENONTON (GRATIS) -->
                 <div class="ebook-item">
                     <div class="ebook-visual">
-    <img src="images/stopjadipenontonkatalog.png" alt="JANGAN JADI PENONTON (GRATIS)" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
-        <i class="fa-solid fa-book-open-reader"></i>
-    </div>
-</div>
+                        <img src="images/stopjadipenontonkatalog.png" alt="Jangan Jadi Penonton saat Kecelakaan" class="ebook-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="ebook-visual-inner bg-emerald-100 text-emerald-600" style="display:none;">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-emerald-50 text-emerald-700 border-emerald-200">Ebook</span>
@@ -441,25 +455,48 @@
         </div>
     </section>
 
-    <!-- BUKTI -->
-    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-6 text-center">
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">PDF</div>
-                    <p class="text-slate-500 text-sm mt-2">Format ringkas yang bisa dibaca di ponsel maupun dicetak</p>
+   <!-- BUKTI -->
+<section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full">Kenapa Ebook Dongetik</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Tiga hal yang membuat bacaan ini berbeda</h2>
+            <p class="text-slate-500 text-sm mt-2">Bukan janji—ini yang benar-benar Anda dapatkan setelah membuka halaman pertama.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Kartu 1 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-file-pdf"></i>
                 </div>
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">Akses</div>
-                    <p class="text-slate-500 text-sm mt-2">Unduh sekali, simpan selamanya—tanpa langganan</p>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Format</div>
+                <h3 class="text-xl font-extrabold text-emerald-600 font-heading mb-3">PDF Siap Baca</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Dioptimalkan untuk layar ponsel maupun cetak, tidak perlu aplikasi khusus untuk membukanya.</p>
+            </div>
+
+            <!-- Kartu 2 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-infinity"></i>
                 </div>
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-emerald-600 font-heading">Bahasa</div>
-                    <p class="text-slate-500 text-sm mt-2">Ditulis dengan bahasa sehari-hari, tanpa istilah rumit</p>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Akses</div>
+                <h3 class="text-xl font-extrabold text-emerald-600 font-heading mb-3">Sekali Unduh</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Simpan selamanya di perangkat Anda tanpa batas waktu, tanpa biaya tersembunyi.</p>
+            </div>
+
+            <!-- Kartu 3 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-comments"></i>
                 </div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Bahasa</div>
+                <h3 class="text-xl font-extrabold text-emerald-600 font-heading mb-3">Bahasa Sehari-hari</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Ditulis tanpa istilah rumit, bisa dipahami pembaca yang baru mengenal topiknya.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- FAQ -->
     <section class="py-20 bg-white transition-colors duration-300">
