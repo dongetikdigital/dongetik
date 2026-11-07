@@ -37,40 +37,58 @@
         body.dark ::-webkit-scrollbar-track { background: #1e293b; }
         body.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
+        /* ============================================================
+           HERO DENGAN GAMBAR HEADER
+           ============================================================ */
+        .hero-header { position: relative; overflow: hidden; }
+        .hero-bg-layer {
+            position: absolute; inset: 0; z-index: 0;
+            background-image: url('apps.header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.88) 30%,
+                rgba(255, 255, 255, 0.50) 60%,
+                transparent 80%
+            );
+            pointer-events: none;
+        }
+        body.dark .hero-overlay {
+            background: linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.88) 30%,
+                rgba(15, 23, 42, 0.50) 60%,
+                transparent 80%
+            );
+        }
+        .hero-content-layer { position: relative; z-index: 2; }
+
+        @media (max-width: 1024px) {
+            .hero-bg-layer { background-position: center; }
+            .hero-overlay { background: rgba(255, 255, 255, 0.75); }
+            body.dark .hero-overlay { background: rgba(15, 23, 42, 0.80); }
+        }
+
         .app-item {
-            background: white;
-            border: 1px solid #f1f5f9;
-            border-radius: 20px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: white; border: 1px solid #f1f5f9; border-radius: 20px;
+            padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
             transition: box-shadow 0.2s, border-color 0.3s, background 0.3s;
         }
-        .app-item:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-        }
-        @media (min-width: 640px) {
-            .app-item { flex-direction: row; }
-        }
+        .app-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        @media (min-width: 640px) { .app-item { flex-direction: row; } }
 
-        .app-visual {
-            width: 100%;
-            flex-shrink: 0;
-        }
-        @media (min-width: 640px) {
-            .app-visual { width: 180px; }
-        }
+        .app-visual { width: 100%; flex-shrink: 0; }
+        @media (min-width: 640px) { .app-visual { width: 180px; } }
 
         .app-visual-inner {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            width: 100%; aspect-ratio: 1 / 1; border-radius: 16px;
+            overflow: hidden; display: flex; align-items: center;
+            justify-content: center; font-size: 3rem;
         }
 
         .badge-cat {
@@ -112,9 +130,6 @@
         #themeToggle:hover { color: #2563eb; }
         body.dark #themeToggle { color: #60a5fa !important; }
         body.dark #themeToggle:hover { color: #93c5fd !important; }
-
-        body.dark .from-blue-50 { background: linear-gradient(135deg, #172554 0%, #1e293b 100%) !important; }
-        body.dark .border-blue-100\/60 { border-color: #334155 !important; }
 
         body.dark .app-item { background: #1e293b; border-color: #334155; }
         body.dark .app-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
@@ -166,10 +181,10 @@
     </nav>
 
     <!-- HERO -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-50 border-b border-blue-100/60 transition-colors duration-300">
-        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-400/10 blur-[120px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-400/10 blur-[120px]"></div>
-        <div class="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
+    <section class="hero-header relative overflow-hidden border-b border-blue-100/60 transition-colors duration-300">
+        <div class="hero-bg-layer"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content-layer max-w-7xl mx-auto px-6 py-16 lg:py-24">
             <div class="max-w-3xl">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/70 text-blue-700 border border-blue-200 text-xs font-semibold tracking-wide mb-5">
                     <i class="fa-solid fa-cubes"></i> Kategori Aplikasi
@@ -178,7 +193,7 @@
                     Aplikasi digital <span class="text-blue-600">siap pakai</span>, untuk berbagai kebutuhan kerja.
                 </h1>
                 <p class="text-slate-600 leading-relaxed mb-8 max-w-2xl text-lg">
-                    Setiap aplikasi Dongetik dirancang untuk menyelesaikan satu masalah nyata dengan alur sederhana.
+                    Setiap aplikasi Dongetik dirancang untuk satu masalah kerja yang nyata, dari administrasi yang berulang, arsip yang tercecer, hingga data yang sulit dipantau. Alurnya sederhana, tanpa langganan bulanan, dan tanpa perlu belajar teknologi yang rumit.
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="#daftar-aplikasi" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg shadow-blue-600/20 transition text-sm flex items-center gap-2">
@@ -266,12 +281,12 @@
 
                 <!-- GASEKIN -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/gasekin-1.jpg" alt="GASEKIN" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/gasekin-1.jpg" alt="GASEKIN" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-id-card-clip"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -282,10 +297,10 @@
                         <h3 class="font-bold text-slate-900 text-lg font-heading mb-1">GASEKIN</h3>
                         <p class="text-xs text-slate-500 mb-3">Bantu Siapkan Bahan Pengisian e-Kinerja ASN</p>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Aplikasi sederhana yang membantu ASN menyiapkan bahan pengisian e-Kinerja dari kegiatan yang sudah dilakukan. Masukkan KLU kegiatan, pilih target, upload bukti dukung, dan simpan—GASEKIN membantu menyiapkan Rencana Aksi dengan bantuan AI, Target, Nama Bukti Dukung, Link Bukti Dukung, Realisasi, dan Sumber Data. Semua kegiatan tersimpan dalam Riwayat GASEKIN, siap dibuka kembali dan disalin saat waktunya mengisi e-Kinerja. Tanpa perlu membuka Google Drive hanya untuk upload bukti atau mencari link secara manual.
+                            Aplikasi sederhana yang membantu ASN menyiapkan bahan pengisian e-Kinerja dari kegiatan yang sudah dilakukan. Masukkan KLU kegiatan, pilih target, upload bukti dukung, dan simpan—GASEKIN membantu menyiapkan Rencana Aksi dengan bantuan AI, Target, Nama Bukti Dukung, Link Bukti Dukung, Realisasi, dan Sumber Data. Semua kegiatan tersimpan dalam Riwayat GASEKIN, siap dibuka kembali dan disalin saat waktunya mengisi e-Kinerja.
                         </p>
                         <ul class="grid sm:grid-cols-2 gap-2 text-xs text-slate-600 mb-4">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Menyiapkan Rencana Aksi dengan bantuan AI</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Menyiapkan Rencana Aksi dengan AI</li>
                             <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Menyimpan nama &amp; link bukti dukung</li>
                             <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Upload bukti tanpa buka Google Drive</li>
                             <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> Riwayat kegiatan 6 bagian e-Kinerja</li>
@@ -306,12 +321,12 @@
 
                 <!-- SASUKE -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/sasuke-1.jpg" alt="SASUKE" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/sasuke-1.jpg" alt="SASUKE" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -346,12 +361,12 @@
 
                 <!-- eSKA -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/eska-1.jpg" alt="eSKA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/eska-1.jpg" alt="eSKA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -385,12 +400,12 @@
 
                 <!-- ADIS -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/adis-1.jpg" alt="ADIS" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/adis-1.jpg" alt="ADIS" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-indigo-100 text-indigo-600" style="display:none;">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-indigo-50 text-indigo-700 border-indigo-200">Aplikasi</span>
@@ -424,12 +439,12 @@
 
                 <!-- SIDIKA -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/sidika-1.jpg" alt="SIDIKA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/sidika-1.jpg" alt="SIDIKA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -464,12 +479,12 @@
 
                 <!-- UPLODRIVE -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/uplodrive-1.jpg" alt="UPLODRIVE" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/uplodrive-1.jpg" alt="Uplodrive" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -503,12 +518,12 @@
 
                 <!-- MANALUPA -->
                 <div class="app-item">
-<div class="app-visual">
-    <img src="images/manalupakatalog.png" alt="MANALUPA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
-        <i class="fa-solid fa-id-card-clip"></i>
-    </div>
-</div>
+                    <div class="app-visual">
+                        <img src="images/manalupakatalog.png" alt="MANALUPA" class="app-visual-inner object-cover" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="app-visual-inner bg-blue-100 text-blue-600" style="display:none;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap items-center gap-2 mb-2">
                             <span class="badge-cat bg-blue-50 text-blue-700 border-blue-200">Aplikasi</span>
@@ -552,25 +567,48 @@
         </div>
     </section>
 
-    <!-- BUKTI -->
-    <section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-6 text-center">
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-blue-600 font-heading">100%</div>
-                    <p class="text-slate-500 text-sm mt-2">Berbasis cloud &amp; Google Workspace—tanpa server tahunan</p>
+<!-- BUKTI -->
+<section class="py-20 bg-slate-50 border-y border-slate-100 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-xs font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">Kenapa Dongetik</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3 font-heading">Tiga hal yang membuat kami berbeda</h2>
+            <p class="text-slate-500 text-sm mt-2">Bukan janji—ini yang benar-benar Anda dapatkan saat memakai aplikasi Dongetik.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Kartu 1 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-cloud"></i>
                 </div>
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-blue-600 font-heading">1×</div>
-                    <p class="text-slate-500 text-sm mt-2">Bayar sekali untuk sebagian besar aplikasi, akses selamanya</p>
+                <div class="text-4xl font-extrabold text-blue-600 font-heading mb-1">100%</div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Berbasis Cloud</div>
+                <p class="text-slate-500 text-sm leading-relaxed">Tanpa server tahunan, tanpa biaya infrastruktur tambahan.</p>
+            </div>
+
+            <!-- Kartu 2 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-wallet"></i>
                 </div>
-                <div class="p-6">
-                    <div class="text-4xl font-extrabold text-blue-600 font-heading">3–7</div>
-                    <p class="text-slate-500 text-sm mt-2">Hari kerja untuk deployment &amp; pendampingan awal</p>
+                <div class="text-4xl font-extrabold text-blue-600 font-heading mb-1">1×</div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Sekali Bayar</div>
+                <p class="text-slate-500 text-sm leading-relaxed">Untuk sebagian besar aplikasi, cukup bayar sekali, tanpa langganan bulanan.</p>
+            </div>
+
+            <!-- Kartu 3 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center transition-colors duration-300">
+                <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-5">
+                    <i class="fa-solid fa-rocket"></i>
                 </div>
+                <div class="text-4xl font-extrabold text-blue-600 font-heading mb-1">3–7</div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Hari Kerja</div>
+                <p class="text-slate-500 text-sm leading-relaxed">Dari pembelian sampai aplikasi bisa Anda pakai, plus pendampingan awal.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- FAQ -->
     <section class="py-20 bg-white transition-colors duration-300">
