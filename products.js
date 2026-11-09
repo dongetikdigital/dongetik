@@ -239,6 +239,35 @@ window.PRODUCTS = [
     ]
 },
 
+   {
+    id: 'ppdb-online',
+    title: 'PPDB ONLINE',
+    subtitle: 'Sistem Penerimaan Siswa Baru Modern untuk Sekolah',
+    category: 'Aplikasi',
+    categoryLabel: 'Aplikasi',
+    tags: ['Custom', 'Web App', 'PPDB', 'Sekolah'],
+    price: 249000,                // harga khusus sekolah
+    normalPrice: 799000,
+    status: 'Siap Pakai',
+    featured: true,
+    galeri: ['images/ppdb-online.jpg'],
+    icon: 'fa-solid fa-user-graduate',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    shortDesc: 'Bukan sekadar formulir pendaftaran. Ini sistem manajemen PPDB lengkap dengan desain menarik dan panel admin yang memudahkan panitia.',
+    longDesc: 'PPDB ONLINE mengubah wajah penerimaan siswa baru di sekolah Anda. Tinggalkan kesan "formulir kaku" ala Google Form — sistem ini hadir dengan desain yang profesional dan ramah untuk orang tua, sekaligus dilengkapi panel admin khusus yang memudahkan panitia mengelola seluruh proses pendaftaran. Dari orang tua yang mendaftar dengan nyaman, hingga panitia yang bekerja dengan rapi — semuanya dirancang agar PPDB tahun ini terasa jauh lebih modern, lebih cepat, dan lebih berkesan. Tanpa biaya server bulanan, tanpa install aplikasi, dan data tersimpan aman di Google Workspace sekolah.',
+    features: [
+        'Desain formulir modern & profesional — jauh lebih menarik dari Google Form',
+        'Panel admin khusus panitia: kelola data, verifikasi, dan laporan dalam satu tempat',
+        'Validasi otomatis cegah data ganda — NISN unik, format terjaga, tanpa cek manual',
+        'Kelola berkas pendaftar dengan rapi — tidak lagi bercampur di satu folder',
+        'Rekap & ekspor data siap pakai untuk rapat panitia dan laporan yayasan',
+        'Notifikasi email otomatis + bukti pendaftaran siap cetak untuk orang tua',
+        'Branding sekolah: logo dan nama sekolah tampil di setiap halaman',
+        'Tanpa biaya server bulanan — data aman di Google Workspace sekolah'
+    ]
+},
+
        {
     id: 'sangkatan',
     title: 'SANGKATAN',
