@@ -300,6 +300,39 @@ window.PRODUCTS = [
     // KATEGORI: EBOOK (emerald)
     // ============================================================
 
+   {
+    id: 'ebook-adab-ditularkan',
+    title: 'Ebook: Adab Bukan Sekadar Diajarkan, Ia Ditularkan',
+    subtitle: 'Panduan Praktis Menanamkan Adab di Era Digital',
+    category: 'Ebook',
+    categoryLabel: 'Ebook',
+    tags: ['Parenting', 'Pendidikan Islam', 'Psikologi', 'Adab Digital'],
+    price: 0,
+    normalPrice: 0,
+    status: 'Ebook Digital + Lembar Kerja Harian',
+    featured: true,
+    galeri: ['images/katalogadab.png'],
+    icon: 'fa-solid fa-book-open-reader',
+    iconBg: 'bg-emerald-100 text-emerald-600',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+    shortDesc: 'Adab bukanlah pelajaran yang cukup diajarkan lewat ceramah. Ia harus ditularkan lewat keteladanan. Temukan panduan praktis membangun fondasi adab anak di tengah gempuran era digital, dimulai dari cermin orang tua di rumah.',
+
+    longDesc: 'Sering merasa anak lebih patuh pada layar daripada pada nasihat? Ebook ini hadir bukan untuk menyalahkan generasi muda, melainkan untuk mengajak orang tua melihat cermin. Berangkat dari realita "Dunia Layar vs Dunia Nyata" hingga konsep Muroqobah (kesadaran diawasi Allah), ebook ini memandu Anda membangun ekosistem adab di rumah. Dilengkapi dengan 3 Fondasi Adab Utama (Lisan, Batasan, Emosi), panduan navigasi gawai dan media sosial, 7 Skenario Respon Orang Tua saat anak melanggar adab, serta Checklist Kebiasaan Harian yang bisa langsung dipraktikkan. Ditutup dengan Lembar Refleksi Orang Tua untuk memastikan adab tetap terjaga, bukan sekadar teori.',
+
+    features: [
+        'Pemahaman mendalam tentang mengapa adab kian terkikis di era digital',
+        'Prinsip "Koneksi Sebelum Koreksi" dan keteladanan Uswah Hasanah Rasulullah ﷺ',
+        'Tiga Fondasi Adab: Lisan, Batasan (Boundaries), dan Emosi',
+        'Panduan Navigasi Gawai & Media Sosial berbasis Adab & Muroqobah',
+        '7 Skenario praktis respon orang tua (tantrum, berbohong, membentak, gawai, dll)',
+        'Checklist Adab Harian untuk Anak dan untuk Orang Tua (Cermin)',
+        'Lembar Refleksi Harian, Mingguan, dan Bulanan',
+        'Ebook digital berukuran A5 dengan tata letak modern, nyaman dibaca di HP maupun laptop',
+        'Diterbitkan secara GRATIS oleh Dongetik Digital'
+    ]
+},
+   
     {
     id: 'ebook-rokok',
     title: 'Ebook: 100 Alasan Kuat Berhenti Merokok',
