@@ -332,6 +332,34 @@ window.PRODUCTS = [
         'Diterbitkan secara GRATIS oleh Dongetik Digital'
     ]
 },
+
+{
+  id: 'ebook-generasi-sandwich-pundak-yang-kuat',
+  title: 'Ebook: Generasi Sandwich — Pundak yang Kuat',
+  subtitle: 'Bertahan dan Bertumbuh Tanpa Kehilangan Masa Depan',
+  category: 'Ebook',
+  categoryLabel: 'Ebook',
+  tags: ['Keuangan Pribadi', 'Keluarga', 'Kesehatan Mental', 'Perencanaan Masa Depan'],
+  price: 29000,
+  normalPrice: 99000,
+  status: 'Ebook Digital Gratis',
+  featured: true,
+  galeri: ['images/katalogsandwich.png'],
+  icon: 'fa-solid fa-book-open-reader',
+  iconBg: 'bg-emerald-100 text-emerald-600',
+  badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+  shortDesc: 'Gaji habis untuk semua, tabungan nyaris nol, tapi semua bilang kamu anak yang baik. Panduan hangat dan tak menghakimi ini menemanimu mengatur uang, hati, dan masa depan saat menanggung orang tua, adik, dan anak sekaligus—tanpa merasa durhaka, tanpa kehilangan masa depan sendiri.',
+
+  longDesc: 'Kita tahu rasanya: gajian, lalu dalam sekejap uang habis—bukan untuk diri sendiri. Ada kiriman untuk orang tua yang tak punya pensiun, biaya kuliah adik, kebutuhan anak, dan cicilan yang tak pernah tidur. Generasi sandwich sering dianggap "nasib", padahal ia bisa dikelola. Ebook ini hadir bukan untuk menambah rasa bersalah, melainkan menemani. Ditulis dengan bahasa hangat dan berbasis praktik, ebook ini memandumu dari sekadar bertahan menjadi bangkit: mengenali tipe beban Anda, mengaudit arus kas sederhana, membagi gaji dengan rumus yang realistis (tiga varian sesuai besarnya bantuan keluarga), menetapkan batas bantuan berbasis angka bukan perasaan, berbicara jujur pada orang tua dan pasangan tanpa merasa durhaka, memasang jaring pengaman lewat BPJS dan dana darurat, hingga perlahan memutus rantai agar anak Anda tidak mengalami hal yang sama. Dilengkapi lima worksheet, 15 skrip dialog siap pakai, template anggaran, checklist kesiapan finansial, daftar istilah sederhana, dan rencana aksi 30 hari pertama. Cocok untuk pekerja usia 20–40 tahun, baik yang sudah menikah maupun belum, di kota mana pun.',
+
+  features: [
+    'Rumus alokasi realistis dengan tiga varian sesuai besarnya bantuan keluarga',
+    '15 skrip dialog siap pakai untuk bicara jujur pada orang tua dan pasangan',
+    'Langkah konkret memasang jaring pengaman: BPJS, dana darurat, dan dana pensiun',
+    'Lima worksheet dan rencana aksi 30 hari pertama yang bisa langsung dipraktikkan',
+  ]
+},
    
     {
     id: 'ebook-rokok',
