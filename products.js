@@ -360,6 +360,35 @@ window.PRODUCTS = [
     'Lima worksheet dan rencana aksi 30 hari pertama yang bisa langsung dipraktikkan',
   ]
 },
+
+{
+  id: 'ebook-seni-berkata-enggak',
+  title: 'Ebook: Seni Berkata "Enggak" Tanpa Bikin Canggung',
+  subtitle: 'Panduan Anti-Ribet untuk Si Paling Enggak Enakan dan Pecinta People Pleaser',
+  category: 'Ebook',
+  categoryLabel: 'Ebook',
+  tags: ['Pengembangan Diri', 'Kesehatan Mental', 'Batas Diri', 'Komunikasi'],
+  price: 29000,
+  normalPrice: 99000,
+  status: 'Ebook Digital Gratis',
+  featured: true,
+  galeri: ['images/katalogenggakenakan.png'],
+  icon: 'fa-solid fa-book-open-reader',
+  iconBg: 'bg-emerald-100 text-emerald-600',
+  badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+  shortDesc: 'Sudah berapa kali minggu ini kamu mengangguk padahal kepalamu ingin teriak "Enggak!"? Catatan waras ini menemani si paling nggak enakan belajar menolak tanpa canggung, tanpa merasa jahat, dan tanpa dibenci satu RT—mulai dari kantor, keluarga besar, sampai ruang privasi diri sendiri.',
+
+  longDesc: 'Buku ini lahir dari kegelisahan universal manusia modern yang kelebihan empati tapi kurang tega sama diri sendiri. Kita jadi pahlawan bagi semua orang, tapi algojo bagi kewarasan mental sendiri. Ditulis dengan bahasa obrolan yang santai dan tanpa istilah kedokteran yang bikin pusing, ebook ini memandumu dari sekadar "iya" menjadi berdaulat atas dirimu sendiri: membongkar akar penyakit nggak enakan dan tanda-tanda kronisnya, meluruskan mitos keliru soal batasan diri, memahami kekuatan berpikir panjang si introvert, menguasai Formula 3 Langkah menolak (Empati + Penolakan Tegas + Solusi), memasang pagar di kantor dan dunia kerja, menghadapi keluarga besar tanpa perang dunia, sampai menghadapi reaksi orang lain saat kamu berubah. Dilengkapi Bank Kalimat Penolakan siap pakai (copy-paste scripts) dan Ceklis Audit Energi Cepat. Cocok untuk para people pleaser, si paling enggak enakan, dan siapa pun yang ingin belajar jadi orang baik yang waras—bukan orang baik yang kena mental.',
+
+  features: [
+    'Formula 3 Langkah menolak: Empati + Penolakan Tegas + Solusi (opsional)',
+    'Bank Kalimat Penolakan siap pakai untuk kantor, keluarga, dan teman',
+    'Jurus pasang pagar di kantor: free rider, atasan, notifikasi grup, tongkrongan',
+    'Strategi menghadapi pertanyaan horor keluarga dan permintaan pinjam uang',
+    'Ceklis Audit Energi Cepat dan jurus menghadapi reaksi orang lain saat berubah',
+  ]
+},
    
     {
     id: 'ebook-rokok',
