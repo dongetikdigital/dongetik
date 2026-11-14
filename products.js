@@ -389,6 +389,35 @@ window.PRODUCTS = [
     'Ceklis Audit Energi Cepat dan jurus menghadapi reaksi orang lain saat berubah',
   ]
 },
+
+   {
+  id: 'ebook-mahalnya-sekadar-duduk',
+  title: 'Ebook: Mahalnya Sekadar Duduk',
+  subtitle: 'Dari Teras Rumah ke Kafe, dari Kafe ke Layar Ponsel — Menemukan Kembali Ruang, Waktu, dan Manusia di Tengah Gempuran Dunia yang Serba Cepat',
+  category: 'Ebook',
+  categoryLabel: 'Ebook',
+  tags: ['Esai Sosial', 'Kehidupan Urban', 'Refleksi', 'Kesehatan Mental'],
+  price: 0,
+  normalPrice: 0,
+  status: 'Ebook Digital Gratis',
+  featured: true,
+  galeri: ['images/katalogmahalnya.png'],
+  icon: 'fa-solid fa-book-open-reader',
+  iconBg: 'bg-emerald-100 text-emerald-600',
+  badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+
+  shortDesc: 'Kapan terakhir kali kita mengobrol tanpa melihat jam atau struk pembayaran? Catatan reflektif ini menelusuri perjalanan ruang temu kita—dari teras rumah yang kini sepi, kota yang tak lagi ramah untuk berhenti, kafe yang menagih sewa kursi, sampai layar ponsel yang jadi tempat pelarian. Bukan buku sedih tentang kesepian, tapi pengingat hangat bahwa hak untuk sekadar duduk masih bisa kita rebut kembali.',
+
+  longDesc: 'Buku ini lahir dari satu pengamatan sederhana: kita menunggu-nunggu waktu luang sepanjang minggu, tapi begitu ia datang, kita justru tidak tahu harus berbuat apa dengannya. Duduk diam terasa seperti kesalahan yang belum ketahuan—dan ponsel adalah cara kita berpura-pura sibuk supaya tidak dihukum. Ditulis dengan bahasa obrolan yang santai dan tanpa istilah sosiologi yang bikin pusing, ebook ini menelusuri delapan bab perjalanan ruang temu kita: dari waktu yang terasa mahal, teras rumah yang berubah jadi carport, kota yang dirancang untuk kendaraan bukan pejalan kaki, kafe yang menagih "sewa kursi" terselubung, kafe yang ramai tapi sunyi, ilusi kedekatan lewat story dan grup chat, kesepian di tengah keramaian digital, sampai langkah-langkah kecil untuk menghidupkan kembali ruang singgah di sekitar kita. Dilengkapi gagasan-gagasan kecil yang bisa langsung dicoba—dari bangku panjang di pos ronda, "Jumat Ngopi di Teras", sampai makan malam tanpa ponsel. Cocok untuk siapa pun yang lelah jadi orang dewasa yang serba cepat, dan ingin belajar berhenti sejenak tanpa merasa bersalah.',
+
+  features: [
+    'Menelusuri delapan bab perjalanan ruang temu: dari teras rumah sampai layar ponsel',
+    'Membedah "harga" waktu dan "sewa kursi" terselubung di kafe modern',
+    'Memahami ilusi kedekatan: merasa dekat lewat story, tapi asing dengan tetangga sendiri',
+    'Gagasan kecil yang bisa langsung dicoba: bangku pos ronda, Jumat Ngopi di Teras, zona bebas layar',
+    'Ditutup dengan refleksi hangat: hak kita untuk sekadar duduk tanpa merasa bersalah',
+  ]
+},
    
     {
     id: 'ebook-rokok',
